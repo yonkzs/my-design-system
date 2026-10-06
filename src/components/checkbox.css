@@ -23,15 +23,14 @@
 
 @layer components {
   .checkbox {
-    width: 18px;
-    height: 18px;
+    width: 20px;   /* Starter の Checkbox（md 20 / lg 28） */
+    height: 20px;
     margin: 0;
     accent-color: var(--color-bg-primary);
     cursor: pointer;
   }
-  /* サイズ展開（relayはsm16/md24だが、本DSは14pxベースの密度に合わせ
-     既定18px・sm14pxとやや小さめに調整） */
-  .checkbox-sm { width: 14px; height: 14px; }
+  /* サイズ展開（Starter は md 20 / lg 28。本DSは14pxベースの密度に合わせ、既定 20px・sm 16px） */
+  .checkbox-sm { width: 16px; height: 16px; }
   .checkbox:disabled { cursor: not-allowed; opacity: 0.5; }
   .checkbox:focus-visible {
     outline: var(--focus-outline);

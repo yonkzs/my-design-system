@@ -32,7 +32,7 @@
   .card {
     background-color: var(--color-bg-raised);
     border: 1px solid var(--color-stroke-middle);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);  /* border radius/300 */
   }
 
   .card-header,

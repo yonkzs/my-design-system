@@ -34,7 +34,7 @@
     width: 100%;
     background-color: var(--color-bg-raised);
     border: 1px solid var(--color-stroke-control);
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-md);
     padding: 0 calc(var(--spacing) * 3);
     transition: border-color 150ms;
   }
@@ -45,6 +45,7 @@
   }
   .search-input:has(.search-input-field:disabled) {
     background-color: var(--color-bg-disabled);
+    border-color: var(--color-stroke-middle);
     cursor: not-allowed;
   }
 
@@ -61,7 +62,7 @@
     color: var(--color-fg-high);
     font: var(--typo-body);
   }
-  .search-input-field::placeholder { color: var(--color-fg-low); }
+  .search-input-field::placeholder { color: var(--color-fg-placeholder); }
   .search-input-field::-webkit-search-cancel-button { display: none; }
 
   /* クリアボタンは入力が空の時は隠す（プレースホルダー表示中を:placeholder-shownで検知、CSSのみ） */
@@ -82,7 +83,7 @@
 
   .search-input-submit {
     flex-shrink: 0;
-    height: 28px;
+    height: var(--control-height-sm);  /* md（36px）の枠の内側に収まる高さ */
     padding: 0 calc(var(--spacing) * 3);
     border: none;
     border-radius: var(--radius-xs);
@@ -95,7 +96,7 @@
 
   /* エラー */
   .search-input-error {
-    background-color: var(--color-bg-negative-subtle);
+    background-color: var(--color-bg-raised);  /* Starter の error は白地。赤枠と 2px の太さで示す */
     border-width: 2px;
     border-color: var(--color-stroke-control-error);
   }

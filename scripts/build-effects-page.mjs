@@ -29,7 +29,7 @@ for (const file of (await readdir(componentsDir)).filter((f) => f.endsWith(".css
   }
 }
 
-const ROLE = { "--radius-md": "外枠（面）", "--radius-sm": "部品", "--radius-xs": "部品の中の小さい要素", "--radius-full": "丸・ピル" };
+const ROLE = { "--radius-lg": "外枠（カード・モーダル）", "--radius-md": "入力欄・メニュー・表", "--radius-sm": "ボタン類", "--radius-xs": "部品の中の小さい要素", "--radius-full": "丸・ピル" };
 
 const table = (head, rows) => `<div class="fp-scroll"><table class="fp-table">
 <thead><tr>${head.map((h) => `<th scope="col">${h}</th>`).join("")}</tr></thead>
@@ -96,7 +96,7 @@ const html = foundationPage({
 .my-control:focus-visible { outline: none; box-shadow: 0 0 0 3px blue; }   /* NG（check:consistency でエラー） */
 .menu-item:focus-visible  { outline: var(--focus-outline); outline-offset: -2px; }  /* 内側に描く場合は offset だけ変える */</code></pre>
         <ul class="typo-medium">
-          <li>影は tooltip・popover に <code>--shadow-md</code>、modal に <code>--shadow-lg</code>。カード等の面は枠線と背景色で区切る</li>
+          <li>影は menu・dropdown に <code>--shadow-sm</code>、tooltip・popover に <code>--shadow-md</code>、modal に <code>--shadow-lg</code>。カード等の面は枠線と背景色で区切る</li>
           <li><code>border-radius</code>・<code>box-shadow</code>・フォーカスの <code>outline</code> の直書きは <code>npm run check:consistency</code> で検知する</li>
           <li>z-index のトークンは作らない。重なる層は <code>&lt;dialog&gt;</code> や <code>popover</code> 属性で最前面に出す</li>
         </ul>

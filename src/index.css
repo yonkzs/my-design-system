@@ -50,7 +50,7 @@
 @source inline("bg-bg-page bg-bg-sunken");
 @source inline("max-w-page max-w-content max-w-article max-w-narrow");
 @source inline("rounded-{none,xs,sm,md,lg,full}");
-@source inline("shadow-{md,lg}");
+@source inline("shadow-{sm,md,lg}");
 @source inline("sr-only");
 
 /* ── レイアウト utility（配布先で画面を組むための最小セット）──

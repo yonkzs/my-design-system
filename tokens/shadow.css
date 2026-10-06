@@ -6,6 +6,7 @@
  */
 
 @theme {
+  --shadow-sm: 0 0 4px 0 color-mix(in srgb, var(--color-shadow) 6%, transparent);  /* menu・dropdown（Starter の effect「sm」） */
   --shadow-md: 0 4px 12px -2px color-mix(in srgb, var(--color-shadow) 10%, transparent), 0 2px 4px -2px color-mix(in srgb, var(--color-shadow) 6%, transparent);  /* tooltip・popover */
   --shadow-lg: 0 12px 24px -4px color-mix(in srgb, var(--color-shadow) 14%, transparent), 0 4px 8px -4px color-mix(in srgb, var(--color-shadow) 8%, transparent);  /* modal */
 }

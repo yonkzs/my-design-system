@@ -8,6 +8,8 @@
  * 使用法:
  *   OK: 主要アクションは1画面に btn-primary 1つ。副次は btn-neutral / btn-ghost。
  *   OK: 破壊的操作（削除など）は btn-negative。
+ *   OK: 副次操作の solid は使わず btn-neutral btn-outline にする（primary がチャコールのため、
+ *       btn-neutral btn-solid は btn-primary btn-solid とほぼ同じ見た目になり主従が伝わらない）。
  *   OK: 非同期処理中は data-loading を付け二重送信を防ぐ。
  *   NG: 通常の遷移（本文中・一覧内・フッター等）を btn でスタイルしない → link。
  *   NG: 1画面に btn-primary を複数置かない → 主従が伝わらない。
@@ -50,15 +52,18 @@
     outline-offset: var(--focus-outline-offset);
   }
 
-  /* ===== Size（relay同様 h-8/h-10/h-12 相当。余白感もrelay寄りに） ===== */
-  .btn-sm { min-height: var(--control-height-sm); padding: 0 calc(var(--spacing) * 3); font: var(--typo-label-small); }
-  .btn-md { min-height: var(--control-height-md); padding: 0 calc(var(--spacing) * 6); font: var(--typo-label); }
-  .btn-lg { min-height: var(--control-height-lg); padding: 0 calc(var(--spacing) * 6); font: var(--typo-label-large); }
+  /* ===== Size（Starter の Button: default 28 / md 36 / lg 44）=====
+   * Starter の左右余白（6 / 8 / 12px）は英語ラベル前提で、2〜4文字の和文ラベルだと詰まって見えるため
+   * 9段スケールで一段ずつ広げている（8 / 12 / 16px） */
+  .btn-sm { min-height: var(--control-height-sm); padding: 0 calc(var(--spacing) * 2); font: var(--typo-label-small); }
+  .btn-md { min-height: var(--control-height-md); padding: 0 calc(var(--spacing) * 3); font: var(--typo-label); }
+  .btn-lg { min-height: var(--control-height-lg); padding: 0 calc(var(--spacing) * 4); font: var(--typo-label-large); }
 
   /* ===== PRIMARY ===== */
   .btn-primary.btn-solid { background-color: var(--color-bg-primary); color: var(--color-fg-on-primary); }
   .btn-primary.btn-solid:hover:not(:disabled) { background-color: var(--color-bg-primary-hover); }
-  .btn-primary.btn-solid:disabled { background-color: var(--color-bg-primary-disabled); }
+  /* disabled は Starter と同じく種類・色に関係なく「薄いグレーの面 + グレーの文字」にそろえる */
+  .btn-primary.btn-solid:disabled { background-color: var(--color-bg-primary-disabled); color: var(--color-fg-disabled); border-color: var(--color-stroke-middle); }
 
   .btn-primary.btn-outline { background-color: var(--color-bg-raised); color: var(--color-fg-primary); border-color: var(--color-stroke-primary); }
   .btn-primary.btn-outline:hover:not(:disabled) { background-color: var(--color-bg-primary-subtle); }
@@ -71,7 +76,7 @@
   /* ===== NEUTRAL ===== */
   .btn-neutral.btn-solid { background-color: var(--color-bg-inverse); color: var(--color-fg-inverse); }
   .btn-neutral.btn-solid:hover:not(:disabled) { background-color: var(--color-bg-inverse-hover); }
-  .btn-neutral.btn-solid:disabled { background-color: var(--color-bg-neutral-high); }
+  .btn-neutral.btn-solid:disabled { background-color: var(--color-bg-disabled); color: var(--color-fg-disabled); border-color: var(--color-stroke-middle); }
 
   .btn-neutral.btn-outline { background-color: var(--color-bg-raised); color: var(--color-fg-middle); border-color: var(--color-stroke-high); }
   .btn-neutral.btn-outline:hover:not(:disabled) { background-color: var(--color-bg-neutral-low); }
@@ -84,10 +89,10 @@
   /* ===== NEGATIVE ===== */
   .btn-negative.btn-solid { background-color: var(--color-bg-negative); color: var(--color-fg-on-negative); }
   .btn-negative.btn-solid:hover:not(:disabled) { background-color: var(--color-bg-negative-hover); }
-  .btn-negative.btn-solid:disabled { background-color: var(--color-bg-negative-disabled); }
+  .btn-negative.btn-solid:disabled { background-color: var(--color-bg-disabled); color: var(--color-fg-disabled); border-color: var(--color-stroke-middle); }
 
-  .btn-negative.btn-outline { background-color: var(--color-bg-negative-subtle); color: var(--color-fg-negative-strong); border-color: var(--color-stroke-negative); }
-  .btn-negative.btn-outline:hover:not(:disabled) { background-color: var(--color-bg-negative-muted); }
+  .btn-negative.btn-outline { background-color: var(--color-bg-raised); color: var(--color-fg-negative); border-color: var(--color-stroke-negative); }
+  .btn-negative.btn-outline:hover:not(:disabled) { background-color: var(--color-bg-negative-subtle); color: var(--color-fg-negative-strong); }
   .btn-negative.btn-outline:disabled { color: var(--color-fg-negative-disabled); border-color: var(--color-stroke-negative-disabled); }
 
   .btn-negative.btn-ghost { background-color: transparent; color: var(--color-fg-negative); }

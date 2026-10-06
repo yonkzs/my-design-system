@@ -56,7 +56,7 @@ export const CASES = [
     mustPatterns: [{ pattern: "<dialog", label: "ネイティブ <dialog> ベース（modal の正本仕様）" }],
     rubric: [
       "確認UIに modal を使っている（alert・独自オーバーレイの手書きではない）",
-      "削除の実行ボタンは btn-negative。primary（ブランド緑）を破壊的操作に使っていない",
+      "削除の実行ボタンは btn-negative。primary を破壊的操作に使っていない",
       "キャンセルの逃げ道が明確にある",
     ],
   },

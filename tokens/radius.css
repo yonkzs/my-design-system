@@ -1,14 +1,17 @@
 /*
  * Design System — Radius
- * relay寄りの柔らかい丸みに変更（2026-09改訂。当初のLinear/Notion系の角ばった
- * 印象からPhase0原則を一部修正。詳細はPHASE0-DIRECTION.md参照）。
+ * Figma「Design System Starter File」の border radius 変数に揃える（2026-10）。
+ *   100=4 / 150=6 / 200=8 / 300=12 / round
+ * 役割: xs=チェックボックス・バッジ内などの小さい要素 / sm=ボタン類 / md=入力欄・メニュー・表・アコーディオン
+ *       / lg=カード・モーダル / full=丸（スイッチ・アバター・ピル）
+ * （以前の relay 寄りの 8/16/24 から、Starter に合わせて一段ずつ小さくした）
  */
 
 @theme {
   --radius-none: 0px;
-  --radius-xs:   4px;
-  --radius-sm:   8px;
-  --radius-md:   16px;
-  --radius-lg:   24px;
-  --radius-full: 9999px;
+  --radius-xs:   4px;   /* border radius/100 */
+  --radius-sm:   6px;   /* border radius/150 — ボタン */
+  --radius-md:   8px;   /* border radius/200 — 入力欄・メニュー */
+  --radius-lg:   12px;  /* border radius/300 — カード・モーダル */
+  --radius-full: 9999px; /* border radius/round */
 }

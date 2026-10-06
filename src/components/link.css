@@ -8,7 +8,7 @@
  * 使用法:
  *   OK: 本文中に置き font-size は周囲から inherit（サイズを固定しない）。
  *   OK: 別タブは target="_blank" rel="noopener noreferrer" + 外部リンクアイコン。
- *   OK: 緑を目立たせたくない補助的なリンク（フッター等）は link-neutral。
+ *   OK: 本文より目立たせたくない補助的なリンク（フッター等）は link-neutral。
  *   OK: 暗い背景の上では link-inverse（白）を使う。
  *   NG: 送信などのアクションに link を使わない → button。
  *   NG: フォントサイズを固定しない → 本文と行が不揃いになる。

@@ -9,8 +9,13 @@
  *                 コンポーネントは font: var(--typo-*) の1行で指定する。
  *
  * Phase 0 原則「迷ったら情報密度を上げる」に沿い、本文ベースは 14px
- * （relay 系の 16px ベースより一段階詰める。Linear / Notion と同系統）。
+ * （Figma「Design System Starter File」の body-sm = 14/20 に相当。Starter の body-md 16 は lg 扱い）。
  * 日本語の行間は 1.5 を基準にする（デジタル庁「本文は少なくとも1.5倍」）。
+ * Starter の 14/20（1.43）より少し広いのは日本語の可読性を優先したため。
+ *
+ * 書体は Starter と同じ Inter を欧文の第一候補にし、和文は OS のフォントに任せる
+ * （Inter には和文が無いため）。Webフォントの読み込みは利用側で行う（README「書体」）。
+ * 読み込まれていない環境では従来どおり OS のフォントで表示される。
  *
  * static: source(none) の Tailwind は未使用の変数をビルドで刈り取るため。
  */
@@ -18,8 +23,8 @@
 @theme static {
   /* ===== ① Primitive ===== */
 
-  /* 書体。Webフォントは読み込まず、OS のフォントを使う（SmartHR / freee と同じ方針） */
-  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Meiryo", sans-serif;
+  /* 書体。欧文は Inter（Starter の font style/paragraph・heading）、和文は OS のフォント */
+  --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Meiryo", sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
 
   /* サイズ（名前は px 相当。12px 以下は補足・単一行に限る） */
@@ -39,8 +44,11 @@
   --leading-150: 1.5;    /* 基準 */
   --leading-170: 1.7;
 
-  /* 太さ（3段。500 はシステムフォントで差が出にくいため使わない） */
+  /* 太さ（4段）。medium は Starter のラベル・ボタン（Medium）に合わせる。
+   * 和文フォントに 500 が無い環境では 400 で描画されるため、見出しなど
+   * 太さで階層を伝えたい箇所は semibold 以上を使う */
   --font-weight-normal:   400;
+  --font-weight-medium:   500;
   --font-weight-semibold: 600;
   --font-weight-bold:     700;
 }
@@ -55,19 +63,19 @@
   --typo-body-small:    var(--font-weight-normal) var(--text-13)/var(--leading-150) var(--font-sans);  /* 補助文・sm サイズの入力欄・tooltip */
   --typo-body-large:    var(--font-weight-normal) var(--text-16)/var(--leading-150) var(--font-sans);  /* lg サイズの入力欄 */
 
-  --typo-label:         var(--font-weight-semibold) var(--text-14)/var(--leading-150) var(--font-sans);  /* ボタン・タブ・ページ送り・ステップ番号 */
-  --typo-label-strong:  var(--font-weight-bold)     var(--text-14)/var(--leading-150) var(--font-sans);  /* 入力欄のラベル・アコーディオン・filter-chip・alert のタイトル */
-  --typo-label-small:   var(--font-weight-semibold) var(--text-13)/var(--leading-150) var(--font-sans);  /* sm サイズのボタン・検索ボタン */
-  --typo-label-large:   var(--font-weight-semibold) var(--text-16)/var(--leading-150) var(--font-sans);  /* lg サイズのボタン */
+  --typo-label:         var(--font-weight-medium)   var(--text-14)/var(--leading-150) var(--font-sans);  /* ボタン・タブ・ページ送り・ステップ番号 */
+  --typo-label-strong:  var(--font-weight-semibold) var(--text-14)/var(--leading-150) var(--font-sans);  /* 入力欄のラベル・アコーディオン・filter-chip・alert のタイトル */
+  --typo-label-small:   var(--font-weight-medium)   var(--text-13)/var(--leading-150) var(--font-sans);  /* sm サイズのボタン・検索ボタン */
+  --typo-label-large:   var(--font-weight-medium)   var(--text-16)/var(--leading-150) var(--font-sans);  /* lg サイズのボタン */
 
   --typo-caption:        var(--font-weight-normal)   var(--text-12)/var(--leading-150) var(--font-sans);  /* 補足・エラー文・文字数カウンター */
   --typo-caption-strong: var(--font-weight-semibold) var(--text-12)/var(--leading-133) var(--font-sans);  /* バッジ・必須/任意ラベル・alert のアイコン */
   --typo-caption-small:  var(--font-weight-normal)   var(--text-11)/var(--leading-150) var(--font-sans);  /* タブのカウント（太さは bold で上書き） */
 
-  --typo-heading-sm: var(--font-weight-bold) var(--text-16)/var(--leading-150) var(--font-sans);  /* カード・モーダルのタイトル（.typo-large） */
-  --typo-heading-md: var(--font-weight-bold) var(--text-18)/var(--leading-150) var(--font-sans);  /* 小見出し（.typo-xlarge） */
-  --typo-heading-lg: var(--font-weight-bold) var(--text-20)/var(--leading-140) var(--font-sans);  /* セクション見出し（.typo-2xlarge） */
-  --typo-heading-xl: var(--font-weight-bold) var(--text-24)/var(--leading-133) var(--font-sans);  /* ページタイトル（.typo-3xlarge） */
+  --typo-heading-sm: var(--font-weight-semibold) var(--text-16)/var(--leading-150) var(--font-sans);  /* カード・モーダルのタイトル（.typo-large） */
+  --typo-heading-md: var(--font-weight-semibold) var(--text-18)/var(--leading-150) var(--font-sans);  /* 小見出し（.typo-xlarge） */
+  --typo-heading-lg: var(--font-weight-semibold) var(--text-20)/var(--leading-140) var(--font-sans);  /* セクション見出し（.typo-2xlarge） */
+  --typo-heading-xl: var(--font-weight-semibold) var(--text-24)/var(--leading-133) var(--font-sans);  /* ページタイトル（.typo-3xlarge） */
 }
 
 /* 利用者向けのクラス（既存名を維持）。中身は semantic を参照する。
