@@ -42,7 +42,7 @@
 @layer components {
   dialog.modal {
     border: none;
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);  /* border radius/300 */
     box-shadow: var(--shadow-lg);
     padding: 0;
     width: calc(100% - var(--spacing) * 8);

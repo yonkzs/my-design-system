@@ -39,7 +39,7 @@
     width: 100%;
     background-color: var(--color-bg-raised);
     border: 1px solid var(--color-stroke-control);
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-md);
     transition: border-color 150ms;
   }
   .selector:hover:not(:has(.select:disabled)):not(:focus-within) { border-color: var(--color-stroke-control-hover); }
@@ -78,7 +78,7 @@
 
   /* Error — wrapper だけで完結させる（中の select に select-error は付けない） */
   .selector-error {
-    background-color: var(--color-bg-negative-subtle);
+    background-color: var(--color-bg-raised);  /* Starter の error は白地。赤枠と 2px の太さで示す */
     border-width: 2px;
     border-color: var(--color-stroke-control-error);
   }

@@ -33,7 +33,7 @@
  *                          トークン（font: var(--typo-*)、太さだけの var(--font-weight-*)）か inherit であること
  *  11. 余白のスケール     — src/components/*.css の余白（padding / margin / gap / top 等）の var(--spacing) * N が
  *                          9段のどれかで、px 直書きが無いこと（例外は scripts/spacing-exceptions.mjs に理由付きで登録）。
- *                          部品の高さ 32 / 40 / 48px の直書きも検知する（--control-height-* を使う）
+ *                          部品の高さ 28 / 36 / 44px の直書きも検知する（--control-height-* を使う）
  *  12. 角丸・影・フォーカス — src/components/*.css の border-radius は var(--radius-*)、box-shadow は var(--shadow-*) か none、
  *                          フォーカス時（:focus / :focus-visible / :focus-within）の outline は var(--focus-outline)
  *                          （強制カラーモード用のシステム色 CanvasText 等は許可）
@@ -399,7 +399,7 @@ function checkSpacingScale() {
             else fail("spacing-scale", `src/components/${name}: ${selector} の ${prop}: ${value.trim()} が9段スケール外です（${[...offScale.map((n) => `× ${n}`), ...px].join(", ")}）。9段に丸めるか、理由を付けて scripts/spacing-exceptions.mjs に登録してください`);
           }
         }
-        if (CONTROL_FILES.includes(name.replace(/\.css$/, "")) && /^(min-)?(height|width)$/.test(prop) && /^(32|40|48)px$/.test(value.trim())) {
+        if (CONTROL_FILES.includes(name.replace(/\.css$/, "")) && /^(min-)?(height|width)$/.test(prop) && /^(28|36|44)px$/.test(value.trim())) {
           fail("spacing-scale", `src/components/${name}: ${selector} の ${prop}: ${value.trim()} は部品の高さの直書きです。var(--control-height-*) を使ってください`);
         }
       }
@@ -429,8 +429,8 @@ function checkEffectsTokens() {
         if (/^border(-[a-z]+)*-radius$/.test(prop) && !/^(var\(--radius-[a-z]+\)|0)(\s+(var\(--radius-[a-z]+\)|0))*$/.test(value)) {
           fail("effects-tokens", `${where} は直書きです。var(--radius-*) を使ってください`);
         }
-        if (prop === "box-shadow" && !/^(none|var\(--shadow-(md|lg)\))$/.test(value)) {
-          fail("effects-tokens", `${where} は直書きです。影は var(--shadow-md|lg) だけ（フォーカスリングは outline: var(--focus-outline)）`);
+        if (prop === "box-shadow" && !/^(none|var\(--shadow-(sm|md|lg)\))$/.test(value)) {
+          fail("effects-tokens", `${where} は直書きです。影は var(--shadow-sm|md|lg) だけ（フォーカスリングは outline: var(--focus-outline)）`);
         }
         if (focus && prop === "outline" && !/^(none|var\(--focus-outline\))$/.test(value) && !SYSTEM_COLOR.test(value)) {
           fail("effects-tokens", `${where} はフォーカスリングの直書きです。outline: var(--focus-outline) を使ってください`);

@@ -36,11 +36,10 @@ const ref = (value) => value.match(/^var\(--color-([\w-]+)\)$/)?.[1] ?? value;
 
 const STEPS = ["50", "100", "200", "300", "400", "500", "600", "700", "800", "900", "950"];
 const PRIMITIVES = [
-  ["brand-green", "primary 用のブランド緑（このDS固有）"],
-  ["slate", "neutral（グレー）"],
+  ["gray", "primary・neutral（チャコール〜グレー）"],
   ["red", "negative"],
-  ["amber", "warning"],
-  ["green", "success（brand-green とは別の緑）"],
+  ["orange", "warning"],
+  ["green", "success"],
   ["blue", "info・フォーカスリング"],
 ];
 const KEYS = ["primary", "neutral", "success", "warning", "negative", "info"];
@@ -144,7 +143,7 @@ const html = foundationPage({
     <div class="catalog-card">
       <div class="catalog-card-header"><p class="catalog-card-title">3層の構成</p><p class="catalog-card-note">正本は <code>tokens/colors.css</code></p></div>
       <div class="cp-layers">
-        <div class="cp-layer"><p class="typo-large">① primitive</p><p class="typo-small">色そのものの名前（<code>slate-400</code> など）。全テーマ共通で変えない。<strong>コンポーネントからは使わない。</strong></p></div>
+        <div class="cp-layer"><p class="typo-large">① primitive</p><p class="typo-small">色そのものの名前（<code>gray-400</code> など）。全テーマ共通で変えない。<strong>コンポーネントからは使わない。</strong></p></div>
         <div class="cp-layer"><p class="typo-large">② key</p><p class="typo-small">役割ごとの色番号表（<code>primary-600</code> など）。<strong>ブランド色の差し替えはここ</strong>の参照先を変える。</p></div>
         <div class="cp-layer"><p class="typo-large">③ semantic</p><p class="typo-small">用途（<code>bg-raised</code> / <code>fg-low</code> / <code>stroke-control</code> など、${semanticCount}個）。<strong>コンポーネントはここだけを使う。</strong>ライト/ダークはこの層の値が切り替わる。</p></div>
       </div>
@@ -152,7 +151,7 @@ const html = foundationPage({
 
     <h2 class="catalog-section-title typo-2xlarge">① primitive</h2>
     <div class="catalog-card">
-      <div class="catalog-card-header"><p class="catalog-card-title">6系統 × 11段階</p><p class="catalog-card-note">brand-green はこのDS固有。それ以外は Tailwind 標準と同じ値。ほかに white（${light["--color-white"]}）と black（${light["--color-black"]}）。色にカーソルを合わせると値が出ます。</p></div>
+      <div class="catalog-card-header"><p class="catalog-card-title">5系統 × 11段階</p><p class="catalog-card-note">値は Figma「Design System Starter File」の変数（足りない段は同じ色相で補間）。ほかに white（${light["--color-white"]}）と black（${light["--color-black"]}）。色にカーソルを合わせると値が出ます。</p></div>
       ${primitiveGrid()}
     </div>
 

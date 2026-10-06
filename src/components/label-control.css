@@ -38,7 +38,7 @@
   .label-control {
     display: flex;
     flex-direction: column;
-    gap: calc(var(--spacing) * 1);
+    gap: calc(var(--spacing) * 2);  /* Starter の Input: ラベルと入力欄の間 8px */
   }
   .label-control-row {
     display: flex;
@@ -59,12 +59,12 @@
   .field-error-text {
     margin-top: calc(var(--spacing) * 1);
     color: var(--color-fg-negative);
-    font: var(--typo-caption);
+    font: var(--typo-body-small);  /* Starter の Warning Copy（14px）。和文の可読性のため 12px にしない */
   }
   .field-support-text {
     margin-top: calc(var(--spacing) * 1);
     color: var(--color-fg-low);
-    font: var(--typo-caption);
+    font: var(--typo-body-small);  /* Starter の Hint copy */
   }
 
   /* バッジ（required / optional のみ。他の種別は必要になってから追加） */

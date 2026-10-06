@@ -4,6 +4,7 @@ Tailwind CSS v4 ベース、フレームワーク非依存のデザインシス�
 デザイントークン + コンポーネントを CSS として提供します。正本はこのリポジトリのコードです。
 
 参考プロダクト: Linear / Notion / Vercel — 控えめで機能的、情報密度を優先。
+見た目の値（色・角丸・部品の高さ・書体）は Figma「Design System Starter File」に揃えています（対応表: [docs/FIGMA-STARTER-MAPPING.md](docs/FIGMA-STARTER-MAPPING.md)）。
 
 ## 使い始める
 
@@ -21,6 +22,16 @@ npm run build
 ```
 
 これで `.btn` / `.input` / `.card` などのクラスと、`bg-primary-500` / `text-fg-high` などのトークンユーティリティが使えます。
+
+### 書体
+
+欧文は Figma の Starter File と同じ Inter を第一候補にしています。`ds.css` は Webフォントを読み込まないので、Inter で表示したいページでは利用側で読み込んでください。読み込まない場合は OS のフォント（和文はヒラギノ / 游ゴシック UI / メイリオ）で表示されます。
+
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+```
 
 画面の組み立て用に、レイアウト utility の最小セット（`p-/m-/gap-` の9段、`flex` / `grid` / `items-*` / `justify-*` / `mx-auto` / `w-full` / `max-w-{page,content,article,narrow}` など）も入っています。Tailwind の utility が全部使えるわけではありません。一覧の正本は `src/index.css` の `@source inline`（MCP も同じ一覧を AI に渡します）。
 
@@ -93,6 +104,7 @@ npm run build
 | [docs/ICONS.md](docs/ICONS.md) | アイコン（Lucide SVG sprite）の使い方・同梱一覧・ビルドの仕組み |
 | [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md) | Git運用・コミット規約・整合性チェックの読み方 |
 | [docs/RELEASING.md](docs/RELEASING.md) | リリース手順（SemVer・gitタグ・GitHub Release） |
+| [docs/FIGMA-STARTER-MAPPING.md](docs/FIGMA-STARTER-MAPPING.md) | Figma「Design System Starter File」とトークンの対応表・Starter から変えた箇所と理由 |
 | [docs/ACCESSIBILITY.md](docs/ACCESSIBILITY.md) | WCAG 2.2 抜粋チェックリスト（DSが担保する項目 / プロダクト側の責務） |
 | [src/components/](src/components/) | コンポーネントCSS（先頭コメントが仕様の正本） |
 | [tokens/](tokens/) | デザイントークンの正本 |

@@ -31,7 +31,7 @@ WCAG 2.2は A ⊂ AA ⊂ AAA の階層。一般的な準拠目標は **AA**（AA
 | テキストの間隔 | 1.4.12 | 行間は単位なし（`--leading-*`）で、日本語の文章は 1.5 以上。button・input・select 等は高さを `min-height: var(--control-height-*)` で指定しているので、行間 1.5・字間 0.12em に上書きされても伸びて文字が切れない（固定の height だと失敗例 F104 に当たりうる） |
 | 見出し階層 | 2.4.6 / 2.4.10 | `.typo-*` を意味順で使う（サイズでなく見出しレベルで選ぶ） |
 | 名前・役割・値 | 4.1.2 | ネイティブHTML + ARIA state（`aria-pressed`等。[DESIGN.md](../DESIGN.md)の非交渉原則5） |
-| 最小ターゲット (AA) | 2.5.8 | 部品の高さは最小でも `--control-height-sm`（32px）で 24px を満たす。checkbox/radio/switchの`sm`はラベル併用でタップ領域を確保。44px（2.5.5 AAA / デジタル庁の基準）への対応は、モバイル利用が決まったら `pointer: coarse` のときだけ当たり判定を広げる方式で追加する |
+| 最小ターゲット (AA) | 2.5.8 | 部品の高さは最小でも `--control-height-sm`（28px）で 24px を満たす。checkbox/radio/switchの`sm`はラベル併用でタップ領域を確保。44px（2.5.5 AAA / デジタル庁の基準）への対応は、モバイル利用が決まったら `pointer: coarse` のときだけ当たり判定を広げる方式で追加する |
 | 強制カラーモード (Windows High Contrast) | 1.4.11 相当 | 20/28コンポーネントで`forced-colors`対応済み。**実機のHCM表示は未検証**（build/構文チェックのみ） |
 
 ## プロダクト側で実装が必要なもの

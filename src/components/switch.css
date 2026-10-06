@@ -30,18 +30,19 @@
     flex-shrink: 0;
     appearance: none;
     cursor: pointer;
-    width: 44px;
-    height: 24px;
+    width: 48px;   /* Starter の Switch（default）: 48×26・つまみ 20・内側 3px */
+    height: 26px;
     border-radius: var(--radius-full);
     border: none;
     background-color: var(--color-bg-control-off);
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><circle cx='10' cy='10' r='10' fill='white'/></svg>");
+    /* つまみはテーマで色が変わる（tokens/colors.css の --switch-knob*） */
+    background-image: var(--switch-knob);
     background-size: 20px 20px;
     background-repeat: no-repeat;
-    background-position: left 2px center;
+    background-position: left 3px center;
     transition: background-color 150ms, background-position 150ms;
   }
-  .switch:checked { background-position: left 22px center; }
+  .switch:checked { background-position: left 25px center; background-image: var(--switch-knob-checked); }
 
   .switch:hover:not(:checked):not(:disabled) { background-color: var(--color-bg-control-off-hover); }
   .switch:disabled:not(:checked) { background-color: var(--color-bg-neutral-high); cursor: not-allowed; }
@@ -60,7 +61,7 @@
     height: 20px;
     background-size: 16px 16px;
   }
-  .switch-sm:checked { background-position: left 18px center; }
+  .switch-sm:checked { background-position: left 18px center; }  /* sm は Starter（26×14）より大きい 36×20 を維持（操作しやすさのため） */
 
   .switch-label {
     display: inline-flex;
@@ -85,7 +86,8 @@
       outline: 2px solid CanvasText;
       outline-offset: 2px;
     }
-    .switch {
+    .switch,
+    .switch:checked {
       border: 1px solid CanvasText;
       background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><circle cx='10' cy='10' r='9' fill='white' stroke='black' stroke-width='1.5'/></svg>");
     }

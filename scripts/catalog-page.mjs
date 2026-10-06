@@ -33,6 +33,7 @@ export function foundationPage({ title, desc, source, style, body }) {
 <head>
 <meta charset="UTF-8">
 <title>${title} — Design System</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="../../dist/ds.css">
 <link rel="stylesheet" href="../catalog.css">
 <script src="../theme-toggle.js"></script>
