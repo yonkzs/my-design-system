@@ -82,8 +82,9 @@
     border-width: 2px;
     border-color: var(--color-stroke-control-error);
   }
-  .selector-error:hover:not(:has(.select:disabled)),
-  .selector-error:focus-within {
+  /* .selector の hover より詳細度を上げないと、hover で赤枠が消える */
+  .selector.selector-error:hover:not(:has(.select:disabled)),
+  .selector.selector-error:focus-within {
     border-color: var(--color-stroke-negative);
   }
 

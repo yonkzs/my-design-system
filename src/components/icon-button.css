@@ -86,6 +86,19 @@
 
   /* 強制カラーモード対応。考え方はbutton.cssと同じ（塗り=主/枠のみ=副のヒエラルキーを保つ）。
    * ※ システムカラーキーワードはハードコード禁止の例外 (DESIGN.md)。 */
+  /* ===== Pressed（押している間）=====
+   * Starter に定義は無い。押した手応えを返すため、hover より一段濃い塗りにする。
+   * 塗りのある solid は -pressed、塗りの無い outline / ghost は hover の一段上の塗りを使う */
+  .icon-btn-primary.icon-btn-solid:active:not(:disabled)  { background-color: var(--color-bg-primary-pressed); }
+  .icon-btn-primary.icon-btn-outline:active:not(:disabled),
+  .icon-btn-primary.icon-btn-ghost:active:not(:disabled)  { background-color: var(--color-bg-primary-muted); }
+  .icon-btn-neutral.icon-btn-solid:active:not(:disabled)  { background-color: var(--color-bg-inverse-pressed); }
+  .icon-btn-neutral.icon-btn-outline:active:not(:disabled) { background-color: var(--color-bg-neutral-middle); }
+  .icon-btn-neutral.icon-btn-ghost:active:not(:disabled)  { background-color: var(--color-bg-neutral-high); }
+  .icon-btn-negative.icon-btn-solid:active:not(:disabled) { background-color: var(--color-bg-negative-pressed); }
+  .icon-btn-negative.icon-btn-outline:active:not(:disabled),
+  .icon-btn-negative.icon-btn-ghost:active:not(:disabled) { background-color: var(--color-bg-negative-muted); color: var(--color-fg-negative-strong); }
+
   @media (forced-colors: active) {
     .icon-btn { border-color: ButtonText; }
     .icon-btn:focus-visible {
@@ -97,7 +110,10 @@
     .icon-btn-negative.icon-btn-solid,
     .icon-btn-primary.icon-btn-solid:hover:not(:disabled),
     .icon-btn-neutral.icon-btn-solid:hover:not(:disabled),
-    .icon-btn-negative.icon-btn-solid:hover:not(:disabled) {
+    .icon-btn-negative.icon-btn-solid:hover:not(:disabled),
+    .icon-btn-primary.icon-btn-solid:active:not(:disabled),
+    .icon-btn-neutral.icon-btn-solid:active:not(:disabled),
+    .icon-btn-negative.icon-btn-solid:active:not(:disabled) {
       forced-color-adjust: none;
       background-color: ButtonText;
       color: ButtonFace;

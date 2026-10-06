@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="../../dist/ds.css">
 <link rel="stylesheet" href="../catalog.css">
 <script src="../theme-toggle.js"></script>
+<script src="../force-state.js"></script>
 </head>
 <body>
   <header class="catalog-header">
@@ -45,6 +46,23 @@
         <div class="catalog-state-row"><span class="catalog-state-label">error</span><input class="input input-md input-error" value="broken@" style="width:200px"><span class="catalog-state-note">input-error</span></div>
         <div class="catalog-state-row"><span class="catalog-state-label">disabled</span><input class="input input-md" placeholder="disabled" disabled style="width:200px"><span class="catalog-state-note">:disabled</span></div>
       </div>
+            <!-- states:start -->
+      <div class="catalog-card">
+        <div class="catalog-card-header">
+          <p class="catalog-card-title">状態一覧</p>
+          <p class="catalog-card-note">hover / focus / pressed はカタログ用に固定表示しています（実際の画面ではマウス・キーボード操作で出ます）</p>
+        </div>
+        <div class="catalog-state-scroll">
+        <table class="catalog-matrix catalog-state-matrix">
+          <thead><tr><th></th><th>通常</th><th>hover</th><th>focus</th><th>pressed</th><th>disabled</th></tr></thead>
+          <tbody>
+            <tr><td>通常</td><td><input class="input input-md" placeholder="入力" aria-label="入力"></td><td><input class="input input-md" placeholder="入力" aria-label="入力" data-force-state="hover"></td><td><input class="input input-md" placeholder="入力" aria-label="入力" data-force-state="focus"></td><td class="catalog-state-note">—</td><td><input class="input input-md" placeholder="入力" aria-label="入力" disabled></td></tr>
+            <tr><td>error</td><td><input class="input input-md input-error" value="broken@" aria-label="入力"></td><td><input class="input input-md input-error" value="broken@" aria-label="入力" data-force-state="hover"></td><td><input class="input input-md input-error" value="broken@" aria-label="入力" data-force-state="focus"></td><td class="catalog-state-note">—</td><td><input class="input input-md input-error" value="broken@" aria-label="入力" disabled></td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+      <!-- states:end -->
     </div>
 
     <div data-tabpanel="guideline" hidden>

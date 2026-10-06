@@ -73,6 +73,9 @@
   .filter-chip[aria-pressed="true"]:hover:not(:disabled) {
     background-color: var(--color-bg-primary-muted);
   }
+  /* 押している間は hover の一段上の塗り */
+  .filter-chip:active:not(:disabled) { background-color: var(--color-bg-neutral-middle); }
+  .filter-chip[aria-pressed="true"]:active:not(:disabled) { background-color: var(--color-bg-neutral-high); }
   .filter-chip[aria-pressed="true"] .filter-chip-label {
     color: var(--color-fg-primary);
   }

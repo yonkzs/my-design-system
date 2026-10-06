@@ -61,6 +61,9 @@
     border-color: var(--color-stroke-high);
   }
 
+  .pagination-item:active:not([aria-disabled="true"]):not([aria-current="page"]) {
+    background-color: var(--color-bg-neutral-middle);
+  }
   .pagination-item:focus-visible:not([aria-disabled="true"]) {
     outline: var(--focus-outline);
     outline-offset: var(--focus-outline-offset);

@@ -85,6 +85,8 @@ primitive は `gray` / `red` / `orange` / `green` / `blue` の5系統です。St
 | switch の sm | 26×14px | 36×20px | 小さすぎて操作しにくいため |
 | ボタンの左右余白 | 6 / 8 / 12px | 8 / 12 / 16px | 2〜4文字の和文ラベルが詰まって見えるため |
 | 見出しの太さ | Medium（500） | Semibold（600） | 和文フォントに 500 が無い環境では 400 で描画され、見出しの階層が弱くなるため |
+| pressed（押している間） | 定義なし | hover より一段濃い塗り（`--color-bg-*-pressed` 等） | クリックした手応えを返すため |
+| checkbox / radio | 独自の描画 | ネイティブ要素を `appearance: none` で描き直し、hover・pressed・indeterminate を追加。強制カラーモードではネイティブに戻す | Starter と同じ状態を出しつつ、キーボード操作・読み上げはネイティブのまま保つため |
 | 本文の行間 | 14/20（1.43） | 14/21（1.5） | 日本語本文は 1.5 倍以上を基準にするため（デジタル庁ガイドライン） |
 | エラー・補足の文字 | 14px | 13px（body-small） | 14pxベースの密度を保ちつつ、12px 未満にしないため |
 
@@ -104,3 +106,7 @@ Starter File にはダークの定義がありません。ライトと同じ役�
 - Section Headers
 - Dropdown の pre-tab / post-tab（入力欄の前後に付ける選択・ボタン）
 - Menu の checkbox / radio 付き項目
+
+## カタログでの状態の確認
+
+各部品のカタログページの「状態一覧」で、通常・hover・focus・pressed・disabled を並べて確認できます。hover などは `preview/force-state.js` が `dist/ds.css` のルールを複製して固定表示しているもので、部品のCSSを直せば見本も追従します（`ds.css` には含まれません）。

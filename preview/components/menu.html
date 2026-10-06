@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="../../dist/ds.css">
 <link rel="stylesheet" href="../catalog.css">
 <script src="../theme-toggle.js"></script>
+<script src="../force-state.js"></script>
 </head>
 <body>
   <header class="catalog-header">
@@ -57,6 +58,23 @@
           </nav>
         </div>
       </div>
+            <!-- states:start -->
+      <div class="catalog-card">
+        <div class="catalog-card-header">
+          <p class="catalog-card-title">状態一覧</p>
+          <p class="catalog-card-note">hover / focus / pressed はカタログ用に固定表示しています（実際の画面ではマウス・キーボード操作で出ます）</p>
+        </div>
+        <div class="catalog-state-scroll">
+        <table class="catalog-matrix catalog-state-matrix">
+          <thead><tr><th></th><th>通常</th><th>hover</th><th>focus</th><th>pressed</th><th>disabled</th></tr></thead>
+          <tbody>
+            <tr><td>項目</td><td><a class="menu-item" href="#">アカウント設定</a></td><td><a class="menu-item" href="#" data-force-state="hover">アカウント設定</a></td><td><a class="menu-item" href="#" data-force-state="focus">アカウント設定</a></td><td><a class="menu-item" href="#" data-force-state="pressed">アカウント設定</a></td><td class="catalog-state-note">—</td></tr>
+            <tr><td>現在地</td><td><a class="menu-item" href="#" aria-current="page">マイページ</a></td><td><a class="menu-item" href="#" aria-current="page" data-force-state="hover">マイページ</a></td><td><a class="menu-item" href="#" aria-current="page" data-force-state="focus">マイページ</a></td><td><a class="menu-item" href="#" aria-current="page" data-force-state="pressed">マイページ</a></td><td class="catalog-state-note">—</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+      <!-- states:end -->
     </div>
 
     <div data-tabpanel="guideline" hidden>

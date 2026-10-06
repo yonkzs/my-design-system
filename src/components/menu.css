@@ -89,6 +89,7 @@
   .menu-item-trailing { margin-left: auto; }
 
   .menu-item:hover { background-color: var(--color-bg-neutral-low); color: var(--color-fg-high); }
+  .menu-item:active:not([aria-current="page"]) { background-color: var(--color-bg-neutral-middle); }
 
   /* 現在地は hover（neutral-low）より一段濃い塗り + 太さで示す */
   .menu-item[aria-current="page"] {

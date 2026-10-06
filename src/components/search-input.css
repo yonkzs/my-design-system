@@ -93,6 +93,7 @@
     font: var(--typo-label-small);
   }
   .search-input-submit:hover { background-color: var(--color-bg-primary-hover); }
+  .search-input-submit:active { background-color: var(--color-bg-primary-pressed); }
 
   /* エラー */
   .search-input-error {
@@ -100,8 +101,9 @@
     border-width: 2px;
     border-color: var(--color-stroke-control-error);
   }
-  .search-input-error:hover,
-  .search-input-error:focus-within {
+  /* .search-input の hover より詳細度を上げないと、hover で赤枠が消える */
+  .search-input.search-input-error:hover:not(:has(.search-input-field:disabled)),
+  .search-input.search-input-error:focus-within {
     border-color: var(--color-stroke-negative);
   }
 

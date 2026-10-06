@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="../../dist/ds.css">
 <link rel="stylesheet" href="../catalog.css">
 <script src="../theme-toggle.js"></script>
+<script src="../force-state.js"></script>
 </head>
 <body>
   <header class="catalog-header">
@@ -47,6 +48,27 @@
           </fieldset>
         </div>
       </div>
+            <!-- states:start -->
+      <div class="catalog-card">
+        <div class="catalog-card-header">
+          <p class="catalog-card-title">状態一覧</p>
+          <p class="catalog-card-note">hover / focus / pressed はカタログ用に固定表示しています（実際の画面ではマウス・キーボード操作で出ます）</p>
+        </div>
+        <div class="catalog-state-scroll">
+        <table class="catalog-matrix catalog-state-matrix">
+          <thead><tr><th></th><th>通常</th><th>hover</th><th>focus</th><th>pressed</th><th>disabled</th></tr></thead>
+          <tbody>
+            <tr><td>未選択</td><td><input type="checkbox" class="checkbox" aria-label="未選択"></td><td><input type="checkbox" class="checkbox" aria-label="未選択" data-force-state="hover"></td><td><input type="checkbox" class="checkbox" aria-label="未選択" data-force-state="focus"></td><td><input type="checkbox" class="checkbox" aria-label="未選択" data-force-state="pressed"></td><td><input type="checkbox" class="checkbox" aria-label="未選択" disabled></td></tr>
+            <tr><td>選択</td><td><input type="checkbox" class="checkbox" checked aria-label="選択"></td><td><input type="checkbox" class="checkbox" checked aria-label="選択" data-force-state="hover"></td><td><input type="checkbox" class="checkbox" checked aria-label="選択" data-force-state="focus"></td><td><input type="checkbox" class="checkbox" checked aria-label="選択" data-force-state="pressed"></td><td><input type="checkbox" class="checkbox" checked aria-label="選択" disabled></td></tr>
+            <tr><td>一部選択</td><td><input type="checkbox" class="checkbox" data-indeterminate aria-label="一部選択"></td><td><input type="checkbox" class="checkbox" data-indeterminate aria-label="一部選択" data-force-state="hover"></td><td><input type="checkbox" class="checkbox" data-indeterminate aria-label="一部選択" data-force-state="focus"></td><td><input type="checkbox" class="checkbox" data-indeterminate aria-label="一部選択" data-force-state="pressed"></td><td><input type="checkbox" class="checkbox" data-indeterminate aria-label="一部選択" disabled></td></tr>
+            <tr><td>error</td><td><input type="checkbox" class="checkbox checkbox-error" aria-label="エラー"></td><td><input type="checkbox" class="checkbox checkbox-error" aria-label="エラー" data-force-state="hover"></td><td><input type="checkbox" class="checkbox checkbox-error" aria-label="エラー" data-force-state="focus"></td><td><input type="checkbox" class="checkbox checkbox-error" aria-label="エラー" data-force-state="pressed"></td><td><input type="checkbox" class="checkbox checkbox-error" aria-label="エラー" disabled></td></tr>
+            <tr><td>radio 未選択</td><td><input type="radio" class="radio" aria-label="未選択"></td><td><input type="radio" class="radio" aria-label="未選択" data-force-state="hover"></td><td><input type="radio" class="radio" aria-label="未選択" data-force-state="focus"></td><td><input type="radio" class="radio" aria-label="未選択" data-force-state="pressed"></td><td><input type="radio" class="radio" aria-label="未選択" disabled></td></tr>
+            <tr><td>radio 選択</td><td><input type="radio" class="radio" checked aria-label="選択"></td><td><input type="radio" class="radio" checked aria-label="選択" data-force-state="hover"></td><td><input type="radio" class="radio" checked aria-label="選択" data-force-state="focus"></td><td><input type="radio" class="radio" checked aria-label="選択" data-force-state="pressed"></td><td><input type="radio" class="radio" checked aria-label="選択" disabled></td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+      <!-- states:end -->
     </div>
 
     <div data-tabpanel="guideline" hidden>

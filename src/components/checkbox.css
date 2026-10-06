@@ -2,16 +2,19 @@
  * Checkbox
  *
  * 機能:
- *   複数選択可能なオン/オフの入力。単一選択は radio、単独のオン/オフ切替は switch（未実装）。
+ *   複数選択可能なオン/オフの入力。単一選択は radio、単独のオン/オフ切替は switch。
  *
  * 使用法:
  *   OK: checkbox-label でラップし、ラベルテキストをクリック領域に含める。
  *   OK: 選択肢が並ぶ時はまとめて role="group" + aria-labelledby でグループ化する。
- *   NG: チェックの意味をテキスト無しで色だけに頼らない（ネイティブ要素なので通常は問題にならない）。
+ *   OK: 「一部だけ選択」は indeterminate（JS で el.indeterminate = true）で示す。
+ *   NG: チェックの意味をテキスト無しで色だけに頼らない（チェック印の形で区別できるようにしている）。
  *
  * アクセシビリティ:
  *   <label> でテキストと関連付ける（<input> をlabelの子要素にするか、for/idで対応付け）
- *   ネイティブ要素なのでキーボード操作（Space）・スクリーンリーダー対応は標準
+ *   ネイティブの <input> を appearance: none で描き直しているだけなので、キーボード操作（Space）・
+ *   スクリーンリーダー対応は標準のまま。枠線は 3:1 以上（stroke-control）
+ *   強制カラーモードではネイティブの描画に戻す
  *   :focus-visible で info/600 のフォーカスリング（DS担保）
  *
  * Usage:
@@ -22,22 +25,53 @@
  */
 
 @layer components {
+  /* Starter の Checkbox に合わせて自前で描く（hover・pressed・indeterminate を出すため）。
+   * 枠・塗りはトークン、チェック印は SVG data URI のトークン（tokens/colors.css の --checkbox-*）。 */
   .checkbox {
+    appearance: none;
+    flex-shrink: 0;
     width: 20px;   /* Starter の Checkbox（md 20 / lg 28） */
     height: 20px;
     margin: 0;
-    accent-color: var(--color-bg-primary);
+    border: 1px solid var(--color-stroke-control);
+    border-radius: var(--radius-xs);
+    background-color: var(--color-bg-raised);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
     cursor: pointer;
+    transition: background-color 150ms, border-color 150ms;
   }
   /* サイズ展開（Starter は md 20 / lg 28。本DSは14pxベースの密度に合わせ、既定 20px・sm 16px） */
   .checkbox-sm { width: 16px; height: 16px; }
+
+  .checkbox:hover:not(:disabled) {
+    border-color: var(--color-stroke-control-hover);
+    background-color: var(--color-bg-neutral-low);
+  }
+  .checkbox:active:not(:disabled) { background-color: var(--color-bg-neutral-middle); }
+
+  .checkbox:checked,
+  .checkbox:indeterminate {
+    border-color: var(--color-stroke-primary);
+    background-color: var(--color-bg-primary);
+  }
+  .checkbox:checked { background-image: var(--checkbox-check); }
+  .checkbox:indeterminate { background-image: var(--checkbox-indeterminate); }
+  .checkbox:checked:hover:not(:disabled),
+  .checkbox:indeterminate:hover:not(:disabled) { background-color: var(--color-bg-primary-hover); }
+  .checkbox:checked:active:not(:disabled),
+  .checkbox:indeterminate:active:not(:disabled) { background-color: var(--color-bg-primary-pressed); }
+
   .checkbox:disabled { cursor: not-allowed; opacity: 0.5; }
   .checkbox:focus-visible {
     outline: var(--focus-outline);
     outline-offset: var(--focus-outline-offset);
-    border-radius: var(--radius-xs);
   }
-  .checkbox-error { outline: 1px solid var(--color-stroke-control-error); outline-offset: 1px; }
+
+  /* エラーは枠だけ赤く・太くする（チェックの塗りはそのまま） */
+  .checkbox.checkbox-error { border-width: 2px; border-color: var(--color-stroke-control-error); }
+  .checkbox.checkbox-error:hover:not(:disabled) { border-color: var(--color-stroke-negative); }
 
   .checkbox-label {
     display: inline-flex;
@@ -49,11 +83,11 @@
   }
   .checkbox-label:has(.checkbox:disabled) { color: var(--color-fg-low); cursor: not-allowed; }
 
-  /* 強制カラーモード: ネイティブ<input>なので選択状態の見た目はOSが描画し自動対応する
-   * （accent-colorは強制カラーで無視されるが、ブラウザがシステム色で正しく描き直す）。
-   * フォーカスリング（outline）の色を CanvasText に固定する（outline は強制カラーでも残るが、実機未検証のため明示しておく）。
+  /* 強制カラーモード: 自前の描画は背景色・背景画像が消えて状態が判別できなくなるため、
+   * ネイティブの描画（appearance: auto）に戻す。選択状態はOSがシステム色で描く。
    * ※ システムカラーキーワードはハードコード禁止の例外 (DESIGN.md)。 */
   @media (forced-colors: active) {
+    .checkbox { appearance: auto; background-image: none; }
     .checkbox:focus-visible {
       outline: 2px solid CanvasText;
       outline-offset: 2px;

@@ -11,7 +11,9 @@
  *
  * アクセシビリティ:
  *   グループ全体に <fieldset><legend> または role="radiogroup" + aria-labelledby を付ける
- *   ネイティブ要素なのでキーボード操作（矢印キー）・スクリーンリーダー対応は標準
+ *   ネイティブの <input> を appearance: none で描き直しているだけなので、キーボード操作（矢印キー）・
+ *   スクリーンリーダー対応は標準のまま。枠線は 3:1 以上（stroke-control）
+ *   強制カラーモードではネイティブの描画に戻す
  *   :focus-visible で info/600 のフォーカスリング（DS担保）
  *
  * Usage:
@@ -23,19 +25,39 @@
  */
 
 @layer components {
+  /* checkbox と同じ方針で自前で描く。選択時の中の点は radial-gradient（トークンの色をそのまま使える） */
   .radio {
+    appearance: none;
+    flex-shrink: 0;
     width: 20px;   /* checkbox とそろえる（Starter md 20） */
     height: 20px;
     margin: 0;
-    accent-color: var(--color-bg-primary);
+    border: 1px solid var(--color-stroke-control);
+    border-radius: var(--radius-full);
+    background-color: var(--color-bg-raised);
     cursor: pointer;
+    transition: background-color 150ms, border-color 150ms;
   }
   .radio-sm { width: 16px; height: 16px; }
+
+  .radio:hover:not(:disabled) {
+    border-color: var(--color-stroke-control-hover);
+    background-color: var(--color-bg-neutral-low);
+  }
+  .radio:active:not(:disabled) { background-color: var(--color-bg-neutral-middle); }
+
+  .radio:checked,
+  .radio:checked:hover:not(:disabled),
+  .radio:checked:active:not(:disabled) {
+    border-color: var(--color-stroke-primary);
+    background-color: var(--color-bg-primary);
+    background-image: radial-gradient(circle closest-side, var(--color-fg-on-primary) 0 40%, var(--color-bg-primary) 46%);
+  }
+
   .radio:disabled { cursor: not-allowed; opacity: 0.5; }
   .radio:focus-visible {
     outline: var(--focus-outline);
     outline-offset: var(--focus-outline-offset);
-    border-radius: var(--radius-full);
   }
 
   .radio-label {
@@ -62,10 +84,10 @@
     padding: 0;
   }
 
-  /* 強制カラーモード: ネイティブ<input>なので選択状態はOSが自動的に正しく描画する。
-   * フォーカスリング（outline）の色を CanvasText に固定する（outline は強制カラーでも残るが、実機未検証のため明示しておく）。
+  /* 強制カラーモード: 自前の描画は背景が消えて選択状態が判別できなくなるため、ネイティブの描画に戻す。
    * ※ システムカラーキーワードはハードコード禁止の例外 (DESIGN.md)。 */
   @media (forced-colors: active) {
+    .radio { appearance: auto; background-image: none; }
     .radio:focus-visible {
       outline: 2px solid CanvasText;
       outline-offset: 2px;

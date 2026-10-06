@@ -41,7 +41,8 @@
   面          : bg-sunken (neutral-50) / bg-page (white) / bg-raised (white) / bg-overlay (white) / scrim
   neutral の塗り: bg-neutral-low (50, 面の上の hover) / bg-neutral-middle (100, ghost の hover・soft バッジ) / bg-neutral-high (200)
   その他の塗り: bg-disabled (入力欄の disabled) / bg-control-off(-hover) (switch の OFF) / bg-inverse(-hover) (tooltip・neutral の solid)
-  色付きの塗り: bg-{primary,negative,success,warning,info} / -hover / -disabled / -muted (100) / -subtle (50)
+  色付きの塗り: bg-{primary,negative,success,warning,info} / -hover / -pressed (primary・negative・inverse) / -disabled / -muted (100) / -subtle (50)
+  状態の段    : 通常 → hover → pressed の順に一段ずつ濃くする。塗りの無い outline・ghost は -subtle → -muted、neutral は low → middle → high
   文字        : fg-high (neutral-900) / fg-middle (neutral-800) / fg-low (neutral-700) / fg-placeholder (600) / fg-disabled (500) / fg-inverse(-middle)
   塗りの上    : fg-on-{primary,negative,success,info,warning} (white。warning は濃いオレンジなので白文字)
   色付き文字  : fg-primary(-hover|-disabled) / fg-negative (白の上) / fg-negative-strong (negative-subtle・-muted の上) / fg-{success,warning,info}

@@ -99,6 +99,20 @@
   .btn-negative.btn-ghost:hover:not(:disabled) { background-color: var(--color-bg-negative-subtle); color: var(--color-fg-negative-strong); }
   .btn-negative.btn-ghost:disabled { color: var(--color-fg-negative-disabled); }
 
+
+  /* ===== Pressed（押している間）=====
+   * Starter に定義は無い。押した手応えを返すため、hover より一段濃い塗りにする。
+   * 塗りのある solid は -pressed、塗りの無い outline / ghost は hover の一段上の塗りを使う */
+  .btn-primary.btn-solid:active:not(:disabled)  { background-color: var(--color-bg-primary-pressed); }
+  .btn-primary.btn-outline:active:not(:disabled),
+  .btn-primary.btn-ghost:active:not(:disabled)  { background-color: var(--color-bg-primary-muted); }
+  .btn-neutral.btn-solid:active:not(:disabled)  { background-color: var(--color-bg-inverse-pressed); }
+  .btn-neutral.btn-outline:active:not(:disabled) { background-color: var(--color-bg-neutral-middle); }
+  .btn-neutral.btn-ghost:active:not(:disabled)  { background-color: var(--color-bg-neutral-high); }
+  .btn-negative.btn-solid:active:not(:disabled) { background-color: var(--color-bg-negative-pressed); }
+  .btn-negative.btn-outline:active:not(:disabled),
+  .btn-negative.btn-ghost:active:not(:disabled) { background-color: var(--color-bg-negative-muted); color: var(--color-fg-negative-strong); }
+
   /* ===== Loading — spinner replaces label ===== */
   .btn[data-loading] {
     color: transparent !important;
@@ -142,7 +156,10 @@
     .btn-negative.btn-solid,
     .btn-primary.btn-solid:hover:not(:disabled),
     .btn-neutral.btn-solid:hover:not(:disabled),
-    .btn-negative.btn-solid:hover:not(:disabled) {
+    .btn-negative.btn-solid:hover:not(:disabled),
+    .btn-primary.btn-solid:active:not(:disabled),
+    .btn-neutral.btn-solid:active:not(:disabled),
+    .btn-negative.btn-solid:active:not(:disabled) {
       forced-color-adjust: none;
       background-color: ButtonText;
       color: ButtonFace;
