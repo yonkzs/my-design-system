@@ -170,7 +170,8 @@
    *  ③ Semantic（ライト）— コンポーネントはこちらを使う
    *  命名: {bg|fg|stroke}-{role}-{強さ}-{状態}
    *  強さ: neutral 系は high / middle / low。色付き系は 塗り（語なし）/ -muted（100）/ -subtle（50）
-   *  状態: -hover / -disabled（計算や半透明の重ね合わせで作らない）
+   *  状態: -hover / -pressed / -disabled（計算や半透明の重ね合わせで作らない）
+  *        塗りの無い部品（outline・ghost 等）の pressed は、hover の一段上の塗り（-subtle → -muted 等）を使う
    *  右端のコメントは対応する Starter の変数名
    * ===================================================================== */
 
@@ -192,15 +193,18 @@
   /* 反転（tooltip・neutral の solid） */
   --color-bg-inverse:       var(--color-neutral-900);
   --color-bg-inverse-hover: var(--color-neutral-950);
+  --color-bg-inverse-pressed: var(--color-black);
 
   --color-bg-primary:          var(--color-primary-900);  /* surface/primary/default */
   --color-bg-primary-hover:    var(--color-primary-950);  /* surface/primary/default-hover */
+  --color-bg-primary-pressed:  var(--color-black);        /* 押している間（Starter に定義なし。hover より一段濃く） */
   --color-bg-primary-disabled: var(--color-primary-50);   /* surface/disabled/default 相当 */
   --color-bg-primary-muted:    var(--color-primary-100);  /* surface/primary/default-subtle-hover */
   --color-bg-primary-subtle:   var(--color-primary-50);   /* surface/primary/default-subtle */
 
   --color-bg-negative:          var(--color-negative-500);  /* surface/error/default */
   --color-bg-negative-hover:    var(--color-negative-600);  /* surface/error/default-hover */
+  --color-bg-negative-pressed:  var(--color-negative-700);
   --color-bg-negative-disabled: var(--color-negative-50);
   --color-bg-negative-muted:    var(--color-negative-100);  /* surface/error/default-subtle-hover */
   --color-bg-negative-subtle:   var(--color-negative-50);   /* surface/error/default-subtle */
@@ -263,12 +267,14 @@
 
 /* テーマで色が変わる画像（select の矢印・switch のつまみ）。SVG data URI は var() を解決できないため、
  * テーマごとに値ごと差し替える。矢印はライト=neutral-600 / disabled=neutral-500。
- * switch のつまみは OFF=白、ON=白（ダークでは primary の塗りが明るくなるため neutral-900 に替える） */
+ * switch のつまみ・checkbox の印は bg-primary の上に載るので、ライト=白 / ダーク=neutral-900 */
 :root {
   --select-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23687384' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
   --select-arrow-disabled: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238695a7' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
   --switch-knob: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='10' fill='%23ffffff'/%3E%3C/svg%3E");
   --switch-knob-checked: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='10' fill='%23ffffff'/%3E%3C/svg%3E");
+  --checkbox-check: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%23ffffff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='5 10.5 8.5 14 15 6.5'/%3E%3C/svg%3E");
+  --checkbox-indeterminate: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%23ffffff' stroke-width='2.5' stroke-linecap='round'%3E%3Cline x1='5.5' y1='10' x2='14.5' y2='10'/%3E%3C/svg%3E");
 }
 
 /* =====================================================================
@@ -297,10 +303,12 @@
 
   --color-bg-inverse:       var(--color-neutral-100);
   --color-bg-inverse-hover: var(--color-neutral-50);
+  --color-bg-inverse-pressed: var(--color-white);
 
   /* primary はチャコールのため、ダークでは明るい塗り + 暗い文字に反転させる */
   --color-bg-primary:          var(--color-primary-100);
   --color-bg-primary-hover:    var(--color-primary-50);
+  --color-bg-primary-pressed:  var(--color-white);
   --color-bg-primary-disabled: var(--color-primary-800);
   --color-bg-primary-muted:    var(--color-primary-700);
   --color-bg-primary-subtle:   var(--color-primary-800);
@@ -360,6 +368,8 @@
   --select-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23a4b1c0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
   --select-arrow-disabled: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23687384' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
   --switch-knob-checked: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='10' fill='%23252b33'/%3E%3C/svg%3E");
+  --checkbox-check: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%23252b33' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='5 10.5 8.5 14 15 6.5'/%3E%3C/svg%3E");
+  --checkbox-indeterminate: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%23252b33' stroke-width='2.5' stroke-linecap='round'%3E%3Cline x1='5.5' y1='10' x2='14.5' y2='10'/%3E%3C/svg%3E");
 }
 
 @media (prefers-color-scheme: dark) {
@@ -381,10 +391,12 @@
 
     --color-bg-inverse:       var(--color-neutral-100);
     --color-bg-inverse-hover: var(--color-neutral-50);
+    --color-bg-inverse-pressed: var(--color-white);
 
     /* primary はチャコールのため、ダークでは明るい塗り + 暗い文字に反転させる */
     --color-bg-primary:          var(--color-primary-100);
     --color-bg-primary-hover:    var(--color-primary-50);
+    --color-bg-primary-pressed:  var(--color-white);
     --color-bg-primary-disabled: var(--color-primary-800);
     --color-bg-primary-muted:    var(--color-primary-700);
     --color-bg-primary-subtle:   var(--color-primary-800);
@@ -444,5 +456,7 @@
     --select-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23a4b1c0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
     --select-arrow-disabled: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23687384' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
     --switch-knob-checked: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='10' fill='%23252b33'/%3E%3C/svg%3E");
+    --checkbox-check: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%23252b33' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='5 10.5 8.5 14 15 6.5'/%3E%3C/svg%3E");
+    --checkbox-indeterminate: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%23252b33' stroke-width='2.5' stroke-linecap='round'%3E%3Cline x1='5.5' y1='10' x2='14.5' y2='10'/%3E%3C/svg%3E");
   }
 }

@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="../../dist/ds.css">
 <link rel="stylesheet" href="../catalog.css">
 <script src="../theme-toggle.js"></script>
+<script src="../force-state.js"></script>
 </head>
 <body>
   <header class="catalog-header">
@@ -45,6 +46,23 @@
         <div class="catalog-state-row" style="align-items:flex-start;"><span class="catalog-state-label">error</span><textarea class="textarea textarea-md textarea-error" style="max-width:280px;">不正な入力</textarea></div>
         <div class="catalog-state-row" style="align-items:flex-start;"><span class="catalog-state-label">disabled</span><textarea class="textarea textarea-md" disabled style="max-width:280px;">編集できません</textarea></div>
       </div>
+            <!-- states:start -->
+      <div class="catalog-card">
+        <div class="catalog-card-header">
+          <p class="catalog-card-title">状態一覧</p>
+          <p class="catalog-card-note">hover / focus / pressed はカタログ用に固定表示しています（実際の画面ではマウス・キーボード操作で出ます）</p>
+        </div>
+        <div class="catalog-state-scroll">
+        <table class="catalog-matrix catalog-state-matrix">
+          <thead><tr><th></th><th>通常</th><th>hover</th><th>focus</th><th>pressed</th><th>disabled</th></tr></thead>
+          <tbody>
+            <tr><td>通常</td><td><textarea class="textarea textarea-md" rows="2" placeholder="入力" aria-label="入力"></textarea></td><td><textarea class="textarea textarea-md" rows="2" placeholder="入力" aria-label="入力" data-force-state="hover"></textarea></td><td><textarea class="textarea textarea-md" rows="2" placeholder="入力" aria-label="入力" data-force-state="focus"></textarea></td><td class="catalog-state-note">—</td><td><textarea class="textarea textarea-md" rows="2" placeholder="入力" aria-label="入力" disabled></textarea></td></tr>
+            <tr><td>error</td><td><textarea class="textarea textarea-md textarea-error" rows="2" aria-label="入力">入力済み</textarea></td><td><textarea class="textarea textarea-md textarea-error" rows="2" aria-label="入力" data-force-state="hover">入力済み</textarea></td><td><textarea class="textarea textarea-md textarea-error" rows="2" aria-label="入力" data-force-state="focus">入力済み</textarea></td><td class="catalog-state-note">—</td><td><textarea class="textarea textarea-md textarea-error" rows="2" aria-label="入力" disabled>入力済み</textarea></td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+      <!-- states:end -->
     </div>
 
     <div data-tabpanel="guideline" hidden>

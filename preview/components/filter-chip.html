@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="../../dist/ds.css">
 <link rel="stylesheet" href="../catalog.css">
 <script src="../theme-toggle.js"></script>
+<script src="../force-state.js"></script>
 </head>
 <body>
   <header class="catalog-header">
@@ -47,6 +48,23 @@
         </div>
         <p class="typo-small" style="padding:0 24px 16px; color:var(--color-fg-low);">1つ目のチップをクリックすると選択状態を切り替えられます</p>
       </div>
+            <!-- states:start -->
+      <div class="catalog-card">
+        <div class="catalog-card-header">
+          <p class="catalog-card-title">状態一覧</p>
+          <p class="catalog-card-note">hover / focus / pressed はカタログ用に固定表示しています（実際の画面ではマウス・キーボード操作で出ます）</p>
+        </div>
+        <div class="catalog-state-scroll">
+        <table class="catalog-matrix catalog-state-matrix">
+          <thead><tr><th></th><th>通常</th><th>hover</th><th>focus</th><th>pressed</th><th>disabled</th></tr></thead>
+          <tbody>
+            <tr><td>未選択</td><td><button type="button" class="filter-chip" aria-pressed="false"><span class="filter-chip-label">連携</span><span class="filter-chip-count">12件</span></button></td><td><button type="button" class="filter-chip" aria-pressed="false" data-force-state="hover"><span class="filter-chip-label">連携</span><span class="filter-chip-count">12件</span></button></td><td><button type="button" class="filter-chip" aria-pressed="false" data-force-state="focus"><span class="filter-chip-label">連携</span><span class="filter-chip-count">12件</span></button></td><td><button type="button" class="filter-chip" aria-pressed="false" data-force-state="pressed"><span class="filter-chip-label">連携</span><span class="filter-chip-count">12件</span></button></td><td><button type="button" class="filter-chip" aria-pressed="false" disabled><span class="filter-chip-label">連携</span><span class="filter-chip-count">12件</span></button></td></tr>
+            <tr><td>選択</td><td><button type="button" class="filter-chip" aria-pressed="true"><span class="filter-chip-label">連携</span><span class="filter-chip-count">12件</span><span class="filter-chip-check"><svg class="icon" aria-hidden="true"><use href="../icons.svg#lucide-check"></use></svg></span></button></td><td><button type="button" class="filter-chip" aria-pressed="true" data-force-state="hover"><span class="filter-chip-label">連携</span><span class="filter-chip-count">12件</span><span class="filter-chip-check"><svg class="icon" aria-hidden="true"><use href="../icons.svg#lucide-check"></use></svg></span></button></td><td><button type="button" class="filter-chip" aria-pressed="true" data-force-state="focus"><span class="filter-chip-label">連携</span><span class="filter-chip-count">12件</span><span class="filter-chip-check"><svg class="icon" aria-hidden="true"><use href="../icons.svg#lucide-check"></use></svg></span></button></td><td><button type="button" class="filter-chip" aria-pressed="true" data-force-state="pressed"><span class="filter-chip-label">連携</span><span class="filter-chip-count">12件</span><span class="filter-chip-check"><svg class="icon" aria-hidden="true"><use href="../icons.svg#lucide-check"></use></svg></span></button></td><td><button type="button" class="filter-chip" aria-pressed="true" disabled><span class="filter-chip-label">連携</span><span class="filter-chip-count">12件</span><span class="filter-chip-check"><svg class="icon" aria-hidden="true"><use href="../icons.svg#lucide-check"></use></svg></span></button></td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+      <!-- states:end -->
     </div>
 
     <div data-tabpanel="guideline" hidden>

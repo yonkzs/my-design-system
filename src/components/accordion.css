@@ -51,6 +51,7 @@
   }
   .accordion-trigger::-webkit-details-marker { display: none; }
   .accordion-trigger:hover { background-color: var(--color-bg-neutral-low); }
+  .accordion-trigger:active { background-color: var(--color-bg-neutral-middle); }
   .accordion-trigger:focus-visible {
     outline: var(--focus-outline);
     outline-offset: -2px;

@@ -65,8 +65,9 @@
     border-width: 2px;
     border-color: var(--color-stroke-control-error);
   }
-  .input-error:hover:not(:disabled),
-  .input-error:focus-visible {
+  /* .input の hover（:not() 2つ分）より詳細度を上げないと、hover で赤枠が消える */
+  .input.input-error:hover:not(:disabled),
+  .input.input-error:focus-visible {
     border-color: var(--color-stroke-negative);
   }
   .input-error:disabled {

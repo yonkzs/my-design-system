@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="../../dist/ds.css">
 <link rel="stylesheet" href="../catalog.css">
 <script src="../theme-toggle.js"></script>
+<script src="../force-state.js"></script>
 </head>
 <body>
   <header class="catalog-header">
@@ -63,6 +64,22 @@
           </form>
         </div>
       </div>
+            <!-- states:start -->
+      <div class="catalog-card">
+        <div class="catalog-card-header">
+          <p class="catalog-card-title">状態一覧</p>
+          <p class="catalog-card-note">hover / focus / pressed はカタログ用に固定表示しています（実際の画面ではマウス・キーボード操作で出ます）</p>
+        </div>
+        <div class="catalog-state-scroll">
+        <table class="catalog-matrix catalog-state-matrix">
+          <thead><tr><th></th><th>通常</th><th>hover</th><th>focus</th><th>pressed</th><th>disabled</th></tr></thead>
+          <tbody>
+            <tr><td>通常</td><td><div class="search-input search-input-md"><svg class="icon icon-sm" aria-hidden="true"><use href="../icons.svg#lucide-search"></use></svg><input type="search" class="search-input-field" placeholder="検索" aria-label="検索"></div></td><td><div class="search-input search-input-md" data-force-state="hover"><svg class="icon icon-sm" aria-hidden="true"><use href="../icons.svg#lucide-search"></use></svg><input type="search" class="search-input-field" placeholder="検索" aria-label="検索"></div></td><td><div class="search-input search-input-md" data-force-state="focus"><svg class="icon icon-sm" aria-hidden="true"><use href="../icons.svg#lucide-search"></use></svg><input type="search" class="search-input-field" placeholder="検索" aria-label="検索"></div></td><td class="catalog-state-note">—</td><td><div class="search-input search-input-md"><svg class="icon icon-sm" aria-hidden="true"><use href="../icons.svg#lucide-search"></use></svg><input type="search" class="search-input-field" placeholder="検索" aria-label="検索" disabled></div></td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+      <!-- states:end -->
     </div>
 
     <div data-tabpanel="guideline" hidden>

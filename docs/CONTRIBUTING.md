@@ -28,6 +28,10 @@ python3 -m http.server 8080
 # → http://localhost:8080/preview/index.html
 ```
 
+各部品ページの「状態一覧」（hover / focus / pressed の固定表示）も、サーバー経由でないと出ない
+（`preview/force-state.js` が `dist/ds.css` のルールを読んで複製するが、file:// ではブラウザがCSSのルールの読み取りを禁じるため）。
+状態一覧の表は `preview/components/*.html` の `<!-- states:start -->` 〜 `<!-- states:end -->` の間にある。
+
 ## 開発フロー（AIツールのチェックポイント運用）
 
 「実装 → コミット → 🛑 ユーザー確認待ち → push」の**1段階で人間判断を挟む**。

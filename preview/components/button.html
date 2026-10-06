@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="../../dist/ds.css">
 <link rel="stylesheet" href="../catalog.css">
 <script src="../theme-toggle.js"></script>
+<script src="../force-state.js"></script>
 </head>
 <body>
 
@@ -89,6 +90,30 @@
         <div class="catalog-state-row"><span class="catalog-state-label">disabled</span><button class="btn btn-md btn-primary btn-solid" disabled>ボタン</button><span class="catalog-state-note">:disabled</span></div>
       </div>
 
+            <!-- states:start -->
+      <div class="catalog-card">
+        <div class="catalog-card-header">
+          <p class="catalog-card-title">状態一覧</p>
+          <p class="catalog-card-note">hover / focus / pressed はカタログ用に固定表示しています（実際の画面ではマウス・キーボード操作で出ます）</p>
+        </div>
+        <div class="catalog-state-scroll">
+        <table class="catalog-matrix catalog-state-matrix">
+          <thead><tr><th></th><th>通常</th><th>hover</th><th>focus</th><th>pressed</th><th>disabled</th></tr></thead>
+          <tbody>
+            <tr><td>primary / solid</td><td><button class="btn btn-md btn-primary btn-solid">ボタン</button></td><td><button class="btn btn-md btn-primary btn-solid" data-force-state="hover">ボタン</button></td><td><button class="btn btn-md btn-primary btn-solid" data-force-state="focus">ボタン</button></td><td><button class="btn btn-md btn-primary btn-solid" data-force-state="pressed">ボタン</button></td><td><button class="btn btn-md btn-primary btn-solid" disabled>ボタン</button></td></tr>
+            <tr><td>primary / outline</td><td><button class="btn btn-md btn-primary btn-outline">ボタン</button></td><td><button class="btn btn-md btn-primary btn-outline" data-force-state="hover">ボタン</button></td><td><button class="btn btn-md btn-primary btn-outline" data-force-state="focus">ボタン</button></td><td><button class="btn btn-md btn-primary btn-outline" data-force-state="pressed">ボタン</button></td><td><button class="btn btn-md btn-primary btn-outline" disabled>ボタン</button></td></tr>
+            <tr><td>primary / ghost</td><td><button class="btn btn-md btn-primary btn-ghost">ボタン</button></td><td><button class="btn btn-md btn-primary btn-ghost" data-force-state="hover">ボタン</button></td><td><button class="btn btn-md btn-primary btn-ghost" data-force-state="focus">ボタン</button></td><td><button class="btn btn-md btn-primary btn-ghost" data-force-state="pressed">ボタン</button></td><td><button class="btn btn-md btn-primary btn-ghost" disabled>ボタン</button></td></tr>
+            <tr><td>neutral / solid</td><td><button class="btn btn-md btn-neutral btn-solid">ボタン</button></td><td><button class="btn btn-md btn-neutral btn-solid" data-force-state="hover">ボタン</button></td><td><button class="btn btn-md btn-neutral btn-solid" data-force-state="focus">ボタン</button></td><td><button class="btn btn-md btn-neutral btn-solid" data-force-state="pressed">ボタン</button></td><td><button class="btn btn-md btn-neutral btn-solid" disabled>ボタン</button></td></tr>
+            <tr><td>neutral / outline</td><td><button class="btn btn-md btn-neutral btn-outline">ボタン</button></td><td><button class="btn btn-md btn-neutral btn-outline" data-force-state="hover">ボタン</button></td><td><button class="btn btn-md btn-neutral btn-outline" data-force-state="focus">ボタン</button></td><td><button class="btn btn-md btn-neutral btn-outline" data-force-state="pressed">ボタン</button></td><td><button class="btn btn-md btn-neutral btn-outline" disabled>ボタン</button></td></tr>
+            <tr><td>neutral / ghost</td><td><button class="btn btn-md btn-neutral btn-ghost">ボタン</button></td><td><button class="btn btn-md btn-neutral btn-ghost" data-force-state="hover">ボタン</button></td><td><button class="btn btn-md btn-neutral btn-ghost" data-force-state="focus">ボタン</button></td><td><button class="btn btn-md btn-neutral btn-ghost" data-force-state="pressed">ボタン</button></td><td><button class="btn btn-md btn-neutral btn-ghost" disabled>ボタン</button></td></tr>
+            <tr><td>negative / solid</td><td><button class="btn btn-md btn-negative btn-solid">ボタン</button></td><td><button class="btn btn-md btn-negative btn-solid" data-force-state="hover">ボタン</button></td><td><button class="btn btn-md btn-negative btn-solid" data-force-state="focus">ボタン</button></td><td><button class="btn btn-md btn-negative btn-solid" data-force-state="pressed">ボタン</button></td><td><button class="btn btn-md btn-negative btn-solid" disabled>ボタン</button></td></tr>
+            <tr><td>negative / outline</td><td><button class="btn btn-md btn-negative btn-outline">ボタン</button></td><td><button class="btn btn-md btn-negative btn-outline" data-force-state="hover">ボタン</button></td><td><button class="btn btn-md btn-negative btn-outline" data-force-state="focus">ボタン</button></td><td><button class="btn btn-md btn-negative btn-outline" data-force-state="pressed">ボタン</button></td><td><button class="btn btn-md btn-negative btn-outline" disabled>ボタン</button></td></tr>
+            <tr><td>negative / ghost</td><td><button class="btn btn-md btn-negative btn-ghost">ボタン</button></td><td><button class="btn btn-md btn-negative btn-ghost" data-force-state="hover">ボタン</button></td><td><button class="btn btn-md btn-negative btn-ghost" data-force-state="focus">ボタン</button></td><td><button class="btn btn-md btn-negative btn-ghost" data-force-state="pressed">ボタン</button></td><td><button class="btn btn-md btn-negative btn-ghost" disabled>ボタン</button></td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+      <!-- states:end -->
     </div>
 
     <!-- ===== ガイドライン ===== -->
