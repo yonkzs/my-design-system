@@ -11,6 +11,10 @@
  *       （menu-itemは角丸・背景付きの項目形状のため「常に下線」原則の例外）。
  *   OK: グループはmenu-group、区切りはmenu-divider。
  *   OK: 項目数が多く密度を上げたいナビはmenu-item-sm。通常はmd（既定）。
+ *   OK: 表示の切り替え（列の表示/非表示など）は role="menuitemcheckbox"、
+ *       並び順など1つだけ選ぶ設定は role="menuitemradio" にし、aria-checked で状態を示す。印は menu-item-check。
+ *   OK: 一時的に選べない項目は aria-disabled="true"（理由が分かるよう、近くに補足を出すか title にしない説明を置く）。
+ *   OK: 項目の間を線で区切る一覧型（Starter の Corner=square）は menu-flush。
  *   NG: 現在地をクラスだけで示さない → aria-current="page"を付ける。
  *   NG: 横並びのコンテンツ切替に流用しない → tab。
  *   NG: 一部の項目だけにアイコンを付けない → 全項目に付けるか全項目で外す。
@@ -20,6 +24,7 @@
  *   現在地に aria-current="page"（色・太字だけに頼らない）
  *   遷移は<a>、操作は<button>と要素で役割を分ける
  *   装飾アイコンはaria-hidden
+ *   チェック・ラジオ項目は role="menuitemcheckbox|menuitemradio" + aria-checked。印（menu-item-check）は aria-hidden
  *
  * Usage:
  *   <nav class="menu" aria-label="マイページ" style="width:280px;">
@@ -37,6 +42,12 @@
  *       </button></li>
  *     </ul>
  *   </nav>
+ *
+ *   <div class="menu" role="menu" aria-label="表示する列">
+ *     <button type="button" class="menu-item" role="menuitemcheckbox" aria-checked="true">
+ *       <span class="menu-item-check" aria-hidden="true"></span>担当者
+ *     </button>
+ *   </div>
  */
 
 @layer components {
@@ -104,6 +115,51 @@
     outline-offset: -2px;
   }
 
+  /* グループを使わず項目を直接並べるメニュー（アクションメニュー・ドロップダウン）は、項目どうしを詰める */
+  .menu:has(> .menu-item) { gap: calc(var(--spacing) * 1); }
+
+  /* ===== 無効（Starter の Status=disabled） ===== */
+  .menu-item[aria-disabled="true"] {
+    color: var(--color-fg-disabled);
+    background-color: transparent;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  /* ===== チェック・ラジオ項目（Starter の Modifier=checkbox / radio） =====
+   * 印は checkbox / radio と同じ見た目を小さく描く（16px）。状態は親の aria-checked で切り替える */
+  .menu-item-check {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    border: 1px solid var(--color-stroke-control);
+    border-radius: var(--radius-xs);
+    background-color: var(--color-bg-raised);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+  .menu-item[role="menuitemradio"] .menu-item-check { border-radius: var(--radius-full); }
+  .menu-item[aria-checked="true"] { color: var(--color-fg-high); }
+  .menu-item[aria-checked="true"] .menu-item-check {
+    border-color: var(--color-stroke-primary);
+    background-color: var(--color-bg-primary);
+  }
+  .menu-item[role="menuitemcheckbox"][aria-checked="true"] .menu-item-check { background-image: var(--checkbox-check); }
+  .menu-item[role="menuitemradio"][aria-checked="true"] .menu-item-check {
+    background-image: radial-gradient(circle closest-side, var(--color-fg-on-primary) 0 40%, var(--color-bg-primary) 46%);
+  }
+  .menu-item[aria-disabled="true"] .menu-item-check { opacity: 0.5; }
+
+  /* ===== 区切り線で並べる一覧型（Starter の Corner=square） =====
+   * 項目を枠いっぱいに広げ、角丸をやめて間を線で区切る。ドロップダウンの選択肢など */
+  .menu-flush { gap: 0; padding: 0; overflow: hidden; }
+  .menu-flush .menu-group { gap: 0; }
+  .menu-flush .menu-item { border-radius: 0; }
+  .menu-flush .menu-group > li + li > .menu-item,
+  .menu-flush > .menu-item + .menu-item { border-top: 1px solid var(--color-stroke-middle); }
+  .menu-flush .menu-divider { border-top-color: var(--color-stroke-high); }
+
   /* ============================================================
    * 強制カラーモード (Windows ハイコントラスト等) 対応
    *   現在地をbg-primary-muted＋太字で示すが、強制カラーでは背景がCanvas化して
@@ -123,5 +179,13 @@
       background-color: Highlight;
       color: HighlightText;
     }
+    /* チェック・ラジオの印は背景色で状態を示しているため、選択色の塗りに置き換える */
+    .menu-item-check { border-color: CanvasText; }
+    .menu-item[aria-checked="true"] .menu-item-check {
+      forced-color-adjust: none;
+      background-color: Highlight;
+      border-color: Highlight;
+    }
+    .menu-item[aria-disabled="true"] { color: GrayText; }
   }
 }

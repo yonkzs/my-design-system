@@ -104,8 +104,27 @@ Starter File にはダークの定義がありません。ライトと同じ役�
 - Avatar
 - Progress Indicators
 - Section Headers
-- Dropdown の pre-tab / post-tab（入力欄の前後に付ける選択・ボタン）
-- Menu の checkbox / radio 付き項目
+- Table の Action Bar（行を選んだときに出る一括操作バー）
+- Button の information / warning / success 色（DESIGN.md の原則2「色は状態を伝える手段に限定する」と衝突するため保留）
+
+## 部品のバリエーションの対応
+
+| Starter | このDS |
+|---|---|
+| Button Type=default / subtle / outline / transparent | `.btn-solid` / `.btn-subtle` / `.btn-outline` / `.btn-ghost`（icon-button も同じ） |
+| Button State=default / secondary / error | `.btn-primary` / `.btn-neutral`（outline）/ `.btn-negative` |
+| Button iconLeft / iconRight | ボタン内の `.icon`（sm/md 16px・lg 20px） |
+| Field Type=pre-element / post-element | `.input-group-addon` |
+| Field Type=pre-tab / post-tab | `.input-group-tab`（select / button / span） |
+| Field Status=loader | `.input-group-loader` |
+| Checkbox Size=md / lg | `.checkbox`（20px）/ `.checkbox-lg`（28px）。radio も同じ |
+| Checkbox / Switch Label の subtext | `.checkbox-field` + `.checkbox-desc`（radio・switch も同じ） |
+| Menu Modifier=checkbox / radio | `role="menuitemcheckbox|menuitemradio"` + `.menu-item-check` |
+| Menu Corner=square / rounded | `.menu-flush` / `.menu`（既定） |
+| Menu Status=disabled | `.menu-item[aria-disabled="true"]` |
+| Table Type=default / data heavy | `.data-table` / `.data-table-dense` |
+| Table Content Row Type=hover / selected | `tr:hover` / `tr[aria-selected="true"]` |
+| Table header items Type=sort / filter / check | `.data-table-sort` / `.data-table-filter` / `.data-table-check` |
 
 ## カタログでの状態の確認
 

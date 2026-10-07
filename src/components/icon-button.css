@@ -10,7 +10,8 @@
  *   OK: リストの各行に同じ操作ボタンが並ぶ時は aria-label に対象を含めて一意化する
  *       （例: aria-label="「りんご」を削除"）。「削除」だけだと対象が区別できない。
  *   NG: aria-label を省略しない → 何のボタンか読み上げられない。
- *   NG: 遷移に使わない → href のナビゲーションは link（未実装）。
+ *   NG: 遷移に使わない → href のナビゲーションは link。
+ *   OK: 重みは btn と同じく solid > subtle > outline > ghost。
  *
  * アクセシビリティ:
  *   すべてのアイコンボタンに aria-label（操作名）を付ける
@@ -86,6 +87,22 @@
 
   /* 強制カラーモード対応。考え方はbutton.cssと同じ（塗り=主/枠のみ=副のヒエラルキーを保つ）。
    * ※ システムカラーキーワードはハードコード禁止の例外 (DESIGN.md)。 */
+  /* ===== SUBTLE（Starter の Type=subtle: 淡い塗り + 淡い枠）=====
+   * solid ほど強くなく、outline より押せることが伝わる中間の重み。1画面に複数並べてよい */
+  .icon-btn-primary.icon-btn-subtle { background-color: var(--color-bg-primary-subtle); color: var(--color-fg-primary); border-color: var(--color-stroke-middle); }
+  .icon-btn-primary.icon-btn-subtle:hover:not(:disabled) { background-color: var(--color-bg-primary-muted); border-color: var(--color-stroke-high); }
+  .icon-btn-primary.icon-btn-subtle:active:not(:disabled) { background-color: var(--color-bg-neutral-high); }
+
+  .icon-btn-neutral.icon-btn-subtle { background-color: var(--color-bg-neutral-middle); color: var(--color-fg-middle); }
+  .icon-btn-neutral.icon-btn-subtle:hover:not(:disabled) { background-color: var(--color-bg-neutral-high); }
+  .icon-btn-neutral.icon-btn-subtle:active:not(:disabled) { background-color: var(--color-bg-neutral-high); border-color: var(--color-stroke-high); }
+
+  .icon-btn-negative.icon-btn-subtle { background-color: var(--color-bg-negative-subtle); color: var(--color-fg-negative-strong); border-color: var(--color-stroke-negative-subtle); }
+  .icon-btn-negative.icon-btn-subtle:hover:not(:disabled) { background-color: var(--color-bg-negative-muted); border-color: var(--color-stroke-negative-muted); }
+  .icon-btn-negative.icon-btn-subtle:active:not(:disabled) { background-color: var(--color-bg-negative-muted); border-color: var(--color-stroke-negative); }
+
+  .icon-btn-subtle:disabled { background-color: var(--color-bg-disabled); color: var(--color-fg-disabled); border-color: var(--color-stroke-middle); }
+
   /* ===== Pressed（押している間）=====
    * Starter に定義は無い。押した手応えを返すため、hover より一段濃い塗りにする。
    * 塗りのある solid は -pressed、塗りの無い outline / ghost は hover の一段上の塗りを使う */

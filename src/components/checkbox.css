@@ -8,6 +8,8 @@
  *   OK: checkbox-label でラップし、ラベルテキストをクリック領域に含める。
  *   OK: 選択肢が並ぶ時はまとめて role="group" + aria-labelledby でグループ化する。
  *   OK: 「一部だけ選択」は indeterminate（JS で el.indeterminate = true）で示す。
+ *   OK: ラベルだけでは判断しにくい項目は checkbox-field + checkbox-desc で補足を1〜2行添える。
+ *   OK: サイズは既定（20px）。密な一覧の中は checkbox-sm、タッチ主体の画面は checkbox-lg。
  *   NG: チェックの意味をテキスト無しで色だけに頼らない（チェック印の形で区別できるようにしている）。
  *
  * アクセシビリティ:
@@ -22,6 +24,11 @@
  *     <input type="checkbox" class="checkbox">
  *     利用規約に同意する
  *   </label>
+ *
+ *   <div class="checkbox-field">
+ *     <label class="checkbox-label"><input type="checkbox" class="checkbox" aria-describedby="notify-desc">メールで通知する</label>
+ *     <p class="checkbox-desc" id="notify-desc">締切の3日前と前日に送信します</p>
+ *   </div>
  */
 
 @layer components {
@@ -42,8 +49,9 @@
     cursor: pointer;
     transition: background-color 150ms, border-color 150ms;
   }
-  /* サイズ展開（Starter は md 20 / lg 28。本DSは14pxベースの密度に合わせ、既定 20px・sm 16px） */
+  /* サイズ展開（Starter は md 20 / lg 28。本DSは sm 16 / 既定 20 / lg 28） */
   .checkbox-sm { width: 16px; height: 16px; }
+  .checkbox-lg { width: 28px; height: 28px; }  /* Starter の lg。タッチ主体の画面や、1画面に選択肢が少ないとき */
 
   .checkbox:hover:not(:disabled) {
     border-color: var(--color-stroke-control-hover);
@@ -76,12 +84,32 @@
   .checkbox-label {
     display: inline-flex;
     align-items: center;
-    gap: calc(var(--spacing) * 2);
+    gap: calc(var(--spacing) * 3);  /* Starter の Checkbox Label: 12px */
     color: var(--color-fg-high);
     cursor: pointer;
     font: var(--typo-body);
   }
   .checkbox-label:has(.checkbox:disabled) { color: var(--color-fg-low); cursor: not-allowed; }
+
+  /* ===== 補足文（Starter の subtext）=====
+   * ラベルの下に補足を置くときは checkbox-field で包み、checkbox-desc を input の aria-describedby で関連付ける。
+   * 補足文は label の外に置く（label の中に入れると、読み上げのラベル名が長くなるため）。
+   * 字下げは「チェックボックスの幅 + ラベルとの間 12px」で、ラベル文の開始位置にそろえる */
+  .checkbox-field {
+    --_box: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing) * 1);
+  }
+  .checkbox-field:has(.checkbox-sm) { --_box: 16px; }
+  .checkbox-field:has(.checkbox-lg) { --_box: 28px; }
+  .checkbox-desc {
+    margin: 0;
+    padding-left: calc(var(--_box) + var(--spacing) * 3);
+    color: var(--color-fg-low);
+    font: var(--typo-body-small);
+  }
+  .checkbox-field:has(.checkbox:disabled) .checkbox-desc { color: var(--color-fg-disabled); }
 
   /* 強制カラーモード: 自前の描画は背景色・背景画像が消えて状態が判別できなくなるため、
    * ネイティブの描画（appearance: auto）に戻す。選択状態はOSがシステム色で描く。

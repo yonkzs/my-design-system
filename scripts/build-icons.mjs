@@ -23,6 +23,8 @@ export const ICONS = [
   "plus", "x", "check", "pencil", "trash-2",
   // Navigation
   "chevron-up", "chevron-down", "chevron-left", "chevron-right", "menu", "more-horizontal",
+  // Table（並べ替え・絞り込み）
+  "arrow-up", "arrow-down", "arrow-up-down", "funnel",
   // Status
   "info", "check-circle", "alert-triangle", "alert-circle",
   // Search / Visibility

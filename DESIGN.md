@@ -173,7 +173,7 @@ shadow-md : tooltip・popover   shadow-lg : modal   （ダークでは濃く＋�
 
 ---
 
-### Icons (Lucide SVG sprite, 21 icons)
+### Icons (Lucide SVG sprite, 25 icons)
 
 ```
 <svg class="icon icon-md" aria-hidden="true"><use href="dist/icons.svg#lucide-search" /></svg>

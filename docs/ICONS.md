@@ -1,6 +1,6 @@
 # Icons（Lucide SVG sprite）
 
-[Lucide](https://lucide.dev) から21アイコンをSVG spriteとして同梱しています。JSフレームワーク不要、`currentColor`で着色追従します。
+[Lucide](https://lucide.dev) から25アイコンをSVG spriteとして同梱しています。JSフレームワーク不要、`currentColor`で着色追従します。
 relay-design-systemのdocs/ICONS.mdと同じ方式（`currentColor` + サイズクラス + spriteのuse参照）です。
 
 ## 使い方
@@ -44,12 +44,13 @@ symbolのmarkupは `dist/icons.svg` を開いて該当する `<symbol id="lucide
 
 `currentColor`を継承します。`text-primary-500` / `text-fg-low` などのトークンユーティリティで色付け可能。
 
-## 同梱アイコン一覧（21種）
+## 同梱アイコン一覧（25種）
 
 | カテゴリ | アイコン名 |
 |---|---|
 | Action | `plus`, `x`, `check`, `pencil`, `trash-2` |
 | Navigation | `chevron-up`, `chevron-down`, `chevron-left`, `chevron-right`, `menu`, `more-horizontal` |
+| Table | `arrow-up`, `arrow-down`, `arrow-up-down`, `funnel`（並べ替え・絞り込み） |
 | Status | `info`, `check-circle`, `alert-triangle`, `alert-circle` |
 | Search / Visibility | `search`, `eye`, `eye-off` |
 | Object | `external-link`, `settings`, `user` |

@@ -42,23 +42,26 @@
           <p class="catalog-card-note">size = md / state = enable</p>
         </div>
         <table class="catalog-matrix">
-          <thead><tr><th></th><th>solid</th><th>outline</th><th>ghost</th></tr></thead>
+          <thead><tr><th></th><th>solid</th><th>subtle</th><th>outline</th><th>ghost</th></tr></thead>
           <tbody>
             <tr>
               <td>primary</td>
               <td><button class="btn btn-md btn-primary btn-solid">ボタン</button></td>
+              <td><button class="btn btn-md btn-primary btn-subtle">ボタン</button></td>
               <td><button class="btn btn-md btn-primary btn-outline">ボタン</button></td>
               <td><button class="btn btn-md btn-primary btn-ghost">ボタン</button></td>
             </tr>
             <tr>
               <td>neutral</td>
               <td><button class="btn btn-md btn-neutral btn-solid">ボタン</button></td>
+              <td><button class="btn btn-md btn-neutral btn-subtle">ボタン</button></td>
               <td><button class="btn btn-md btn-neutral btn-outline">ボタン</button></td>
               <td><button class="btn btn-md btn-neutral btn-ghost">ボタン</button></td>
             </tr>
             <tr>
               <td>negative</td>
               <td><button class="btn btn-md btn-negative btn-solid">ボタン</button></td>
+              <td><button class="btn btn-md btn-negative btn-subtle">ボタン</button></td>
               <td><button class="btn btn-md btn-negative btn-outline">ボタン</button></td>
               <td><button class="btn btn-md btn-negative btn-ghost">ボタン</button></td>
             </tr>
@@ -81,6 +84,13 @@
       </div>
 
       <div class="catalog-card">
+        <div class="catalog-card-header"><p class="catalog-card-title">アイコン付き</p><p class="catalog-card-note">Starter の iconLeft / iconRight。大きさはボタンのサイズで決まる（sm/md 16px・lg 20px）</p></div>
+        <div class="catalog-state-row"><span class="catalog-state-label">前にアイコン</span><div><button class="btn btn-md btn-neutral btn-outline"><svg class="icon" aria-hidden="true"><use href="../icons.svg#lucide-plus"></use></svg>追加</button></div><span class="catalog-state-note">意味の補強</span></div>
+        <div class="catalog-state-row"><span class="catalog-state-label">後ろにアイコン</span><div><button class="btn btn-md btn-primary btn-subtle">開く<svg class="icon" aria-hidden="true"><use href="../icons.svg#lucide-external-link"></use></svg></button></div><span class="catalog-state-note">向き・外部リンク</span></div>
+        <div class="catalog-state-row"><span class="catalog-state-label">lg</span><div><button class="btn btn-lg btn-primary btn-solid"><svg class="icon" aria-hidden="true"><use href="../icons.svg#lucide-plus"></use></svg>追加</button></div><span class="catalog-state-note">lg は 20px</span></div>
+      </div>
+
+      <div class="catalog-card">
         <div class="catalog-card-header">
           <p class="catalog-card-title">state</p>
           <p class="catalog-card-note">primary / solid / md</p>
@@ -90,7 +100,7 @@
         <div class="catalog-state-row"><span class="catalog-state-label">disabled</span><button class="btn btn-md btn-primary btn-solid" disabled>ボタン</button><span class="catalog-state-note">:disabled</span></div>
       </div>
 
-            <!-- states:start -->
+                        <!-- states:start -->
       <div class="catalog-card">
         <div class="catalog-card-header">
           <p class="catalog-card-title">状態一覧</p>
