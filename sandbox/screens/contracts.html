@@ -72,18 +72,23 @@
               </div>
             </div>
             <div class="tabs" role="tablist" aria-label="状態で切り替え">
-              <button class="tab" role="tab" aria-selected="true">すべて <span class="tab-count">128</span></button>
-              <button class="tab" role="tab" aria-selected="false">更新待ち <span class="tab-count">12</span></button>
-              <button class="tab" role="tab" aria-selected="false">解約予定 <span class="tab-count">3</span></button>
+              <button type="button" class="tab" role="tab" id="tab-all" aria-controls="panel-all" aria-selected="true">すべて <span class="tab-count">128</span></button>
+              <button type="button" class="tab" role="tab" id="tab-renewal" aria-controls="panel-renewal" aria-selected="false" tabindex="-1">更新待ち <span class="tab-count">12</span></button>
+              <button type="button" class="tab" role="tab" id="tab-cancel" aria-controls="panel-cancel" aria-selected="false" tabindex="-1">解約予定 <span class="tab-count">3</span></button>
             </div>
           </div>
 
+          <!-- 検索・絞り込みはタブをまたいで共通。タブで切り替わるのは下のパネル（表とページ送り）だけ -->
           <div>
             <div class="data-table-toolbar">
               <div class="search-input search-input-md"><svg class="icon icon-sm" aria-hidden="true"><use href="../../dist/icons.svg#lucide-search"></use></svg><input type="search" class="search-input-field" placeholder="契約名・取引先で検索" aria-label="契約を検索"></div>
               <select class="select select-md" aria-label="担当者で絞り込む"><option>担当者: すべて</option><option>山田 花子</option><option>佐藤 一郎</option></select>
               <button type="button" class="btn btn-md btn-neutral btn-subtle"><svg class="icon" aria-hidden="true"><use href="../../dist/icons.svg#lucide-download"></use></svg>書き出し</button>
             </div>
+          </div>
+
+          <div class="flex flex-col gap-4" role="tabpanel" id="panel-all" aria-labelledby="tab-all">
+            <div>
             <div class="data-table-toolbar">
               <span class="data-table-toolbar-count" role="status">2件を選択中</span>
               <button type="button" class="btn btn-sm btn-neutral btn-outline">担当者を変更</button>
@@ -91,7 +96,7 @@
               <span class="data-table-toolbar-spacer"></span>
               <button type="button" class="btn btn-sm btn-neutral btn-ghost">選択を解除</button>
             </div>
-            <div class="data-table-scroll" role="region" aria-label="契約の一覧" tabindex="0">
+            <div class="data-table-scroll" role="region" aria-label="すべての契約の一覧" tabindex="0">
               <table class="data-table data-table-dense">
                 <thead><tr>
                   <th scope="col" class="data-table-check"><input type="checkbox" class="checkbox checkbox-sm" aria-label="すべて選択" data-indeterminate></th>
@@ -151,8 +156,7 @@
                 </tbody>
               </table>
             </div>
-          </div>
-
+            </div>
           <div class="flex items-center justify-between gap-4">
             <p class="typo-small text-fg-low m-0">1〜5件 / 128件</p>
             <nav class="pagination" aria-label="ページネーション">
@@ -167,9 +171,181 @@
               </ul>
             </nav>
           </div>
+          </div>
+
+          <!-- 更新待ち: 更新期限の近い順。行の選択はまだ無い状態 -->
+          <div class="flex flex-col gap-4" role="tabpanel" id="panel-renewal" aria-labelledby="tab-renewal" hidden>
+            <div>
+            <div class="data-table-scroll" role="region" aria-label="更新待ちの契約の一覧" tabindex="0">
+              <table class="data-table data-table-dense">
+                <thead><tr>
+                  <th scope="col" class="data-table-check"><input type="checkbox" class="checkbox checkbox-sm" aria-label="すべて選択"></th>
+                  <th scope="col" aria-sort="none"><button type="button" class="data-table-sort">契約名<svg class="icon" aria-hidden="true"><use href="../../dist/icons.svg#lucide-arrow-up-down"></use></svg></button></th>
+                  <th scope="col">担当者</th>
+                  <th scope="col" class="data-table-num" aria-sort="none"><button type="button" class="data-table-sort">月額<svg class="icon" aria-hidden="true"><use href="../../dist/icons.svg#lucide-arrow-up-down"></use></svg></button></th>
+                  <th scope="col"><div class="data-table-th">状態<button type="button" class="icon-btn icon-btn-sm icon-btn-neutral icon-btn-ghost data-table-filter" aria-label="状態で絞り込む" aria-pressed="false"><svg class="icon icon-sm" aria-hidden="true"><use href="../../dist/icons.svg#lucide-funnel"></use></svg></button></div></th>
+                  <th scope="col" class="data-table-num" aria-sort="ascending"><button type="button" class="data-table-sort">更新期限<svg class="icon" aria-hidden="true"><use href="../../dist/icons.svg#lucide-arrow-up"></use></svg></button></th>
+                  <th scope="col"><span class="sr-only">操作</span></th>
+                </tr></thead>
+                <tbody>
+                <tr>
+                  <td class="data-table-check"><input type="checkbox" class="checkbox checkbox-sm" aria-label="契約E（テスト工業） を選択"></td>
+                  <td>契約E（テスト工業）</td>
+                  <td><span class="avatar-label"><span class="avatar avatar-sm" aria-hidden="true">高</span><span class="avatar-label-name">高橋 三郎</span></span></td>
+                  <td class="data-table-num">¥32,000</td>
+                  <td><span class="badge badge-soft-warning">更新待ち</span></td>
+                  <td class="data-table-num">2026/10/20</td>
+                  <td><button type="button" class="icon-btn icon-btn-sm icon-btn-neutral icon-btn-ghost" aria-label="契約E（テスト工業） のその他の操作"><svg class="icon icon-sm" aria-hidden="true"><use href="../../dist/icons.svg#lucide-more-horizontal"></use></svg></button></td>
+                </tr>
+                <tr>
+                  <td class="data-table-check"><input type="checkbox" class="checkbox checkbox-sm" aria-label="契約F（サンプル物産） を選択"></td>
+                  <td>契約F（サンプル物産）</td>
+                  <td><span class="avatar-label"><span class="avatar avatar-sm" aria-hidden="true">佐</span><span class="avatar-label-name">佐藤 一郎</span></span></td>
+                  <td class="data-table-num">¥15,000</td>
+                  <td><span class="badge badge-soft-warning">更新待ち</span></td>
+                  <td class="data-table-num">2026/10/25</td>
+                  <td><button type="button" class="icon-btn icon-btn-sm icon-btn-neutral icon-btn-ghost" aria-label="契約F（サンプル物産） のその他の操作"><svg class="icon icon-sm" aria-hidden="true"><use href="../../dist/icons.svg#lucide-more-horizontal"></use></svg></button></td>
+                </tr>
+                <tr>
+                  <td class="data-table-check"><input type="checkbox" class="checkbox checkbox-sm" aria-label="契約B（合同会社テスト） を選択"></td>
+                  <td>契約B（合同会社テスト）</td>
+                  <td><span class="avatar-label"><span class="avatar avatar-sm" aria-hidden="true">佐</span><span class="avatar-label-name">佐藤 一郎</span></span></td>
+                  <td class="data-table-num">¥48,000</td>
+                  <td><span class="badge badge-soft-warning">更新待ち</span></td>
+                  <td class="data-table-num">2026/10/31</td>
+                  <td><button type="button" class="icon-btn icon-btn-sm icon-btn-neutral icon-btn-ghost" aria-label="契約B（合同会社テスト） のその他の操作"><svg class="icon icon-sm" aria-hidden="true"><use href="../../dist/icons.svg#lucide-more-horizontal"></use></svg></button></td>
+                </tr>
+                <tr>
+                  <td class="data-table-check"><input type="checkbox" class="checkbox checkbox-sm" aria-label="契約G（株式会社テストデザイン） を選択"></td>
+                  <td>契約G（株式会社テストデザイン）</td>
+                  <td><span class="avatar-label"><span class="avatar avatar-sm" aria-hidden="true">鈴</span><span class="avatar-label-name">鈴木 次郎</span></span></td>
+                  <td class="data-table-num">¥88,000</td>
+                  <td><span class="badge badge-soft-warning">更新待ち</span></td>
+                  <td class="data-table-num">2026/11/05</td>
+                  <td><button type="button" class="icon-btn icon-btn-sm icon-btn-neutral icon-btn-ghost" aria-label="契約G（株式会社テストデザイン） のその他の操作"><svg class="icon icon-sm" aria-hidden="true"><use href="../../dist/icons.svg#lucide-more-horizontal"></use></svg></button></td>
+                </tr>
+                <tr>
+                  <td class="data-table-check"><input type="checkbox" class="checkbox checkbox-sm" aria-label="契約H（デモ工房） を選択"></td>
+                  <td>契約H（デモ工房）</td>
+                  <td><span class="avatar-label"><span class="avatar avatar-sm" aria-hidden="true">山</span><span class="avatar-label-name">山田 花子</span></span></td>
+                  <td class="data-table-num">¥21,500</td>
+                  <td><span class="badge badge-soft-warning">更新待ち</span></td>
+                  <td class="data-table-num">2026/11/12</td>
+                  <td><button type="button" class="icon-btn icon-btn-sm icon-btn-neutral icon-btn-ghost" aria-label="契約H（デモ工房） のその他の操作"><svg class="icon icon-sm" aria-hidden="true"><use href="../../dist/icons.svg#lucide-more-horizontal"></use></svg></button></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            </div>
+          <div class="flex items-center justify-between gap-4">
+            <p class="typo-small text-fg-low m-0">1〜5件 / 12件</p>
+            <nav class="pagination" aria-label="ページネーション">
+              <ul>
+                <li><a class="pagination-item" href="#" aria-label="前のページ" aria-disabled="true"><svg class="icon icon-sm" aria-hidden="true"><use href="../../dist/icons.svg#lucide-chevron-left"></use></svg></a></li>
+                <li><a class="pagination-item" href="#" aria-current="page">1</a></li>
+                <li><a class="pagination-item" href="#">2</a></li>
+                <li><a class="pagination-item" href="#">3</a></li>
+                <li><a class="pagination-item" href="#" aria-label="次のページ"><svg class="icon icon-sm" aria-hidden="true"><use href="../../dist/icons.svg#lucide-chevron-right"></use></svg></a></li>
+              </ul>
+            </nav>
+          </div>
+          </div>
+
+          <div class="flex flex-col gap-4" role="tabpanel" id="panel-cancel" aria-labelledby="tab-cancel" hidden>
+            <div>
+            <div class="data-table-scroll" role="region" aria-label="解約予定の契約の一覧" tabindex="0">
+              <table class="data-table data-table-dense">
+                <thead><tr>
+                  <th scope="col" class="data-table-check"><input type="checkbox" class="checkbox checkbox-sm" aria-label="すべて選択"></th>
+                  <th scope="col" aria-sort="none"><button type="button" class="data-table-sort">契約名<svg class="icon" aria-hidden="true"><use href="../../dist/icons.svg#lucide-arrow-up-down"></use></svg></button></th>
+                  <th scope="col">担当者</th>
+                  <th scope="col" class="data-table-num" aria-sort="none"><button type="button" class="data-table-sort">月額<svg class="icon" aria-hidden="true"><use href="../../dist/icons.svg#lucide-arrow-up-down"></use></svg></button></th>
+                  <th scope="col"><div class="data-table-th">状態<button type="button" class="icon-btn icon-btn-sm icon-btn-neutral icon-btn-ghost data-table-filter" aria-label="状態で絞り込む" aria-pressed="false"><svg class="icon icon-sm" aria-hidden="true"><use href="../../dist/icons.svg#lucide-funnel"></use></svg></button></div></th>
+                  <th scope="col" class="data-table-num" aria-sort="ascending"><button type="button" class="data-table-sort">更新期限<svg class="icon" aria-hidden="true"><use href="../../dist/icons.svg#lucide-arrow-up"></use></svg></button></th>
+                  <th scope="col"><span class="sr-only">操作</span></th>
+                </tr></thead>
+                <tbody>
+                <tr>
+                  <td class="data-table-check"><input type="checkbox" class="checkbox checkbox-sm" aria-label="契約D（株式会社デモ） を選択"></td>
+                  <td>契約D（株式会社デモ）</td>
+                  <td><span class="avatar-label"><span class="avatar avatar-sm" aria-hidden="true">山</span><span class="avatar-label-name">山田 花子</span></span></td>
+                  <td class="data-table-num">¥256,000</td>
+                  <td><span class="badge badge-soft-negative">解約予定</span></td>
+                  <td class="data-table-num">2026/11/30</td>
+                  <td><button type="button" class="icon-btn icon-btn-sm icon-btn-neutral icon-btn-ghost" aria-label="契約D（株式会社デモ） のその他の操作"><svg class="icon icon-sm" aria-hidden="true"><use href="../../dist/icons.svg#lucide-more-horizontal"></use></svg></button></td>
+                </tr>
+                <tr>
+                  <td class="data-table-check"><input type="checkbox" class="checkbox checkbox-sm" aria-label="契約I（サンプルフーズ） を選択"></td>
+                  <td>契約I（サンプルフーズ）</td>
+                  <td><span class="avatar-label"><span class="avatar avatar-sm" aria-hidden="true">高</span><span class="avatar-label-name">高橋 三郎</span></span></td>
+                  <td class="data-table-num">¥12,000</td>
+                  <td><span class="badge badge-soft-negative">解約予定</span></td>
+                  <td class="data-table-num">2026/12/31</td>
+                  <td><button type="button" class="icon-btn icon-btn-sm icon-btn-neutral icon-btn-ghost" aria-label="契約I（サンプルフーズ） のその他の操作"><svg class="icon icon-sm" aria-hidden="true"><use href="../../dist/icons.svg#lucide-more-horizontal"></use></svg></button></td>
+                </tr>
+                <tr>
+                  <td class="data-table-check"><input type="checkbox" class="checkbox checkbox-sm" aria-label="契約J（合同会社デモネット） を選択"></td>
+                  <td>契約J（合同会社デモネット）</td>
+                  <td><span class="avatar-label"><span class="avatar avatar-sm" aria-hidden="true">鈴</span><span class="avatar-label-name">鈴木 次郎</span></span></td>
+                  <td class="data-table-num">¥64,000</td>
+                  <td><span class="badge badge-soft-negative">解約予定</span></td>
+                  <td class="data-table-num">2027/01/31</td>
+                  <td><button type="button" class="icon-btn icon-btn-sm icon-btn-neutral icon-btn-ghost" aria-label="契約J（合同会社デモネット） のその他の操作"><svg class="icon icon-sm" aria-hidden="true"><use href="../../dist/icons.svg#lucide-more-horizontal"></use></svg></button></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            </div>
+          <div class="flex items-center justify-between gap-4">
+            <p class="typo-small text-fg-low m-0">1〜3件 / 3件</p>
+            <nav class="pagination" aria-label="ページネーション">
+              <ul>
+                <li><a class="pagination-item" href="#" aria-label="前のページ" aria-disabled="true"><svg class="icon icon-sm" aria-hidden="true"><use href="../../dist/icons.svg#lucide-chevron-left"></use></svg></a></li>
+                <li><a class="pagination-item" href="#" aria-current="page">1</a></li>
+                <li><a class="pagination-item" href="#" aria-label="次のページ" aria-disabled="true"><svg class="icon icon-sm" aria-hidden="true"><use href="../../dist/icons.svg#lucide-chevron-right"></use></svg></a></li>
+              </ul>
+            </nav>
+          </div>
+          </div>
         </section>
       </div>
     </main>
   </div>
+  <script>
+    // 状態タブの切り替え（DS の tab はスタイルだけなので、動きはこの画面で持つ）
+    //   ・クリック / ←→ / Home・End で切り替え、選択中のタブだけ Tab キーで止まる（roving tabindex）
+    //   ・URL の #renewal などに反映するので、タブを開いた状態で共有・再読み込み・戻るができる
+    (() => {
+      const tabs = [...document.querySelectorAll('[role="tablist"][aria-label="状態で切り替え"] [role="tab"]')];
+      const keyOf = (tab) => tab.id.replace("tab-", "");
+      const select = (tab, { focus = false } = {}) => {
+        for (const t of tabs) {
+          const on = t === tab;
+          t.setAttribute("aria-selected", String(on));
+          t.tabIndex = on ? 0 : -1;
+          document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
+        }
+        if (focus) tab.focus();
+      };
+      const fromHash = () => tabs.find((t) => keyOf(t) === location.hash.slice(1)) ?? tabs[0];
+
+      for (const tab of tabs) {
+        tab.addEventListener("click", () => {
+          select(tab);
+          location.hash = keyOf(tab) === "all" ? "" : keyOf(tab);
+        });
+        tab.addEventListener("keydown", (e) => {
+          const i = tabs.indexOf(tab);
+          const next = { ArrowRight: tabs[(i + 1) % tabs.length], ArrowLeft: tabs[(i - 1 + tabs.length) % tabs.length], Home: tabs[0], End: tabs.at(-1) }[e.key];
+          if (!next) return;
+          e.preventDefault();
+          next.focus();
+          next.click();
+        });
+      }
+      window.addEventListener("hashchange", () => select(fromHash()));
+      select(fromHash());
+    })();
+  </script>
 </body>
 </html>
