@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>アカウント設定</title>
+<meta name="description" content="フォーム画面の見本。label-control・input-group・switch の補足文・進捗バーの組み合わせ">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../../dist/ds.css">
+<link rel="stylesheet" href="../sandbox.css">
+<script src="../sandbox.js"></script>
+</head>
+<body>
+  <div class="sb-app">
+    <header class="sb-topbar">
+      <p class="sb-topbar-brand">契約管理</p>
+      <div class="sb-topbar-actions">
+        <span data-theme-toggle></span>
+        <span class="avatar avatar-md" role="img" aria-label="山田 花子">山</span>
+      </div>
+    </header>
+
+    <aside class="sb-sidebar">
+      <nav class="menu" aria-label="メインメニュー">
+        <ul class="menu-group">
+          <li><a class="menu-item" href="#">
+            <svg class="icon icon-md" aria-hidden="true"><use href="../../dist/icons.svg#lucide-menu"></use></svg>
+            ダッシュボード
+          </a></li>
+          <li><a class="menu-item" href="contracts.html">
+            <svg class="icon icon-md" aria-hidden="true"><use href="../../dist/icons.svg#lucide-file"></use></svg>
+            契約
+          </a></li>
+          <li><a class="menu-item" href="settings.html" aria-current="page">
+            <svg class="icon icon-md" aria-hidden="true"><use href="../../dist/icons.svg#lucide-settings"></use></svg>
+            設定
+          </a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="sb-main">
+      <div class="flex flex-col gap-8 max-w-content">
+        <div class="flex flex-col gap-1">
+          <h1 class="typo-3xlarge m-0">アカウント設定</h1>
+          <p class="typo-small text-fg-low m-0">プロフィールと通知の受け取り方を設定します</p>
+        </div>
+
+        <section class="flex flex-col gap-4" aria-labelledby="sec-profile">
+          <div class="section-header">
+            <div class="section-header-main">
+              <div class="section-header-text"><h2 class="section-header-title" id="sec-profile">プロフィール</h2></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body flex flex-col gap-6">
+              <div class="flex flex-wrap items-center gap-6">
+                <span class="avatar avatar-xl" role="img" aria-label="山田 花子">山</span>
+                <div class="file-upload file-upload-compact flex-1">
+                  <div class="file-upload-text">
+                    <p class="file-upload-title">写真を変更</p>
+                    <p class="file-upload-hint" id="photo-hint">ドロップかクリックで選択（JPEG・PNG、2MBまで）</p>
+                  </div>
+                  <svg class="icon file-upload-icon" aria-hidden="true"><use href="../../dist/icons.svg#lucide-cloud-upload"></use></svg>
+                  <input type="file" class="file-upload-input" accept="image/jpeg,image/png" aria-label="写真を選択" aria-describedby="photo-hint">
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-6">
+              <div class="label-control">
+                <div class="label-control-row"><label class="label-control-text" for="name">氏名</label><span class="label-badge label-badge-required">必須</span></div>
+                <input id="name" class="input input-md" value="山田 花子" required>
+              </div>
+              <div class="label-control">
+                <div class="label-control-row"><label class="label-control-text" for="dept">所属</label></div>
+                <select id="dept" class="select select-md"><option>営業部</option><option>管理部</option></select>
+              </div>
+              <div class="label-control">
+                <div class="label-control-row"><label class="label-control-text" for="tel">電話番号</label></div>
+                <div class="input-group input-group-md"><select class="input-group-tab" aria-label="国番号"><option>+81</option><option>+1</option></select><input id="tel" class="input-group-field" type="tel" value="90-1234-5678" aria-describedby="tel-support"></div>
+                <p class="field-support-text" id="tel-support">ハイフンありでも、なしでも入力できます</p>
+              </div>
+              <div class="label-control">
+                <div class="label-control-row"><label class="label-control-text" for="budget">月額の上限</label></div>
+                <div class="input-group input-group-md"><span class="input-group-addon" id="budget-unit">¥</span><input id="budget" class="input-group-field" inputmode="numeric" value="300,000" aria-describedby="budget-unit budget-support"></div>
+                <p class="field-support-text" id="budget-support">超えると承認が必要になります</p>
+              </div>
+              </div>
+              <div class="label-control">
+                <div class="label-control-row"><label class="label-control-text" for="start">利用開始日</label></div>
+                <div class="input-group input-group-md"><input id="start" class="input-group-field" value="2026/10/07" aria-describedby="start-support"><button type="button" class="input-group-tab" aria-label="カレンダーを開く" aria-expanded="false"><svg class="icon icon-sm" aria-hidden="true"><use href="../../dist/icons.svg#lucide-calendar"></use></svg></button></div>
+                <p class="field-support-text" id="start-support">例: 2026/10/07</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="flex flex-col gap-4" aria-labelledby="sec-notify">
+          <div class="section-header">
+            <div class="section-header-main">
+              <div class="section-header-text">
+                <h2 class="section-header-title" id="sec-notify">通知</h2>
+                <p class="section-header-desc">変更はすぐに反映されます</p>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body flex flex-col gap-4">
+              <div class="switch-field">
+                <label class="switch-label"><input type="checkbox" role="switch" class="switch" checked aria-describedby="n1">更新期限のお知らせ</label>
+                <p class="switch-desc" id="n1">期限の30日前と7日前にメールで送ります</p>
+              </div>
+              <hr class="divider">
+              <div class="switch-field">
+                <label class="switch-label"><input type="checkbox" role="switch" class="switch" aria-describedby="n2">週次レポート</label>
+                <p class="switch-desc" id="n2">毎週月曜の朝に、先週の契約の動きをまとめて送ります</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="flex flex-col gap-4" aria-labelledby="sec-usage">
+          <div class="section-header">
+            <div class="section-header-main">
+              <div class="section-header-text"><h2 class="section-header-title" id="sec-usage">利用状況</h2></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body grid grid-cols-2 gap-6">
+              <div class="progress-field">
+                <div class="progress-label"><span>保存容量</span><span>7.2GB / 10GB</span></div>
+                <progress class="progress progress-warning" value="72" max="100" aria-label="保存容量">72%</progress>
+              </div>
+              <div class="progress-field">
+                <div class="progress-label"><span>ユーザー数</span><span>18 / 50人</span></div>
+                <progress class="progress" value="36" max="100" aria-label="ユーザー数">36%</progress>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="flex justify-end gap-2">
+          <button type="button" class="btn btn-md btn-neutral btn-outline">キャンセル</button>
+          <button type="button" class="btn btn-md btn-primary btn-solid">保存</button>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

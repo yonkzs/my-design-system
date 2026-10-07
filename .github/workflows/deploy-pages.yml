@@ -46,6 +46,13 @@ jobs:
           cp dist/ds.css site/dist/ds.css
           sed -i 's#\.\./dist/ds\.css#dist/ds.css#' site/index.html
           sed -i 's#\.\./\.\./dist/ds\.css#../dist/ds.css#' site/components/*.html site/foundations/*.html
+          # サンドボックス（npm run build が sandbox/index.html を生成済み）。sandbox/ は site/sandbox/ に置くので
+          # ../dist・../../dist の参照はそのまま通る。カタログとの相互リンクだけ深さを補正する
+          cp -r sandbox site/sandbox
+          rm -rf site/sandbox/private  # 非公開の画面（gitignore 済みで CI には無いはずだが、念のため公開物から外す）
+          cp dist/icons.svg site/dist/icons.svg
+          sed -i 's#\.\./preview/index\.html#../index.html#' site/sandbox/index.html
+          sed -i 's#\.\./sandbox/index\.html#sandbox/index.html#' site/index.html
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

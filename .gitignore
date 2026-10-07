@@ -4,6 +4,10 @@ dist/
 # ビルド生成物（npm run build:icons が書き出す。ローカル閲覧用のコピー）
 preview/icons.svg
 preview/foundations/
+sandbox/index.html
+
+# サンドボックスの非公開の画面（機密情報を含みうる。リポジトリが public のため絶対にコミットしない）
+sandbox/private/
 
 # Agent eval artifacts（生成UIとスコア履歴。正本ではない）
 evals/output/
