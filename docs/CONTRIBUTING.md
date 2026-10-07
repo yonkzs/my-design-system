@@ -18,15 +18,19 @@ npm install
 npm run build     # dist/ds.css・dist/icons.svgを生成
 ```
 
-このDSにはビルド済みの静的HTMLカタログ（`preview/`）しか無く、devサーバー用のnpmスクリプトは
-無い。ローカルでプレビューを確認する場合は、リポジトリルートで簡易サーバーを立てて開く
+ローカルでカタログ（`preview/`）とサンドボックス（`sandbox/`）を確認するときは、devサーバーを使う
 （`icons.svg#id`のようなスプライト参照はfile://直開きでは描画されないため。詳細は
 [ICONS.md](ICONS.md)）:
 
 ```bash
-python3 -m http.server 8080
-# → http://localhost:8080/preview/index.html
+npm run dev
+# → http://localhost:5173/sandbox/（サンドボックス）
+# → http://localhost:5173/preview/（カタログ）
 ```
+
+`tokens/` と `src/` を保存すると `dist/ds.css` が作り直される（ブラウザは手で再読み込みする）。
+Node を使わずに見るだけなら、ビルド後にリポジトリルートで `python3 -m http.server 8080` でもよい。
+サンドボックスの使い方・ルールは [sandbox/README.md](../sandbox/README.md)。
 
 各部品ページの「状態一覧」（hover / focus / pressed の固定表示）も、サーバー経由でないと出ない
 （`preview/force-state.js` が `dist/ds.css` のルールを読んで複製するが、file:// ではブラウザがCSSのルールの読み取りを禁じるため）。
@@ -95,5 +99,6 @@ CSS / HTMLを書く時は**必ずデザインシステムが用意した変数�
 ## 関連ドキュメント
 
 - [ICONS.md](ICONS.md) — アイコン（Lucide SVG sprite）の使い方
+- [sandbox/README.md](../sandbox/README.md) — 部品を組み合わせて画面を試作する場所
 - [DESIGN.md](../DESIGN.md) — トークン値・非交渉原則
 - [PHASE0-DIRECTION.md](../PHASE0-DIRECTION.md) — 設計判断の決定背景

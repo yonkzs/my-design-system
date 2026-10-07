@@ -113,6 +113,7 @@ npm run build
 | [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md) | Git運用・コミット規約・整合性チェックの読み方 |
 | [docs/RELEASING.md](docs/RELEASING.md) | リリース手順（SemVer・gitタグ・GitHub Release） |
 | [docs/FIGMA-STARTER-MAPPING.md](docs/FIGMA-STARTER-MAPPING.md) | Figma「Design System Starter File」とトークンの対応表・Starter から変えた箇所と理由 |
+| [sandbox/README.md](sandbox/README.md) | サンドボックス（部品を組み合わせて画面を試作する場所）の使い方とルール |
 | [docs/ACCESSIBILITY.md](docs/ACCESSIBILITY.md) | WCAG 2.2 抜粋チェックリスト（DSが担保する項目 / プロダクト側の責務） |
 | [src/components/](src/components/) | コンポーネントCSS（先頭コメントが仕様の正本） |
 | [tokens/](tokens/) | デザイントークンの正本 |
@@ -126,6 +127,18 @@ npm run build     # dist/ds.css をビルド
 
 新しいトークン/クラスを `src/index.css` の `@source inline(...)` safelist に含めないと、
 実際に使うコンポーネントが増えるまでビルドで刈り取られる点に注意（Tailwind v4の `source(none)` 設定のため）。
+
+## サンドボックス（画面の試作）
+
+DS の部品だけで画面を組んで試す場所です（`sandbox/`）。部品の組み合わせ方の確認や、DS に足りない部品を見つけるのに使います。
+
+```bash
+npm run dev                                                   # http://localhost:5173/sandbox/ を開く
+npm run sandbox:new -- invoice-list "請求一覧" "請求書を確認・送付する画面"   # 新しい画面を作る
+```
+
+見本として「契約一覧」「アカウント設定」の2画面があります。ルールと構成は [sandbox/README.md](sandbox/README.md) を参照してください。
+GitHub Pages では カタログの右上の「Sandbox」から開けます。
 
 ## MCP（AIコーディングツール連携）
 

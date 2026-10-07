@@ -12,6 +12,7 @@
  *   OK: 列が多い・件数が多い業務一覧は data-table-dense（行の高さ 36px。Starter の data heavy）。既定は 52px 前後。
  *   OK: 行を選んで一括操作する一覧は、先頭列に checkbox（data-table-check）を置き、選んだ行に aria-selected="true"。
  *   OK: 並べ替えできる列は見出しに data-table-sort ボタンを置く。絞り込みは見出し右の icon-btn（data-table-filter）。
+ *   OK: 列が多く狭い画面で収まらない表は data-table-scroll で囲み、表の中だけを横にスクロールさせる（ページ全体を横に揺らさない）。
  *   OK: 表の上の検索・列の選択・一括操作は data-table-toolbar にまとめる（Starter の Action Bar）。
  *       行を選んでいる間は data-table-toolbar-count で件数を出し、一括操作のボタンを並べる。
  *   NG: table要素を手書きスタイリングしない → data-table クラスを使う。
@@ -23,6 +24,7 @@
  *   アイコンは状態に合わせて差し替える（none: arrow-up-down / ascending: arrow-up / descending: arrow-down）
  *   絞り込みボタンは aria-label に列名を含め（例: 「状態で絞り込む」）、絞り込み中は aria-pressed="true"
  *   行選択の checkbox には行を特定できる aria-label を付ける（例: 「契約A を選択」）。見出しの一括選択は indeterminate を使う
+ *   data-table-scroll はキーボードでも横に動かせるよう tabindex="0" を付け、role="region" と aria-label（表の名前）で読み上げる
  *
  * Usage:
  *   <table class="data-table">
@@ -37,6 +39,10 @@
  *       </tr>
  *     </tbody>
  *   </table>
+ *
+ *   <div class="data-table-scroll" role="region" aria-label="契約の一覧" tabindex="0">
+ *     <table class="data-table">…</table>
+ *   </div>
  *
  *   <table class="data-table data-table-dense">
  *     <thead><tr>
@@ -67,6 +73,15 @@
     overflow: hidden;
     font: var(--typo-body);
   }
+
+  /* 横スクロールの囲み。角丸と枠は中の表が持つので、ここはスクロールとフォーカスリングだけ */
+  .data-table-scroll {
+    position: relative; /* 中の sr-only（position: absolute）がはみ出してページを横に広げないよう、ここを基準にする */
+    max-width: 100%;
+    overflow-x: auto;
+    border-radius: var(--radius-md);
+  }
+  .data-table-scroll:focus-visible { outline: var(--focus-outline); outline-offset: var(--focus-outline-offset); }
 
   .data-table thead th {
     text-align: left;

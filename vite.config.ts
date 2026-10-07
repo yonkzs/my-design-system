@@ -6,7 +6,8 @@ export default defineConfig({
   plugins: [tailwindcss()],
   build: {
     outDir: "dist",
-    emptyOutDir: true,
+    // npm run dev（scripts/dev.mjs）の再ビルドでは消さない。消すと build:icons が書いた dist/icons.svg まで消えるため
+    emptyOutDir: process.env.DS_DEV !== "1",
     cssCodeSplit: false,
     lib: {
       entry: resolve(__dirname, "src/index.js"),

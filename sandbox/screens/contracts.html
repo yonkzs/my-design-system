@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>契約一覧</title>
+<meta name="description" content="一覧画面の見本。section-header・操作バー・高密度の表・ページ送りの組み合わせ">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../../dist/ds.css">
+<link rel="stylesheet" href="../sandbox.css">
+<script src="../sandbox.js"></script>
+</head>
+<body>
+  <div class="sb-app">
+    <header class="sb-topbar">
+      <p class="sb-topbar-brand">契約管理</p>
+      <div class="sb-topbar-actions">
+        <span data-theme-toggle></span>
+        <span class="avatar avatar-md" role="img" aria-label="山田 花子">山</span>
+      </div>
+    </header>
+
+    <aside class="sb-sidebar">
+      <nav class="menu" aria-label="メインメニュー">
+        <ul class="menu-group">
+          <li><a class="menu-item" href="#">
+            <svg class="icon icon-md" aria-hidden="true"><use href="../../dist/icons.svg#lucide-menu"></use></svg>
+            ダッシュボード
+          </a></li>
+          <li><a class="menu-item" href="contracts.html" aria-current="page">
+            <svg class="icon icon-md" aria-hidden="true"><use href="../../dist/icons.svg#lucide-file"></use></svg>
+            契約
+          </a></li>
+          <li><a class="menu-item" href="settings.html">
+            <svg class="icon icon-md" aria-hidden="true"><use href="../../dist/icons.svg#lucide-settings"></use></svg>
+            設定
+          </a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="sb-main">
+      <div class="flex flex-col gap-8">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <div class="flex flex-col gap-1">
+            <h1 class="typo-3xlarge m-0">契約一覧</h1>
+            <p class="typo-small text-fg-low m-0">取引先との契約を確認・更新します</p>
+          </div>
+          <button type="button" class="btn btn-md btn-primary btn-solid"><svg class="icon" aria-hidden="true"><use href="../../dist/icons.svg#lucide-plus"></use></svg>契約を追加</button>
+        </div>
+
+        <div class="alert alert-warning" role="status">
+          <span class="alert-icon" aria-hidden="true">!</span>
+          <div class="alert-body">
+            <p class="alert-title">更新期限が近い契約が2件あります</p>
+            <p>10月末までに更新の手続きをしてください。</p>
+          </div>
+        </div>
+
+        <section class="flex flex-col gap-4" aria-labelledby="sec-contracts">
+          <div class="section-header">
+            <div class="section-header-main">
+              <div class="section-header-text">
+                <h2 class="section-header-title" id="sec-contracts">契約</h2>
+                <p class="section-header-desc">全 128件</p>
+              </div>
+              <div class="section-header-actions">
+                <div class="btn-group" role="group" aria-label="表示">
+                  <button type="button" class="btn btn-md btn-neutral btn-outline" aria-pressed="true">表</button>
+                  <button type="button" class="btn btn-md btn-neutral btn-outline" aria-pressed="false">カード</button>
+                </div>
+              </div>
+            </div>
+            <div class="tabs" role="tablist" aria-label="状態で切り替え">
+              <button class="tab" role="tab" aria-selected="true">すべて <span class="tab-count">128</span></button>
+              <button class="tab" role="tab" aria-selected="false">更新待ち <span class="tab-count">12</span></button>
+              <button class="tab" role="tab" aria-selected="false">解約予定 <span class="tab-count">3</span></button>
+            </div>
+          </div>
+
+          <div>
+            <div class="data-table-toolbar">
+              <div class="search-input search-input-md"><svg class="icon icon-sm" aria-hidden="true"><use href="../../dist/icons.svg#lucide-search"></use></svg><input type="search" class="search-input-field" placeholder="契約名・取引先で検索" aria-label="契約を検索"></div>
+              <select class="select select-md" aria-label="担当者で絞り込む"><option>担当者: すべて</option><option>山田 花子</option><option>佐藤 一郎</option></select>
+              <button type="button" class="btn btn-md btn-neutral btn-subtle"><svg class="icon" aria-hidden="true"><use href="../../dist/icons.svg#lucide-download"></use></svg>書き出し</button>
+            </div>
+            <div class="data-table-toolbar">
+              <span class="data-table-toolbar-count" role="status">2件を選択中</span>
+              <button type="button" class="btn btn-sm btn-neutral btn-outline">担当者を変更</button>
+              <button type="button" class="btn btn-sm btn-negative btn-outline">解約にする</button>
+              <span class="data-table-toolbar-spacer"></span>
+              <button type="button" class="btn btn-sm btn-neutral btn-ghost">選択を解除</button>
+            </div>
+            <div class="data-table-scroll" role="region" aria-label="契約の一覧" tabindex="0">
+              <table class="data-table data-table-dense">
+                <thead><tr>
+                  <th scope="col" class="data-table-check"><input type="checkbox" class="checkbox checkbox-sm" aria-label="すべて選択" data-indeterminate></th>
+                  <th scope="col" aria-sort="none"><button type="button" class="data-table-sort">契約名<svg class="icon" aria-hidden="true"><use href="../../dist/icons.svg#lucide-arrow-up-down"></use></svg></button></th>
+                  <th scope="col">担当者</th>
+                  <th scope="col" class="data-table-num" aria-sort="none"><button type="button" class="data-table-sort">月額<svg class="icon" aria-hidden="true"><use href="../../dist/icons.svg#lucide-arrow-up-down"></use></svg></button></th>
+                  <th scope="col"><div class="data-table-th">状態<button type="button" class="icon-btn icon-btn-sm icon-btn-neutral icon-btn-ghost data-table-filter" aria-label="状態で絞り込む" aria-pressed="false"><svg class="icon icon-sm" aria-hidden="true"><use href="../../dist/icons.svg#lucide-funnel"></use></svg></button></div></th>
+                  <th scope="col" class="data-table-num" aria-sort="ascending"><button type="button" class="data-table-sort">更新期限<svg class="icon" aria-hidden="true"><use href="../../dist/icons.svg#lucide-arrow-up"></use></svg></button></th>
+                  <th scope="col"><span class="sr-only">操作</span></th>
+                </tr></thead>
+                <tbody>
+                <tr aria-selected="true">
+                  <td class="data-table-check"><input type="checkbox" class="checkbox checkbox-sm" aria-label="契約A（株式会社サンプル） を選択" checked></td>
+                  <td>契約A（株式会社サンプル）</td>
+                  <td><span class="avatar-label"><span class="avatar avatar-sm" aria-hidden="true">山</span><span class="avatar-label-name">山田 花子</span></span></td>
+                  <td class="data-table-num">¥120,000</td>
+                  <td><span class="badge badge-soft-success">有効</span></td>
+                  <td class="data-table-num">2027/03/31</td>
+                  <td><button type="button" class="icon-btn icon-btn-sm icon-btn-neutral icon-btn-ghost" aria-label="契約A（株式会社サンプル） のその他の操作"><svg class="icon icon-sm" aria-hidden="true"><use href="../../dist/icons.svg#lucide-more-horizontal"></use></svg></button></td>
+                </tr>
+                <tr>
+                  <td class="data-table-check"><input type="checkbox" class="checkbox checkbox-sm" aria-label="契約B（合同会社テスト） を選択"></td>
+                  <td>契約B（合同会社テスト）</td>
+                  <td><span class="avatar-label"><span class="avatar avatar-sm" aria-hidden="true">佐</span><span class="avatar-label-name">佐藤 一郎</span></span></td>
+                  <td class="data-table-num">¥48,000</td>
+                  <td><span class="badge badge-soft-warning">更新待ち</span></td>
+                  <td class="data-table-num">2026/10/31</td>
+                  <td><button type="button" class="icon-btn icon-btn-sm icon-btn-neutral icon-btn-ghost" aria-label="契約B（合同会社テスト） のその他の操作"><svg class="icon icon-sm" aria-hidden="true"><use href="../../dist/icons.svg#lucide-more-horizontal"></use></svg></button></td>
+                </tr>
+                <tr aria-selected="true">
+                  <td class="data-table-check"><input type="checkbox" class="checkbox checkbox-sm" aria-label="契約C（サンプル商事） を選択" checked></td>
+                  <td>契約C（サンプル商事）</td>
+                  <td><span class="avatar-label"><span class="avatar avatar-sm" aria-hidden="true">鈴</span><span class="avatar-label-name">鈴木 次郎</span></span></td>
+                  <td class="data-table-num">¥9,800</td>
+                  <td><span class="badge badge-soft-success">有効</span></td>
+                  <td class="data-table-num">2027/01/15</td>
+                  <td><button type="button" class="icon-btn icon-btn-sm icon-btn-neutral icon-btn-ghost" aria-label="契約C（サンプル商事） のその他の操作"><svg class="icon icon-sm" aria-hidden="true"><use href="../../dist/icons.svg#lucide-more-horizontal"></use></svg></button></td>
+                </tr>
+                <tr>
+                  <td class="data-table-check"><input type="checkbox" class="checkbox checkbox-sm" aria-label="契約D（株式会社デモ） を選択"></td>
+                  <td>契約D（株式会社デモ）</td>
+                  <td><span class="avatar-label"><span class="avatar avatar-sm" aria-hidden="true">山</span><span class="avatar-label-name">山田 花子</span></span></td>
+                  <td class="data-table-num">¥256,000</td>
+                  <td><span class="badge badge-soft-negative">解約予定</span></td>
+                  <td class="data-table-num">2026/11/30</td>
+                  <td><button type="button" class="icon-btn icon-btn-sm icon-btn-neutral icon-btn-ghost" aria-label="契約D（株式会社デモ） のその他の操作"><svg class="icon icon-sm" aria-hidden="true"><use href="../../dist/icons.svg#lucide-more-horizontal"></use></svg></button></td>
+                </tr>
+                <tr>
+                  <td class="data-table-check"><input type="checkbox" class="checkbox checkbox-sm" aria-label="契約E（テスト工業） を選択"></td>
+                  <td>契約E（テスト工業）</td>
+                  <td><span class="avatar-label"><span class="avatar avatar-sm" aria-hidden="true">高</span><span class="avatar-label-name">高橋 三郎</span></span></td>
+                  <td class="data-table-num">¥32,000</td>
+                  <td><span class="badge badge-soft-warning">更新待ち</span></td>
+                  <td class="data-table-num">2026/10/20</td>
+                  <td><button type="button" class="icon-btn icon-btn-sm icon-btn-neutral icon-btn-ghost" aria-label="契約E（テスト工業） のその他の操作"><svg class="icon icon-sm" aria-hidden="true"><use href="../../dist/icons.svg#lucide-more-horizontal"></use></svg></button></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between gap-4">
+            <p class="typo-small text-fg-low m-0">1〜5件 / 128件</p>
+            <nav class="pagination" aria-label="ページネーション">
+              <ul>
+                <li><a class="pagination-item" href="#" aria-label="前のページ" aria-disabled="true"><svg class="icon icon-sm" aria-hidden="true"><use href="../../dist/icons.svg#lucide-chevron-left"></use></svg></a></li>
+                <li><a class="pagination-item" href="#" aria-current="page">1</a></li>
+                <li><a class="pagination-item" href="#">2</a></li>
+                <li><a class="pagination-item" href="#">3</a></li>
+                <li><span class="pagination-ellipsis" aria-hidden="true">…</span></li>
+                <li><a class="pagination-item" href="#">26</a></li>
+                <li><a class="pagination-item" href="#" aria-label="次のページ"><svg class="icon icon-sm" aria-hidden="true"><use href="../../dist/icons.svg#lucide-chevron-right"></use></svg></a></li>
+              </ul>
+            </nav>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

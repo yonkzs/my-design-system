@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title>
+<meta name="description" content="{{DESCRIPTION}}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../../dist/ds.css">
+<link rel="stylesheet" href="../sandbox.css">
+<script src="../sandbox.js"></script>
+</head>
+<body>
+  <!--
+    サンドボックスの画面のひな形。npm run sandbox:new で、このファイルから sandbox/screens/<名前>.html が作られる。
+    ・画面の中身は DS の部品（src/components/*.css の先頭コメントに使い方）と utility（p-4 / gap-6 / grid-cols-2 など）だけで組む
+    ・色・余白・文字の大きさを style="…" で直書きしない（DS のトークン・部品で表せないなら、それは DS に足りないものとしてメモする）
+    ・アイコンは ../../dist/icons.svg#lucide-<名前>（一覧は docs/ICONS.md）
+  -->
+  <div class="sb-app">
+    <header class="sb-topbar">
+      <p class="sb-topbar-brand">サービス名</p>
+      <div class="sb-topbar-actions">
+        <span data-theme-toggle></span>
+        <span class="avatar avatar-md" role="img" aria-label="山田 花子">山</span>
+      </div>
+    </header>
+
+    <aside class="sb-sidebar">
+      <nav class="menu" aria-label="メインメニュー">
+        <ul class="menu-group">
+          <li><a class="menu-item" href="#" aria-current="page">
+            <svg class="icon icon-md" aria-hidden="true"><use href="../../dist/icons.svg#lucide-menu"></use></svg>
+            ダッシュボード
+          </a></li>
+          <li><a class="menu-item" href="#">
+            <svg class="icon icon-md" aria-hidden="true"><use href="../../dist/icons.svg#lucide-settings"></use></svg>
+            設定
+          </a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="sb-main">
+      <div class="flex flex-col gap-8">
+        <!-- ページタイトル（h1）。section-header はページ内の区切りに使う -->
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <div class="flex flex-col gap-1">
+            <h1 class="typo-3xlarge m-0">{{TITLE}}</h1>
+            <p class="typo-small text-fg-low m-0">{{DESCRIPTION}}</p>
+          </div>
+          <button type="button" class="btn btn-md btn-primary btn-solid">主な操作</button>
+        </div>
+
+        <section class="flex flex-col gap-4" aria-labelledby="sec-1">
+          <div class="section-header">
+            <div class="section-header-main">
+              <div class="section-header-text">
+                <h2 class="section-header-title" id="sec-1">セクション</h2>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <p class="typo-medium m-0">ここに画面の中身を組みます。</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
