@@ -1,7 +1,7 @@
 /*
  * Design System — Typography
  *
- * 2層構成（設計: output/2026-09-23_typography-design）:
+ * 2層構成:
  *   ① primitive — サイズ（rem）・行間（単位なし）・太さ・書体の段。
  *                 semantic 層から参照する。コンポーネントからは使わない
  *                 （例外: 状態で太さだけ変える場合の --font-weight-*）。
