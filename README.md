@@ -173,4 +173,9 @@ npm run deploy:mcp       # デプロイ（要 wrangler login）
 npm run eval             # 全お題を実行（claude CLIとMCP接続が必要）
 npm run eval:report      # 実行履歴の推移表（無料）
 ```
+
+## ライセンス
+
+All rights reserved（[LICENSE](LICENSE)）。参照のために公開しています。使用・複製・改変・再配布には、著作権者の許可が必要です。
+
 # my-design-system
