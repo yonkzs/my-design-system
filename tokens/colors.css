@@ -1,7 +1,7 @@
 /*
  * Design System — Colors
  *
- * 3層構成（設計: output/2026-09-23_color-token-design）:
+ * 3層構成:
  *   ① primitive — 生の色。名前は色そのもの。全色 50〜950 の11段。
  *                 key 層からだけ参照する。コンポーネントから直接使わない。
  *   ② key       — 意味ごとのスケール別名（primary / neutral / status）。
