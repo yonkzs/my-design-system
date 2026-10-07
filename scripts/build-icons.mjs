@@ -25,6 +25,8 @@ export const ICONS = [
   "chevron-up", "chevron-down", "chevron-left", "chevron-right", "menu", "more-horizontal",
   // Table（並べ替え・絞り込み）
   "arrow-up", "arrow-down", "arrow-up-down", "funnel",
+  // Date / File / List
+  "calendar", "chevrons-left", "chevrons-right", "cloud-upload", "file", "download", "grip-vertical", "minus",
   // Status
   "info", "check-circle", "alert-triangle", "alert-circle",
   // Search / Visibility

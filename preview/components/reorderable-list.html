@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Reorderable List — Design System</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../../dist/ds.css">
+<link rel="stylesheet" href="../catalog.css">
+<script src="../theme-toggle.js"></script>
+<script src="../force-state.js"></script>
+</head>
+<body>
+  <header class="catalog-header">
+    <div><p class="catalog-header-title">Design System</p><p class="catalog-header-sub">Tailwind v4</p></div>
+  </header>
+  <p class="catalog-breadcrumb"><a href="../index.html">ホーム</a> &gt; Components &gt; Reorderable List</p>
+
+  <main class="catalog-main">
+    <div class="catalog-page-title-row">
+      <h1 class="typo-2xlarge">Reorderable List</h1>
+      <span class="badge badge-soft-primary">component</span>
+    </div>
+    <p class="catalog-page-desc typo-medium">ドラッグかキーボードで並べ替えられる縦の一覧です。表に出す列の並び、優先順位、手順の順番を決めてもらうときに使います。並べ替えの処理はプロダクト側の JS が行います。</p>
+
+    <div class="catalog-tabs" role="tablist" id="page-tabs">
+      <button class="catalog-tab" role="tab" aria-selected="true" data-panel="overview">概要</button>
+      <button class="catalog-tab" role="tab" aria-selected="false" data-panel="guideline">ガイドライン</button>
+      <button class="catalog-tab" role="tab" aria-selected="false" data-panel="a11y">アクセシビリティ</button>
+    </div>
+
+    <div data-tabpanel="overview">
+      <div class="catalog-card">
+        <div class="catalog-card-header"><p class="catalog-card-title">基本形</p><p class="catalog-card-note">Starter の Reorderable List（Type=default）</p></div>
+        <div class="catalog-state-row"><span class="catalog-state-label">カードの中</span><div><div class="card" style="width:360px"><div class="card-header"><p class="card-title">表示する列</p><p class="card-subtitle">ドラッグか上下キーで並べ替えます</p></div><div class="card-body"><ul class="reorder-list" aria-label="表示する列"><li class="reorder-item"><button type="button" class="reorder-handle" aria-label="契約名 を並べ替え" aria-describedby="reorder-help"><svg class="icon" aria-hidden="true"><use href="../icons.svg#lucide-grip-vertical"></use></svg></button><span class="reorder-label">契約名</span><button type="button" class="icon-btn icon-btn-sm icon-btn-neutral icon-btn-ghost" aria-label="契約名 を外す"><svg class="icon icon-sm" aria-hidden="true"><use href="../icons.svg#lucide-x"></use></svg></button></li><li class="reorder-item"><button type="button" class="reorder-handle" aria-label="担当者 を並べ替え" aria-describedby="reorder-help"><svg class="icon" aria-hidden="true"><use href="../icons.svg#lucide-grip-vertical"></use></svg></button><span class="reorder-label">担当者</span><button type="button" class="icon-btn icon-btn-sm icon-btn-neutral icon-btn-ghost" aria-label="担当者 を外す"><svg class="icon icon-sm" aria-hidden="true"><use href="../icons.svg#lucide-x"></use></svg></button></li><li class="reorder-item"><button type="button" class="reorder-handle" aria-label="金額 を並べ替え" aria-describedby="reorder-help"><svg class="icon" aria-hidden="true"><use href="../icons.svg#lucide-grip-vertical"></use></svg></button><span class="reorder-label">金額</span><button type="button" class="icon-btn icon-btn-sm icon-btn-neutral icon-btn-ghost" aria-label="金額 を外す"><svg class="icon icon-sm" aria-hidden="true"><use href="../icons.svg#lucide-x"></use></svg></button></li><li class="reorder-item"><button type="button" class="reorder-handle" aria-label="更新日 を並べ替え" aria-describedby="reorder-help"><svg class="icon" aria-hidden="true"><use href="../icons.svg#lucide-grip-vertical"></use></svg></button><span class="reorder-label">更新日</span><button type="button" class="icon-btn icon-btn-sm icon-btn-neutral icon-btn-ghost" aria-label="更新日 を外す"><svg class="icon icon-sm" aria-hidden="true"><use href="../icons.svg#lucide-x"></use></svg></button></li></ul></div><div class="card-footer"><button type="button" class="btn btn-md btn-neutral btn-ghost"><svg class="icon" aria-hidden="true"><use href="../icons.svg#lucide-plus"></use></svg>列を追加</button></div></div><p id="reorder-help" class="sr-only">上下キーで移動、Enter で確定します</p></div></div>
+      </div>
+
+      <div class="catalog-card">
+        <div class="catalog-card-header"><p class="catalog-card-title">状態</p><p class="catalog-card-note">Starter の Draggable Item（default / hover / selected）</p></div>
+        <div class="catalog-state-row"><span class="catalog-state-label">通常 / hover / ドラッグ中 / ドロップ先</span><div><ul class="reorder-list" style="width:360px" aria-label="状態の見本"><li class="reorder-item"><button type="button" class="reorder-handle" aria-label="通常 を並べ替え" aria-describedby="reorder-help"><svg class="icon" aria-hidden="true"><use href="../icons.svg#lucide-grip-vertical"></use></svg></button><span class="reorder-label">通常</span><button type="button" class="icon-btn icon-btn-sm icon-btn-neutral icon-btn-ghost" aria-label="通常 を外す"><svg class="icon icon-sm" aria-hidden="true"><use href="../icons.svg#lucide-x"></use></svg></button></li><li class="reorder-item" data-force-state="hover"><button type="button" class="reorder-handle" aria-label="hover を並べ替え" aria-describedby="reorder-help"><svg class="icon" aria-hidden="true"><use href="../icons.svg#lucide-grip-vertical"></use></svg></button><span class="reorder-label">hover</span><button type="button" class="icon-btn icon-btn-sm icon-btn-neutral icon-btn-ghost" aria-label="hover を外す"><svg class="icon icon-sm" aria-hidden="true"><use href="../icons.svg#lucide-x"></use></svg></button></li><li class="reorder-item" data-dragging><button type="button" class="reorder-handle" aria-label="ドラッグ中 を並べ替え" aria-describedby="reorder-help"><svg class="icon" aria-hidden="true"><use href="../icons.svg#lucide-grip-vertical"></use></svg></button><span class="reorder-label">ドラッグ中</span><button type="button" class="icon-btn icon-btn-sm icon-btn-neutral icon-btn-ghost" aria-label="ドラッグ中 を外す"><svg class="icon icon-sm" aria-hidden="true"><use href="../icons.svg#lucide-x"></use></svg></button></li><li class="reorder-item" data-drop-target><button type="button" class="reorder-handle" aria-label="ドロップ先 を並べ替え" aria-describedby="reorder-help"><svg class="icon" aria-hidden="true"><use href="../icons.svg#lucide-grip-vertical"></use></svg></button><span class="reorder-label">ドロップ先</span><button type="button" class="icon-btn icon-btn-sm icon-btn-neutral icon-btn-ghost" aria-label="ドロップ先 を外す"><svg class="icon icon-sm" aria-hidden="true"><use href="../icons.svg#lucide-x"></use></svg></button></li></ul></div><span class="catalog-state-note">data-dragging / data-drop-target</span></div>
+      </div>
+
+      <div class="catalog-card">
+        <div class="catalog-card-header"><p class="catalog-card-title">枠なしの密な一覧</p><p class="catalog-card-note">Starter の Type=items static</p></div>
+        <div class="catalog-state-row"><span class="catalog-state-label">reorder-list-plain</span><div><ul class="reorder-list reorder-list-plain" style="width:360px" aria-label="お気に入り"><li class="reorder-item"><button type="button" class="reorder-handle" aria-label="売上レポート を並べ替え" aria-describedby="reorder-help"><svg class="icon" aria-hidden="true"><use href="../icons.svg#lucide-grip-vertical"></use></svg></button><span class="reorder-label">売上レポート</span><button type="button" class="icon-btn icon-btn-sm icon-btn-neutral icon-btn-ghost" aria-label="売上レポート を外す"><svg class="icon icon-sm" aria-hidden="true"><use href="../icons.svg#lucide-minus"></use></svg></button></li><li class="reorder-item"><button type="button" class="reorder-handle" aria-label="顧客一覧 を並べ替え" aria-describedby="reorder-help"><svg class="icon" aria-hidden="true"><use href="../icons.svg#lucide-grip-vertical"></use></svg></button><span class="reorder-label">顧客一覧</span><button type="button" class="icon-btn icon-btn-sm icon-btn-neutral icon-btn-ghost" aria-label="顧客一覧 を外す"><svg class="icon icon-sm" aria-hidden="true"><use href="../icons.svg#lucide-minus"></use></svg></button></li><li class="reorder-item"><button type="button" class="reorder-handle" aria-label="請求一覧 を並べ替え" aria-describedby="reorder-help"><svg class="icon" aria-hidden="true"><use href="../icons.svg#lucide-grip-vertical"></use></svg></button><span class="reorder-label">請求一覧</span><button type="button" class="icon-btn icon-btn-sm icon-btn-neutral icon-btn-ghost" aria-label="請求一覧 を外す"><svg class="icon icon-sm" aria-hidden="true"><use href="../icons.svg#lucide-minus"></use></svg></button></li></ul></div></div>
+      </div>
+
+    </div>
+
+    <div data-tabpanel="guideline" hidden>
+      <div class="catalog-card">
+        <div class="catalog-card-header"><p class="catalog-card-title">使用法</p></div>
+        <div style="padding: 0 24px 24px;">
+          <p class="typo-medium" style="color:var(--color-fg-success); margin: 16px 0 4px;">OK</p>
+          <ul class="typo-medium" style="margin:0; padding-left:20px;">
+            <li>取っ手は項目の先頭、外す操作は末尾に置く</li>
+            <li>ドラッグ中の項目には data-dragging を付ける</li>
+            <li>枠が要るときは card の中に置き、見出しと「追加」をカードの上下に置く</li>
+          </ul>
+          <p class="typo-medium" style="color:var(--color-fg-negative-strong); margin: 16px 0 4px;">NG</p>
+          <ul class="typo-medium" style="margin:0; padding-left:20px;">
+            <li>ドラッグだけで並べ替えさせない → キーボードでも動かせるようにする</li>
+            <li>自動で順番が決まる一覧に使わない</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div data-tabpanel="a11y" hidden>
+      <div class="catalog-card">
+        <div class="catalog-card-header"><p class="catalog-card-title">必須対応</p></div>
+        <div style="padding: 0 24px 24px;">
+          <ul class="typo-medium" style="margin:0; padding-left:20px;">
+            <li>取っ手は &lt;button&gt;。aria-label に対象を含め、aria-describedby で操作方法を関連付ける</li>
+            <li>移動したら aria-live="polite" の領域で「〇〇 を 3番目に移動しました」と読み上げる（JS 側）</li>
+            <li>外すボタンも aria-label に対象を含める</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.getElementById('page-tabs').addEventListener('click', (e) => {
+      const btn = e.target.closest('.catalog-tab');
+      if (!btn) return;
+      document.querySelectorAll('#page-tabs .catalog-tab').forEach(t => t.setAttribute('aria-selected', String(t === btn)));
+      const target = btn.dataset.panel;
+      document.querySelectorAll('[data-tabpanel]').forEach(p => p.hidden = p.dataset.tabpanel !== target);
+    });
+  </script>
+</body>
+</html>

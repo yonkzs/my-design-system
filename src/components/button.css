@@ -18,6 +18,7 @@
  *   NG: 色を #hex 直書きしない → btn-primary 等のクラスで色は決まる。
  *   OK: アイコン付きはラベルの前（意味の補強）か後ろ（外部リンク・開閉など向きを示す）に .icon を置く。
  *       アイコンの大きさはボタンのサイズで決まる（sm/md 16px・lg 20px）。icon-* のサイズクラスは付けない。
+ *   OK: 表示の切り替え（グラフ / 表）など、同じ並びから1つを選ぶボタンは btn-group でくっつけ、選択中に aria-pressed="true"。
  *   NG: アイコンだけのボタンに btn を使わない → icon-btn を使う。
  *   NG: ラベルの前と後ろの両方にアイコンを置かない → どれが意味を担うのか分からなくなる。
  *   NG: サイズの異なるボタンを隣り合わせに置かない → 既定は md。
@@ -127,6 +128,16 @@
   .btn-negative.btn-subtle:active:not(:disabled) { background-color: var(--color-bg-negative-muted); border-color: var(--color-stroke-negative); }
 
   .btn-subtle:disabled { background-color: var(--color-bg-disabled); color: var(--color-fg-disabled); border-color: var(--color-stroke-middle); }
+
+  /* ===== Button Group（表示の切り替え。Starter の Section Header の Graph / Table / Scenarios） =====
+   * btn-neutral btn-outline を並べてくっつけ、選択中は aria-pressed="true" で淡い面にする */
+  .btn-group { display: inline-flex; }
+  .btn-group > .btn { border-radius: 0; }
+  .btn-group > .btn:first-child { border-top-left-radius: var(--radius-sm); border-bottom-left-radius: var(--radius-sm); }
+  .btn-group > .btn:last-child { border-top-right-radius: var(--radius-sm); border-bottom-right-radius: var(--radius-sm); }
+  .btn-group > .btn + .btn { border-left-width: 0; }
+  .btn-group > .btn[aria-pressed="true"] { background-color: var(--color-bg-primary-muted); color: var(--color-fg-high); }
+  .btn-group > .btn:focus-visible { position: relative; z-index: 1; }  /* フォーカスリングを隣のボタンの下に隠さない */
 
   /* ===== Pressed（押している間）=====
    * Starter に定義は無い。押した手応えを返すため、hover より一段濃い塗りにする。

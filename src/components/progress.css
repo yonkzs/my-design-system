@@ -1,0 +1,159 @@
+/*
+ * Progress
+ *
+ * 機能:
+ *   処理や作業の進み具合を示す。横長のバー（progress）・円（progress-circle）・半円（progress-half）の3種類
+ *   （Starter の Progress Bar / Progress Circle / Half-Circle）。
+ *   終わりが分かっている処理（アップロード・登録の手順・目標に対する達成率）に使う。
+ *
+ * 使用法:
+ *   OK: 進み具合を数字でも示す（progress-label か、円の中の %）。
+ *   OK: 意味を色で変えるときは progress-success（完了）/ progress-warning（遅れ）/ progress-negative（失敗・超過）。
+ *       既定はチャコール（中立）。
+ *   OK: 円・半円はダッシュボードの指標、バーはフォーム・アップロード・一覧の行内に使う。
+ *   NG: 終わりが分からない処理に使わない → input-group-loader や btn の data-loading を使う。
+ *   NG: 1画面に色の違う進捗を並べて、色の意味を説明しないままにしない。
+ *
+ * アクセシビリティ:
+ *   バーはネイティブの <progress value max>（読み上げに値が伝わる）。見出しは aria-label か <label for>
+ *   円・半円は role="progressbar" aria-valuenow aria-valuemin="0" aria-valuemax="100" と aria-label を付ける
+ *   バーの塗りと下地は 3:1 以上（WCAG 1.4.11）。色の違いだけで状態を伝えず、数字や文言を併記する
+ *
+ * Usage:
+ *   <div class="progress-field">
+ *     <div class="progress-label"><label for="up1">アップロード</label><span>40%</span></div>
+ *     <progress id="up1" class="progress" value="40" max="100">40%</progress>
+ *   </div>
+ *
+ *   <div class="progress-circle progress-circle-md" role="progressbar" aria-label="今月の目標"
+ *        aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="--value: 60">
+ *     <span class="progress-circle-value">60%</span>
+ *   </div>
+ */
+
+@layer components {
+  /* ===== バー（Starter の Progress Bar: 高さ 4px・角丸） ===== */
+  .progress {
+    --_fill: var(--color-bg-primary);
+    display: block;
+    width: 100%;
+    height: 4px;
+    border: 0;
+    border-radius: var(--radius-full);
+    background-color: var(--color-bg-neutral-high);
+    overflow: hidden;
+    appearance: none;
+    color: var(--_fill);  /* 古い Edge 等で ::-*-progress-value が効かないときの塗り */
+  }
+  .progress::-webkit-progress-bar { border-radius: var(--radius-full); background-color: var(--color-bg-neutral-high); }
+  .progress::-webkit-progress-value { border-radius: var(--radius-full); background-color: var(--_fill); }
+  .progress::-moz-progress-bar { border-radius: var(--radius-full); background-color: var(--_fill); }
+  .progress-lg { height: 8px; }
+
+  .progress-success,
+  .progress-circle.progress-success,
+  .progress-half.progress-success  { --_fill: var(--color-bg-success); }
+  .progress-warning,
+  .progress-circle.progress-warning,
+  .progress-half.progress-warning  { --_fill: var(--color-bg-warning); }
+  .progress-negative,
+  .progress-circle.progress-negative,
+  .progress-half.progress-negative { --_fill: var(--color-bg-negative); }
+
+  /* バーと見出し・数字（Starter の Type=label） */
+  .progress-field {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing) * 1);
+    width: 100%;
+  }
+  .progress-label {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: calc(var(--spacing) * 2);
+    color: var(--color-fg-middle);
+    font: var(--typo-body-small);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ===== 円・半円（Starter の Progress Circle / Half-Circle） =====
+   * --value（0〜100）で塗りの角度を決める。リングは ::before の conic-gradient、
+   * 中の穴は ::after を面の色で塗って作る（bg-raised / bg-page の上で使う） */
+  .progress-circle,
+  .progress-half {
+    --value: 0;
+    --_fill: var(--color-bg-primary);
+    --_size: 64px;
+    --_thickness: 6px;
+    position: relative;
+    display: inline-flex;
+    flex-shrink: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: var(--_size);
+    height: var(--_size);
+    color: var(--color-fg-high);
+    font-variant-numeric: tabular-nums;
+  }
+  .progress-circle::before,
+  .progress-half::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: var(--_size);
+    height: var(--_size);
+    border-radius: var(--radius-full);
+    background: conic-gradient(var(--_fill) calc(var(--value) * 1%), var(--color-bg-neutral-high) 0);
+  }
+  .progress-circle::after,
+  .progress-half::after {
+    content: "";
+    position: absolute;
+    top: var(--_thickness);
+    left: var(--_thickness);
+    width: calc(var(--_size) - var(--_thickness) * 2);
+    height: calc(var(--_size) - var(--_thickness) * 2);
+    border-radius: var(--radius-full);
+    background-color: var(--color-bg-raised);
+  }
+  .progress-circle-value,
+  .progress-circle-sub { position: relative; z-index: 1; }
+  .progress-circle-value { font: var(--typo-label-small); }
+  .progress-circle-sub { color: var(--color-fg-low); font: var(--typo-caption); }
+
+  /* サイズ（Starter: xxsm 48 / xsm 64 / sm 96 / md 128） */
+  .progress-circle-sm { --_size: 48px; --_thickness: 4px; }
+  .progress-circle-md { --_size: 64px; --_thickness: 6px; }
+  .progress-circle-lg { --_size: 96px; --_thickness: 8px; }
+  .progress-circle-xl { --_size: 128px; --_thickness: 10px; }
+  .progress-circle-sm .progress-circle-value { font: var(--typo-caption-strong); }
+  .progress-circle-lg .progress-circle-value { font: var(--typo-heading-md); }
+  .progress-circle-xl .progress-circle-value { font: var(--typo-heading-xl); }
+  /* 「完了」などの補足は lg 以上だけ（小さい円には収まらない） */
+  .progress-circle-sm .progress-circle-sub,
+  .progress-circle-md .progress-circle-sub { display: none; }
+
+  /* 半円: 上半分だけ見せ、塗りは左端（-90°）から 180° の範囲で進める */
+  .progress-half {
+    height: calc(var(--_size) / 2);
+    justify-content: flex-end;
+    overflow: hidden;
+  }
+  .progress-half::before {
+    background: conic-gradient(from -90deg, var(--_fill) calc(var(--value) * 1.8deg), var(--color-bg-neutral-high) 0 180deg, transparent 0);
+  }
+
+  /* 強制カラーモード: 塗りの背景が消えるため、ネイティブのバーは輪郭を出し、円は輪郭だけ残す。
+   * ※ システムカラーキーワードはハードコード禁止の例外 (DESIGN.md)。 */
+  @media (forced-colors: active) {
+    .progress { border: 1px solid CanvasText; }
+    .progress-circle::before,
+    .progress-half::before { forced-color-adjust: none; background: conic-gradient(Highlight calc(var(--value) * 1%), Canvas 0); border: 1px solid CanvasText; }
+    .progress-half::before { background: conic-gradient(from -90deg, Highlight calc(var(--value) * 1.8deg), Canvas 0 180deg, transparent 0); }
+    .progress-circle::after,
+    .progress-half::after { forced-color-adjust: none; background-color: Canvas; }
+  }
+}

@@ -1,0 +1,159 @@
+/*
+ * Date Picker
+ *
+ * 機能:
+ *   日付を入力する欄（input-group + カレンダーのボタン）と、開いて選ぶカレンダー（calendar）。
+ *   1日の選択と、期間（開始日〜終了日）の選択に使う（Starter の Date Picker / Calendar / Dates）。
+ *   日付の並び・月送り・開閉はプロダクト側の JS が描く。DS はその見た目と状態の表し方を決める。
+ *
+ * 使用法:
+ *   OK: 入力欄は直接の入力（2026/10/07）も受け付け、カレンダーは補助にする。書式は support text で示す。
+ *   OK: 選べない日（締切後・休業日）は disabled、前後の月の日は data-outside で薄く表示する。
+ *   OK: 期間の選択は、開始日と終了日に aria-selected="true"、間の日に data-range="middle" を付ける。
+ *   OK: 曜日の並びは日曜はじまりを既定にする（業務の慣習が月曜はじまりなら合わせる）。
+ *   NG: 生年月日など遠い過去の日付をカレンダーだけで選ばせない → 年・月を select で選べるようにするか、直接入力。
+ *   NG: 土日を色だけで区別しない（区別が必要なら曜日の見出しで示す）。
+ *
+ * アクセシビリティ:
+ *   カレンダーを開くボタンには aria-label（例: 「カレンダーを開く」）と aria-expanded を付ける
+ *   カレンダーは <table role="grid">、曜日は <th scope="col" abbr="日曜日">、日付は <button>
+ *   選択中の日は aria-selected="true"、今日は aria-current="date"、ボタンの aria-label は「2026年10月7日」のように完全な日付
+ *   矢印キーで日付を移動し、Enter / Space で選ぶ。Esc で閉じて、フォーカスを開くボタンに戻す（JS 側で実装）
+ *   日付セルは 32px（Starter の 24px より大きく、WCAG 2.5.8 の 24px 以上を余裕を持って満たす）
+ *
+ * Usage:
+ *   <div class="date-picker">
+ *     <div class="input-group input-group-md">
+ *       <input class="input-group-field" aria-label="納品日" placeholder="2026/10/07">
+ *       <button type="button" class="input-group-tab" aria-label="カレンダーを開く" aria-expanded="true">
+ *         <svg class="icon icon-sm" aria-hidden="true"><use href="dist/icons.svg#lucide-calendar"></use></svg>
+ *       </button>
+ *     </div>
+ *     <div class="date-picker-popover">
+ *       <div class="calendar">
+ *         <div class="calendar-nav">
+ *           <button type="button" class="icon-btn icon-btn-sm icon-btn-neutral icon-btn-ghost" aria-label="前の月">…</button>
+ *           <p class="calendar-title" aria-live="polite">2026年10月</p>
+ *           <button type="button" class="icon-btn icon-btn-sm icon-btn-neutral icon-btn-ghost" aria-label="次の月">…</button>
+ *         </div>
+ *         <table class="calendar-grid" role="grid" aria-label="2026年10月">
+ *           <thead><tr><th scope="col" abbr="日曜日">日</th>…</tr></thead>
+ *           <tbody><tr><td><button type="button" class="calendar-day" aria-label="2026年10月7日" aria-selected="true">7</button></td>…</tr></tbody>
+ *         </table>
+ *       </div>
+ *     </div>
+ *   </div>
+ */
+
+@layer components {
+  .date-picker { position: relative; display: block; width: 100%; }
+  .date-picker-popover {
+    position: absolute;
+    z-index: 10;
+    top: 100%;
+    left: 0;
+    margin-top: calc(var(--spacing) * 1);
+  }
+  .date-picker-popover[hidden] { display: none; }
+
+  /* ===== カレンダー（Starter の Calendar: 白地・淡い枠・角丸 8・内側 12px） ===== */
+  .calendar {
+    display: inline-flex;
+    flex-direction: column;
+    gap: calc(var(--spacing) * 3);
+    padding: calc(var(--spacing) * 3);
+    border: 1px solid var(--color-stroke-middle);
+    border-radius: var(--radius-md);
+    background-color: var(--color-bg-overlay);
+    box-shadow: var(--shadow-md);
+  }
+  /* 画面に置いたままにするカレンダー（予約画面など）は影を付けない */
+  .calendar-inline { box-shadow: none; }
+
+  .calendar-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: calc(var(--spacing) * 2);
+  }
+  .calendar-nav-group { display: flex; gap: calc(var(--spacing) * 1); }
+  .calendar-title {
+    margin: 0;
+    color: var(--color-fg-high);
+    font: var(--typo-label);
+  }
+
+  .calendar-grid {
+    border-collapse: separate;
+    border-spacing: calc(var(--spacing) * 1);
+    margin: calc(var(--spacing) * -1);  /* border-spacing の外側の分を打ち消して、見出しと端をそろえる */
+  }
+  .calendar-grid th {
+    padding: 0;
+    color: var(--color-fg-low);
+    text-align: center;
+    font: var(--typo-caption);
+  }
+  .calendar-grid td { padding: 0; text-align: center; }
+
+  /* ===== 日付（Starter の Dates: default / current / hover / focus / selected / disabled） ===== */
+  .calendar-day {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    background-color: transparent;
+    color: var(--color-fg-high);
+    cursor: pointer;
+    font: var(--typo-body);
+    font-variant-numeric: tabular-nums;
+    transition: background-color 150ms, border-color 150ms;
+  }
+  .calendar-day:hover:not(:disabled) { background-color: var(--color-bg-neutral-low); }
+  .calendar-day:active:not(:disabled) { background-color: var(--color-bg-neutral-middle); }
+  .calendar-day:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-outline-offset);
+  }
+  /* 今日 */
+  .calendar-day[aria-current="date"] { border-color: var(--color-stroke-primary); }
+  /* 期間の間の日（Starter の range: 淡い面。前後の月の日と区別できるよう一段濃くする） */
+  .calendar-day[data-range="middle"] { background-color: var(--color-bg-primary-muted); }
+  .calendar-day[data-range="middle"]:hover:not(:disabled) { background-color: var(--color-bg-neutral-high); }
+  /* 選択中（1日の選択・期間の開始日と終了日） */
+  .calendar-day[aria-selected="true"] {
+    background-color: var(--color-bg-primary);
+    border-color: var(--color-bg-primary);
+    color: var(--color-fg-on-primary);
+  }
+  .calendar-day[aria-selected="true"]:hover:not(:disabled) { background-color: var(--color-bg-primary-hover); }
+  .calendar-day[aria-selected="true"]:active:not(:disabled) { background-color: var(--color-bg-primary-pressed); }
+  /* 前後の月の日・選べない日。Starter は淡い面で塗るが、期間の塗りと見分けにくいため文字を薄くするだけにする */
+  .calendar-day[data-outside],
+  .calendar-day:disabled { color: var(--color-fg-disabled); }
+  .calendar-day:disabled { text-decoration: line-through; }  /* 選べないことを色以外でも示す */
+  .calendar-day:disabled { cursor: not-allowed; }
+
+  /* 強制カラーモード: 選択の塗りが消えるため選択色で塗り直す。
+   * ※ システムカラーキーワードはハードコード禁止の例外 (DESIGN.md)。 */
+  @media (forced-colors: active) {
+    .calendar { border-color: CanvasText; }
+    .calendar-day[aria-selected="true"] {
+      forced-color-adjust: none;
+      background-color: Highlight;
+      border-color: Highlight;
+      color: HighlightText;
+    }
+    .calendar-day[aria-current="date"] { border-color: CanvasText; }
+    .calendar-day:disabled { color: GrayText; }
+    .calendar-day:focus-visible {
+      outline: 2px solid CanvasText;
+      outline-offset: 2px;
+    }
+  }
+}

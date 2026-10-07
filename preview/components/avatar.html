@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Avatar — Design System</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../../dist/ds.css">
+<link rel="stylesheet" href="../catalog.css">
+<script src="../theme-toggle.js"></script>
+<script src="../force-state.js"></script>
+</head>
+<body>
+  <header class="catalog-header">
+    <div><p class="catalog-header-title">Design System</p><p class="catalog-header-sub">Tailwind v4</p></div>
+  </header>
+  <p class="catalog-breadcrumb"><a href="../index.html">ホーム</a> &gt; Components &gt; Avatar</p>
+
+  <main class="catalog-main">
+    <div class="catalog-page-title-row">
+      <h1 class="typo-2xlarge">Avatar</h1>
+      <span class="badge badge-soft-primary">component</span>
+    </div>
+    <p class="catalog-page-desc typo-medium">人・組織を表す丸い画像です。写真・イニシャル・アイコンの3種類と、状態の点・所属のロゴ、名前と並べる版、重ねて並べる版があります。</p>
+
+    <div class="catalog-tabs" role="tablist" id="page-tabs">
+      <button class="catalog-tab" role="tab" aria-selected="true" data-panel="overview">概要</button>
+      <button class="catalog-tab" role="tab" aria-selected="false" data-panel="guideline">ガイドライン</button>
+      <button class="catalog-tab" role="tab" aria-selected="false" data-panel="a11y">アクセシビリティ</button>
+    </div>
+
+    <div data-tabpanel="overview">
+      <div class="catalog-card">
+        <div class="catalog-card-header"><p class="catalog-card-title">size</p><p class="catalog-card-note">Starter の md / lg / xl / xxl / huge</p></div>
+        <div class="catalog-state-row"><span class="catalog-state-label">sm / md / lg / xl / 2xl</span><div><span style="display:inline-flex;gap:16px;align-items:center"><span class="avatar avatar-sm"><img class="avatar-image" src="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 40 40%27%3E%3Crect width=%2740%27 height=%2740%27 fill=%27%23a4b1c0%27/%3E%3Ccircle cx=%2720%27 cy=%2716%27 r=%277%27 fill=%27%23f0f3f7%27/%3E%3Cpath d=%27M6 38c2-8 8-12 14-12s12 4 14 12z%27 fill=%27%23f0f3f7%27/%3E%3C/svg%3E" alt="山田 花子（sm）"></span><span class="avatar avatar-md"><img class="avatar-image" src="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 40 40%27%3E%3Crect width=%2740%27 height=%2740%27 fill=%27%23a4b1c0%27/%3E%3Ccircle cx=%2720%27 cy=%2716%27 r=%277%27 fill=%27%23f0f3f7%27/%3E%3Cpath d=%27M6 38c2-8 8-12 14-12s12 4 14 12z%27 fill=%27%23f0f3f7%27/%3E%3C/svg%3E" alt="山田 花子（md）"></span><span class="avatar avatar-lg"><img class="avatar-image" src="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 40 40%27%3E%3Crect width=%2740%27 height=%2740%27 fill=%27%23a4b1c0%27/%3E%3Ccircle cx=%2720%27 cy=%2716%27 r=%277%27 fill=%27%23f0f3f7%27/%3E%3Cpath d=%27M6 38c2-8 8-12 14-12s12 4 14 12z%27 fill=%27%23f0f3f7%27/%3E%3C/svg%3E" alt="山田 花子（lg）"></span><span class="avatar avatar-xl"><img class="avatar-image" src="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 40 40%27%3E%3Crect width=%2740%27 height=%2740%27 fill=%27%23a4b1c0%27/%3E%3Ccircle cx=%2720%27 cy=%2716%27 r=%277%27 fill=%27%23f0f3f7%27/%3E%3Cpath d=%27M6 38c2-8 8-12 14-12s12 4 14 12z%27 fill=%27%23f0f3f7%27/%3E%3C/svg%3E" alt="山田 花子（xl）"></span><span class="avatar avatar-2xl"><img class="avatar-image" src="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 40 40%27%3E%3Crect width=%2740%27 height=%2740%27 fill=%27%23a4b1c0%27/%3E%3Ccircle cx=%2720%27 cy=%2716%27 r=%277%27 fill=%27%23f0f3f7%27/%3E%3Cpath d=%27M6 38c2-8 8-12 14-12s12 4 14 12z%27 fill=%27%23f0f3f7%27/%3E%3C/svg%3E" alt="山田 花子（2xl）"></span></span></div><span class="catalog-state-note">24 / 36 / 48 / 64 / 96px</span></div>
+      </div>
+
+      <div class="catalog-card">
+        <div class="catalog-card-header"><p class="catalog-card-title">種類・状態の点</p></div>
+        <div class="catalog-state-row"><span class="catalog-state-label">写真 / イニシャル / アイコン</span><div><span style="display:inline-flex;gap:16px;align-items:center"><span class="avatar avatar-lg"><img class="avatar-image" src="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 40 40%27%3E%3Crect width=%2740%27 height=%2740%27 fill=%27%23a4b1c0%27/%3E%3Ccircle cx=%2720%27 cy=%2716%27 r=%277%27 fill=%27%23f0f3f7%27/%3E%3Cpath d=%27M6 38c2-8 8-12 14-12s12 4 14 12z%27 fill=%27%23f0f3f7%27/%3E%3C/svg%3E" alt="山田 花子"></span><span class="avatar avatar-lg" role="img" aria-label="山田 花子">山</span><span class="avatar avatar-lg" role="img" aria-label="外部連携"><svg class="icon" aria-hidden="true"><use href="../icons.svg#lucide-user"></use></svg></span></span></div></div>
+        <div class="catalog-state-row"><span class="catalog-state-label">状態の点</span><div><span style="display:inline-flex;gap:16px;align-items:center"><span class="avatar avatar-lg" role="img" aria-label="山田 花子（オンライン）">山<span class="avatar-status avatar-status-online"></span></span><span class="avatar avatar-lg" role="img" aria-label="佐藤 一郎（離席中）">佐<span class="avatar-status avatar-status-idle"></span></span><span class="avatar avatar-lg" role="img" aria-label="鈴木 次郎（取り込み中）">鈴<span class="avatar-status avatar-status-busy"></span></span><span class="avatar avatar-lg" role="img" aria-label="高橋 三郎（オフライン）">高<span class="avatar-status avatar-status-offline"></span></span></span></div><span class="catalog-state-note">online / idle / busy / offline</span></div>
+      </div>
+
+      <div class="catalog-card">
+        <div class="catalog-card-header"><p class="catalog-card-title">名前と並べる・重ねて並べる</p></div>
+        <div class="catalog-state-row"><span class="catalog-state-label">avatar-label</span><div><div class="avatar-label"><span class="avatar avatar-md"><img class="avatar-image" src="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 40 40%27%3E%3Crect width=%2740%27 height=%2740%27 fill=%27%23a4b1c0%27/%3E%3Ccircle cx=%2720%27 cy=%2716%27 r=%277%27 fill=%27%23f0f3f7%27/%3E%3Cpath d=%27M6 38c2-8 8-12 14-12s12 4 14 12z%27 fill=%27%23f0f3f7%27/%3E%3C/svg%3E" alt=""></span><span class="avatar-label-text"><span class="avatar-label-name">山田 花子</span><span class="avatar-label-sub">営業部 マネージャー</span></span></div></div></div>
+        <div class="catalog-state-row"><span class="catalog-state-label">avatar-group</span><div><div class="avatar-group" role="group" aria-label="担当者 6人"><span class="avatar avatar-md" role="img" aria-label="山田 花子">山</span><span class="avatar avatar-md" role="img" aria-label="佐藤 一郎">佐</span><span class="avatar avatar-md" role="img" aria-label="鈴木 次郎">鈴</span><span class="avatar avatar-md" role="img" aria-label="ほか3人">+3</span></div></div><span class="catalog-state-note">+N で残りの人数</span></div>
+      </div>
+
+    </div>
+
+    <div data-tabpanel="guideline" hidden>
+      <div class="catalog-card">
+        <div class="catalog-card-header"><p class="catalog-card-title">使用法</p></div>
+        <div style="padding: 0 24px 24px;">
+          <p class="typo-medium" style="color:var(--color-fg-success); margin: 16px 0 4px;">OK</p>
+          <ul class="typo-medium" style="margin:0; padding-left:20px;">
+            <li>写真が無い人はイニシャル（日本語名は姓の1文字）、人以外はアイコンにする</li>
+            <li>表の行・コメントは sm、一覧のカードは md、詳細の見出しは lg 以上</li>
+            <li>3人を超える担当者は avatar-group で重ね、残りは「+N」で示す</li>
+          </ul>
+          <p class="typo-medium" style="color:var(--color-fg-negative-strong); margin: 16px 0 4px;">NG</p>
+          <ul class="typo-medium" style="margin:0; padding-left:20px;">
+            <li>状態を点の色だけで伝えない → aria-label にも状態を含める</li>
+            <li>1つの一覧の中でサイズを混ぜない</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div data-tabpanel="a11y" hidden>
+      <div class="catalog-card">
+        <div class="catalog-card-header"><p class="catalog-card-title">必須対応</p></div>
+        <div style="padding: 0 24px 24px;">
+          <ul class="typo-medium" style="margin:0; padding-left:20px;">
+            <li>写真の alt に人名。名前を横に表示しているときは alt=""</li>
+            <li>イニシャル・アイコンだけのときは role="img" と aria-label</li>
+            <li>押せるアバターは button / a で包む（フォーカスリングはその要素に出る）</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.getElementById('page-tabs').addEventListener('click', (e) => {
+      const btn = e.target.closest('.catalog-tab');
+      if (!btn) return;
+      document.querySelectorAll('#page-tabs .catalog-tab').forEach(t => t.setAttribute('aria-selected', String(t === btn)));
+      const target = btn.dataset.panel;
+      document.querySelectorAll('[data-tabpanel]').forEach(p => p.hidden = p.dataset.tabpanel !== target);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Progress — Design System</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../../dist/ds.css">
+<link rel="stylesheet" href="../catalog.css">
+<script src="../theme-toggle.js"></script>
+<script src="../force-state.js"></script>
+</head>
+<body>
+  <header class="catalog-header">
+    <div><p class="catalog-header-title">Design System</p><p class="catalog-header-sub">Tailwind v4</p></div>
+  </header>
+  <p class="catalog-breadcrumb"><a href="../index.html">ホーム</a> &gt; Components &gt; Progress</p>
+
+  <main class="catalog-main">
+    <div class="catalog-page-title-row">
+      <h1 class="typo-2xlarge">Progress</h1>
+      <span class="badge badge-soft-primary">component</span>
+    </div>
+    <p class="catalog-page-desc typo-medium">処理や作業の進み具合を示します。横長のバー・円・半円の3種類があります。終わりが分からない処理には使いません。</p>
+
+    <div class="catalog-tabs" role="tablist" id="page-tabs">
+      <button class="catalog-tab" role="tab" aria-selected="true" data-panel="overview">概要</button>
+      <button class="catalog-tab" role="tab" aria-selected="false" data-panel="guideline">ガイドライン</button>
+      <button class="catalog-tab" role="tab" aria-selected="false" data-panel="a11y">アクセシビリティ</button>
+    </div>
+
+    <div data-tabpanel="overview">
+      <div class="catalog-card">
+        <div class="catalog-card-header"><p class="catalog-card-title">バー</p><p class="catalog-card-note">Starter の Progress Bar（高さ 4px）</p></div>
+        <div class="catalog-state-row"><span class="catalog-state-label">既定</span><div><div class="progress-field" style="width:320px"><div class="progress-label"><span>アップロード</span><span>40%</span></div><progress class="progress" value="40" max="100" aria-label="アップロード">40%</progress></div></div></div>
+        <div class="catalog-state-row"><span class="catalog-state-label">完了</span><div><div class="progress-field" style="width:320px"><div class="progress-label"><span>登録</span><span>100%</span></div><progress class="progress progress-success" value="100" max="100" aria-label="登録">100%</progress></div></div><span class="catalog-state-note">progress-success</span></div>
+        <div class="catalog-state-row"><span class="catalog-state-label">遅れ</span><div><div class="progress-field" style="width:320px"><div class="progress-label"><span>今月の目標</span><span>30%</span></div><progress class="progress progress-warning" value="30" max="100" aria-label="今月の目標">30%</progress></div></div><span class="catalog-state-note">progress-warning</span></div>
+        <div class="catalog-state-row"><span class="catalog-state-label">超過</span><div><div class="progress-field" style="width:320px"><div class="progress-label"><span>容量</span><span>95%</span></div><progress class="progress progress-negative" value="95" max="100" aria-label="容量">95%</progress></div></div><span class="catalog-state-note">progress-negative</span></div>
+        <div class="catalog-state-row"><span class="catalog-state-label">lg</span><div><div class="progress-field" style="width:320px"><div class="progress-label"><span>手順 2 / 5</span><span>40%</span></div><progress class="progress progress-lg" value="40" max="100" aria-label="手順 2 / 5">40%</progress></div></div><span class="catalog-state-note">高さ 8px</span></div>
+      </div>
+
+      <div class="catalog-card">
+        <div class="catalog-card-header"><p class="catalog-card-title">円</p><p class="catalog-card-note">Starter の Progress Circle</p></div>
+        <div class="catalog-state-row"><span class="catalog-state-label">sm / md / lg / xl</span><div><span style="display:inline-flex;gap:16px;align-items:center"><div class="progress-circle progress-circle-sm" role="progressbar" aria-label="達成率" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="--value: 30"><span class="progress-circle-value">30%</span></div><div class="progress-circle progress-circle-md" role="progressbar" aria-label="達成率" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="--value: 60"><span class="progress-circle-value">60%</span></div><div class="progress-circle progress-circle-lg" role="progressbar" aria-label="達成率" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="--value: 75"><span class="progress-circle-value">75%</span><span class="progress-circle-sub">完了</span></div><div class="progress-circle progress-circle-xl progress-success" role="progressbar" aria-label="達成率" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="--value: 90"><span class="progress-circle-value">90%</span><span class="progress-circle-sub">完了</span></div></span></div><span class="catalog-state-note">48 / 64 / 96 / 128px</span></div>
+      </div>
+
+      <div class="catalog-card">
+        <div class="catalog-card-header"><p class="catalog-card-title">半円</p></div>
+        <div class="catalog-state-row"><span class="catalog-state-label">md / lg / xl</span><div><span style="display:inline-flex;gap:16px;align-items:center"><div class="progress-half progress-circle-md" role="progressbar" aria-label="達成率" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="--value: 40"><span class="progress-circle-value">40%</span></div><div class="progress-half progress-circle-lg" role="progressbar" aria-label="達成率" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="--value: 70"><span class="progress-circle-value">70%</span></div><div class="progress-half progress-circle-xl" role="progressbar" aria-label="達成率" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="--value: 100"><span class="progress-circle-value">100%</span></div></span></div><span class="catalog-state-note">Starter の Half-Circle</span></div>
+      </div>
+
+    </div>
+
+    <div data-tabpanel="guideline" hidden>
+      <div class="catalog-card">
+        <div class="catalog-card-header"><p class="catalog-card-title">使用法</p></div>
+        <div style="padding: 0 24px 24px;">
+          <p class="typo-medium" style="color:var(--color-fg-success); margin: 16px 0 4px;">OK</p>
+          <ul class="typo-medium" style="margin:0; padding-left:20px;">
+            <li>進み具合を数字でも示す（progress-label か、円の中の %）</li>
+            <li>色の意味: success は完了、warning は遅れ、negative は失敗・超過。既定はチャコール</li>
+            <li>円・半円はダッシュボードの指標、バーはフォーム・アップロード・一覧の行内</li>
+          </ul>
+          <p class="typo-medium" style="color:var(--color-fg-negative-strong); margin: 16px 0 4px;">NG</p>
+          <ul class="typo-medium" style="margin:0; padding-left:20px;">
+            <li>終わりが分からない処理に使わない → input-group-loader や btn の data-loading</li>
+            <li>色の違いだけで状態を伝えない</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div data-tabpanel="a11y" hidden>
+      <div class="catalog-card">
+        <div class="catalog-card-header"><p class="catalog-card-title">必須対応</p></div>
+        <div style="padding: 0 24px 24px;">
+          <ul class="typo-medium" style="margin:0; padding-left:20px;">
+            <li>バーはネイティブの &lt;progress value max&gt; を使い、aria-label か &lt;label for&gt; で名前を付ける</li>
+            <li>円・半円は role="progressbar" と aria-valuenow / min / max、aria-label</li>
+            <li>塗りと下地は 3:1 以上</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.getElementById('page-tabs').addEventListener('click', (e) => {
+      const btn = e.target.closest('.catalog-tab');
+      if (!btn) return;
+      document.querySelectorAll('#page-tabs .catalog-tab').forEach(t => t.setAttribute('aria-selected', String(t === btn)));
+      const target = btn.dataset.panel;
+      document.querySelectorAll('[data-tabpanel]').forEach(p => p.hidden = p.dataset.tabpanel !== target);
+    });
+  </script>
+</body>
+</html>

@@ -9,5 +9,6 @@ export const SPACING_EXCEPTIONS = [
   { file: "accordion.css", selector: ".accordion-panel", prop: "padding", value: "左 44px（× 11）", reason: "トリガーのアイコン幅＋gap に本文の開始位置を揃える" },
   { file: "tab.css", selector: ".tab", prop: "margin-bottom", value: "-1px", reason: "タブの下線を、タブ列の下枠線に重ねる" },
   { file: "tab.css", selector: '.tab[aria-selected="true"]', prop: "padding-bottom", value: "8px - 3px", reason: "選択時に下線が 1px → 4px に太くなる分を引き、タブの高さを揃える" },
+  { file: "section-header.css", selector: ".section-header > .tabs", prop: "margin-bottom", value: "-1px", reason: "タブの下線を、セクション見出しの下枠線に重ねる（tab.css の -1px と同じ理由）" },
   { file: "stepper.css", selector: ".stepper-step + .stepper-step::before", prop: "top", value: "15px", reason: "32px のマーカーの中心（16px）に 2px の線を通す" },
 ];

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>File Upload — Design System</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../../dist/ds.css">
+<link rel="stylesheet" href="../catalog.css">
+<script src="../theme-toggle.js"></script>
+<script src="../force-state.js"></script>
+</head>
+<body>
+  <header class="catalog-header">
+    <div><p class="catalog-header-title">Design System</p><p class="catalog-header-sub">Tailwind v4</p></div>
+  </header>
+  <p class="catalog-breadcrumb"><a href="../index.html">ホーム</a> &gt; Components &gt; File Upload</p>
+
+  <main class="catalog-main">
+    <div class="catalog-page-title-row">
+      <h1 class="typo-2xlarge">File Upload</h1>
+      <span class="badge badge-soft-primary">component</span>
+    </div>
+    <p class="catalog-page-desc typo-medium">ファイルを選ぶ・ドロップする受け口と、選んだファイルの一覧です。中身はネイティブの &lt;input type="file"&gt; で、ドラッグ中の表示とアップロード処理はプロダクト側の JS が行います。</p>
+
+    <div class="catalog-tabs" role="tablist" id="page-tabs">
+      <button class="catalog-tab" role="tab" aria-selected="true" data-panel="overview">概要</button>
+      <button class="catalog-tab" role="tab" aria-selected="false" data-panel="guideline">ガイドライン</button>
+      <button class="catalog-tab" role="tab" aria-selected="false" data-panel="a11y">アクセシビリティ</button>
+    </div>
+
+    <div data-tabpanel="overview">
+      <div class="catalog-card">
+        <div class="catalog-card-header"><p class="catalog-card-title">受け口</p><p class="catalog-card-note">Starter の File Upload</p></div>
+        <div class="catalog-state-row"><span class="catalog-state-label">既定</span><div><div class="file-upload" style="width:360px"><svg class="icon file-upload-icon" aria-hidden="true"><use href="../icons.svg#lucide-cloud-upload"></use></svg><p class="file-upload-title">ファイルをドロップ</p><p class="file-upload-hint" id="fu-h1">またはクリックして選択（PDF・JPEG・PNG、10MBまで）</p><input type="file" class="file-upload-input" aria-label="ファイルを選択" aria-describedby="fu-h1"></div></div></div>
+        <div class="catalog-state-row"><span class="catalog-state-label">ドラッグ中</span><div><div class="file-upload" data-dragover style="width:360px"><svg class="icon file-upload-icon" aria-hidden="true"><use href="../icons.svg#lucide-cloud-upload"></use></svg><p class="file-upload-title">ここにドロップ</p><p class="file-upload-hint" id="fu-h2">PDF・JPEG・PNG、10MBまで</p><input type="file" class="file-upload-input" aria-label="ファイルを選択" aria-describedby="fu-h2"></div></div><span class="catalog-state-note">data-dragover</span></div>
+        <div class="catalog-state-row"><span class="catalog-state-label">完了</span><div><div class="file-upload file-upload-complete" style="width:360px"><svg class="icon file-upload-icon" aria-hidden="true"><use href="../icons.svg#lucide-check"></use></svg><p class="file-upload-title">アップロードが完了しました</p><p class="file-upload-hint" id="fu-h3">見積書.pdf（1.2MB）</p><input type="file" class="file-upload-input" aria-label="ファイルを選択" aria-describedby="fu-h3"></div></div><span class="catalog-state-note">file-upload-complete</span></div>
+        <div class="catalog-state-row"><span class="catalog-state-label">失敗</span><div><div class="file-upload file-upload-error" style="width:360px"><svg class="icon file-upload-icon" aria-hidden="true"><use href="../icons.svg#lucide-alert-circle"></use></svg><p class="file-upload-title">アップロードできませんでした</p><p class="file-upload-hint" id="fu-h4">10MBを超えています。ファイルを小さくしてもう一度お試しください</p><input type="file" class="file-upload-input" aria-label="ファイルを選択" aria-describedby="fu-h4"></div></div><span class="catalog-state-note">file-upload-error</span></div>
+        <div class="catalog-state-row"><span class="catalog-state-label">無効</span><div><div class="file-upload" style="width:360px"><svg class="icon file-upload-icon" aria-hidden="true"><use href="../icons.svg#lucide-cloud-upload"></use></svg><p class="file-upload-title">ファイルをドロップ</p><p class="file-upload-hint" id="fu-h5">上限の5件に達しています</p><input type="file" class="file-upload-input" aria-label="ファイルを選択" aria-describedby="fu-h5" disabled></div></div><span class="catalog-state-note">input:disabled</span></div>
+        <div class="catalog-state-row"><span class="catalog-state-label">横長1行</span><div><div class="file-upload file-upload-compact" style="width:360px"><div class="file-upload-text"><p class="file-upload-title">ファイルをドロップ</p><p class="file-upload-hint" id="fu-hc">またはクリックして選択（PDF、10MBまで）</p></div><svg class="icon file-upload-icon" aria-hidden="true"><use href="../icons.svg#lucide-cloud-upload"></use></svg><input type="file" class="file-upload-input" aria-label="ファイルを選択" aria-describedby="fu-hc"></div></div><span class="catalog-state-note">file-upload-compact</span></div>
+      </div>
+
+      <div class="catalog-card">
+        <div class="catalog-card-header"><p class="catalog-card-title">選んだファイル</p></div>
+        <div class="catalog-state-row"><span class="catalog-state-label">一覧</span><div><ul class="file-list" style="width:360px"><li class="file-item"><svg class="icon file-item-icon" aria-hidden="true"><use href="../icons.svg#lucide-file"></use></svg><div class="file-item-body"><span class="file-item-name">見積書_2026年10月.pdf</span><span class="file-item-meta">1.2MB・アップロード完了</span></div><button type="button" class="icon-btn icon-btn-sm icon-btn-neutral icon-btn-ghost" aria-label="見積書_2026年10月.pdf をダウンロード"><svg class="icon icon-sm" aria-hidden="true"><use href="../icons.svg#lucide-download"></use></svg></button></li><li class="file-item"><svg class="icon file-item-icon" aria-hidden="true"><use href="../icons.svg#lucide-file"></use></svg><div class="file-item-body"><span class="file-item-name">契約書.pdf</span><progress class="progress" value="60" max="100" aria-label="契約書.pdf のアップロード">60%</progress><span class="file-item-meta">2.4MB・残り約12秒</span></div><button type="button" class="icon-btn icon-btn-sm icon-btn-neutral icon-btn-ghost" aria-label="契約書.pdf をキャンセル"><svg class="icon icon-sm" aria-hidden="true"><use href="../icons.svg#lucide-x"></use></svg></button></li><li class="file-item file-item-error"><svg class="icon file-item-icon" aria-hidden="true"><use href="../icons.svg#lucide-file"></use></svg><div class="file-item-body"><span class="file-item-name">請求書.xlsx</span><span class="file-item-meta">対応していない形式です（PDF・JPEG・PNG のみ）</span></div><button type="button" class="icon-btn icon-btn-sm icon-btn-neutral icon-btn-ghost" aria-label="請求書.xlsx を削除"><svg class="icon icon-sm" aria-hidden="true"><use href="../icons.svg#lucide-x"></use></svg></button></li></ul></div><span class="catalog-state-note">完了 / アップロード中 / 失敗</span></div>
+      </div>
+
+    </div>
+
+    <div data-tabpanel="guideline" hidden>
+      <div class="catalog-card">
+        <div class="catalog-card-header"><p class="catalog-card-title">使用法</p></div>
+        <div style="padding: 0 24px 24px;">
+          <p class="typo-medium" style="color:var(--color-fg-success); margin: 16px 0 4px;">OK</p>
+          <ul class="typo-medium" style="margin:0; padding-left:20px;">
+            <li>受け付ける形式と上限サイズを file-upload-hint に必ず書く</li>
+            <li>狭いフォームの中は file-upload-compact、添付が主役の画面は既定</li>
+            <li>アップロード中は行ごとに progress、失敗は file-item-error と直し方を出す</li>
+          </ul>
+          <p class="typo-medium" style="color:var(--color-fg-negative-strong); margin: 16px 0 4px;">NG</p>
+          <ul class="typo-medium" style="margin:0; padding-left:20px;">
+            <li>失敗の理由を「エラー」だけにしない</li>
+            <li>アップロード中に画面全体を止めない</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div data-tabpanel="a11y" hidden>
+      <div class="catalog-card">
+        <div class="catalog-card-header"><p class="catalog-card-title">必須対応</p></div>
+        <div style="padding: 0 24px 24px;">
+          <ul class="typo-medium" style="margin:0; padding-left:20px;">
+            <li>&lt;input type="file"&gt; を受け口いっぱいに重ね、クリック・キーボードでも選べるようにする</li>
+            <li>入力に aria-describedby で形式・上限を関連付ける</li>
+            <li>結果は role="status"（成功）/ role="alert"（失敗）で読み上げる</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.getElementById('page-tabs').addEventListener('click', (e) => {
+      const btn = e.target.closest('.catalog-tab');
+      if (!btn) return;
+      document.querySelectorAll('#page-tabs .catalog-tab').forEach(t => t.setAttribute('aria-selected', String(t === btn)));
+      const target = btn.dataset.panel;
+      document.querySelectorAll('[data-tabpanel]').forEach(p => p.hidden = p.dataset.tabpanel !== target);
+    });
+  </script>
+</body>
+</html>
