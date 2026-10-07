@@ -8,20 +8,13 @@ name: Deploy MCP Worker to Cloudflare
 #   CLOUDFLARE_API_TOKEN   — "Edit Cloudflare Workers" テンプレートで作ったトークン
 #   CLOUDFLARE_ACCOUNT_ID  — wrangler whoami で出る Account ID
 
+# 現在は自動デプロイを止めている（手動実行のみ）。
+#   このリポジトリにはデプロイ先の Cloudflare アカウント（secrets）が無く、push のたびに失敗していたため。
+#   再開するときは、wrangler.toml の name を自分のワーカー名にし、上の secrets を登録したうえで、
+#   以下の push トリガーを戻す:
+#     push: branches: [main]、paths: src/mcp/** / src/components/** / src/index.css / tokens/** /
+#           DESIGN.md / package.json / scripts/build-mcp-files.mjs / wrangler.toml / このファイル
 on:
-  push:
-    branches: [main]
-    paths:
-      # handlers.mjs の SOURCE_FILES が読むファイル + worker 自体
-      - "src/mcp/**"
-      - "src/components/**"
-      - "src/index.css"
-      - "tokens/**"
-      - "DESIGN.md"
-      - "package.json"
-      - "scripts/build-mcp-files.mjs"
-      - "wrangler.toml"
-      - ".github/workflows/deploy-mcp-worker.yml"
   workflow_dispatch:
 
 # 1回ずつ順番に（進行中のデプロイはキャンセルしない）
