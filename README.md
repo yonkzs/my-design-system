@@ -145,19 +145,20 @@ GitHub Pages では、カタログの右上の「Sandbox」から公開の見本
 
 AI（Claude Code等）にこのDSのコンポーネント仕様・トークン・原則を直接読ませるMCPサーバーです（`src/mcp/`、ツールは3つ: `get_component` / `get_tokens` / `get_design_principles`）。
 
-### 使う人（URLを登録するだけ・Node不要）
+### 使う人
 
 ```bash
-claude mcp add --transport http ds-mcp https://my-design-system-mcp.shingai-6ba.workers.dev/mcp --scope user
+# リポジトリをクローンしたうえで、ルートで実行（DSを直すと即反映）
+claude mcp add ds-mcp --scope project -- node "$(pwd)/src/mcp/server.mjs"
 ```
 
-- claude.ai: Settings → Connectors → Add custom connector → 上記URL（認証なし）
-- CSS は `<link rel="stylesheet" href="https://shingai-alt.github.io/my-design-system/dist/ds.css">` の1行
+- CSS は `<link rel="stylesheet" href="https://yonkzs.github.io/my-design-system/dist/ds.css">` の1行
+- リモート版（URLを登録するだけで使える版）は、公開の範囲を決めるまで止めている（下記）
 
 ### メンテナ向け
 
 - ローカル版（DSを直すと即反映。開発中の確認用）: `claude mcp add ds-mcp --scope project -- node "$(pwd)/src/mcp/server.mjs"`（`.mcp.json` は絶対パスを含むため gitignore 対象）
-- リモート版は Cloudflare Workers（[src/mcp/worker.mjs](src/mcp/worker.mjs)）。ロジックは `handlers.mjs` をローカル版と共有し、データはデプロイ時に `dist/mcp-files.json` に固める。`main` への push で、データの正本（components / tokens / DESIGN.md 等）が変わっていれば GitHub Actions が自動デプロイする（[deploy-mcp-worker.yml](.github/workflows/deploy-mcp-worker.yml)）。
+- リモート版は Cloudflare Workers（[src/mcp/worker.mjs](src/mcp/worker.mjs)）。**現在は止めている**（自動デプロイは無効。デプロイ先の Cloudflare アカウントと公開の範囲が決まったら、`wrangler.toml` の `name` と repo secrets を設定し、[deploy-mcp-worker.yml](.github/workflows/deploy-mcp-worker.yml) の push トリガーを戻す）。ロジックは `handlers.mjs` をローカル版と共有し、データはデプロイ時に `dist/mcp-files.json` に固める。
 
 ```bash
 npm run dev:mcp-remote   # ローカル確認（http://localhost:8787/mcp）
