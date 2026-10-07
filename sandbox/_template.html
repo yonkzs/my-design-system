@@ -12,7 +12,8 @@
 </head>
 <body>
   <!--
-    サンドボックスの画面のひな形。npm run sandbox:new で、このファイルから sandbox/screens/<名前>.html が作られる。
+    サンドボックスの画面のひな形。npm run sandbox:new で、このファイルから sandbox/private/<名前>.html（非公開）が作られる。
+    ・リポジトリは public。機密情報（実在の会社名・人名・金額・画面仕様など）を含む画面は sandbox/private/ 以外に置かない
     ・画面の中身は DS の部品（src/components/*.css の先頭コメントに使い方）と utility（p-4 / gap-6 / grid-cols-2 など）だけで組む
     ・色・余白・文字の大きさを style="…" で直書きしない（DS のトークン・部品で表せないなら、それは DS に足りないものとしてメモする）
     ・アイコンは ../../dist/icons.svg#lucide-<名前>（一覧は docs/ICONS.md）

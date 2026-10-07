@@ -2,6 +2,11 @@
 
 DS の部品を組み合わせて、任意の画面を作って試す場所です。本番のコードではありません。
 
+> [!WARNING]
+> このリポジトリは **public** です。コミットしたファイルは誰でも読めます（GitHub Pages を止めても、リポジトリ上で読めます）。
+> 案件の画面・機密情報（実在の会社名・人名・金額・未公開の仕様など）は、必ず `sandbox/private/` に置いてください。
+> `sandbox/private/` は gitignore 済みで、コミットにも GitHub Pages にも入りません。
+
 - 部品の組み合わせ方・密度・余白のリズムを、実際の画面の形で確かめる
 - DS に足りない部品やトークンを見つける（見つけたら DS 側に足す）
 - クライアント・PM・エンジニアに画面の形で見せる
@@ -21,7 +26,8 @@ npm run sandbox:new -- <名前> "<画面名>" ["<説明>"]
 npm run sandbox:new -- invoice-list "請求一覧" "請求書を確認・送付する画面"
 ```
 
-`sandbox/screens/<名前>.html` ができ、一覧（`sandbox/index.html`）に自動で載ります。`<名前>` は半角英小文字・数字・ハイフンだけ（ファイル名と URL になるため）。
+`sandbox/private/<名前>.html`（非公開）ができ、一覧（`sandbox/index.html`）に「非公開」として自動で載ります。
+架空のデータだけで作る公開の見本は、末尾に `--public` を付けると `sandbox/screens/` に作られます。`<名前>` は半角英小文字・数字・ハイフンだけ（ファイル名と URL になるため）。
 あとはそのファイルを編集し、ブラウザで再読み込みして確認します。
 
 ## ルール
@@ -29,6 +35,7 @@ npm run sandbox:new -- invoice-list "請求一覧" "請求書を確認・送付�
 | | 内容 |
 |---|---|
 | OK | 画面の中身は DS の部品（`src/components/*.css` の先頭コメントに完成形 HTML）と utility（`p-4` `gap-6` `grid-cols-2` など）だけで組む |
+| NG | 機密情報を `private/` 以外に置かない → リポジトリが public なので、コミットした時点で公開される。消しても git の履歴に残る |
 | OK | アイコンは `../../dist/icons.svg#lucide-<名前>`（一覧は [docs/ICONS.md](../docs/ICONS.md)） |
 | OK | 状態（空・エラー・読み込み中・権限なし・長文）も同じ画面か別の画面で作っておく |
 | NG | `style="…"` や独自の CSS で色・余白・文字の大きさを直書きしない → DS で表せないなら、それは DS に足りないものとしてメモする |
@@ -40,7 +47,8 @@ npm run sandbox:new -- invoice-list "請求一覧" "請求書を確認・送付�
 
 | ファイル | 内容 |
 |---|---|
-| `screens/*.html` | 画面。1ファイル1画面 |
+| `private/*.html` | 非公開の画面。1ファイル1画面。gitignore 済みで、手元の PC にだけある（共有・バックアップは Figma や社内ストレージなど別の手段で） |
+| `screens/*.html` | 公開の見本。架空のデータだけで作る。GitHub と GitHub Pages で誰でも見られる |
 | `_template.html` | `sandbox:new` が使うひな形（上部バー・サイドバー・ページ見出し・カード） |
 | `sandbox.css` | 画面の枠（上部バー・サイドバー・本文）だけ。値はすべて DS のトークン |
 | `sandbox.js` | ライト / ダークの切り替え（カタログと同じ設定を共有）、`data-indeterminate` の checkbox を中間状態にする |
@@ -51,4 +59,4 @@ npm run sandbox:new -- invoice-list "請求一覧" "請求書を確認・送付�
 
 ## 公開
 
-`main` に入ると GitHub Pages に `sandbox/` ごと公開されます（`.github/workflows/deploy-pages.yml`）。カタログ右上の「Sandbox」から開けます。
+`main` に入ると GitHub Pages に公開の見本（`screens/`）だけが公開されます（`private/` は CI に無く、念のため公開物からも外しています）（`.github/workflows/deploy-pages.yml`）。カタログ右上の「Sandbox」から開けます。

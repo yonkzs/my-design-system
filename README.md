@@ -134,11 +134,12 @@ DS の部品だけで画面を組んで試す場所です（`sandbox/`）。部�
 
 ```bash
 npm run dev                                                   # http://localhost:5173/sandbox/ を開く
-npm run sandbox:new -- invoice-list "請求一覧" "請求書を確認・送付する画面"   # 新しい画面を作る
+npm run sandbox:new -- invoice-list "請求一覧" "請求書を確認・送付する画面"   # 新しい画面を作る（sandbox/private/）
 ```
 
-見本として「契約一覧」「アカウント設定」の2画面があります。ルールと構成は [sandbox/README.md](sandbox/README.md) を参照してください。
-GitHub Pages では カタログの右上の「Sandbox」から開けます。
+このリポジトリは public です。新しい画面は gitignore 済みの `sandbox/private/` に作られ、コミットにも GitHub Pages にも入りません。
+機密情報は `sandbox/private/` 以外に置かないでください。公開の見本（`sandbox/screens/`、架空のデータ）として「契約一覧」「アカウント設定」の2画面があります。ルールと構成は [sandbox/README.md](sandbox/README.md) を参照してください。
+GitHub Pages では、カタログの右上の「Sandbox」から公開の見本だけを開けます。
 
 ## MCP（AIコーディングツール連携）
 

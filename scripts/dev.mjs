@@ -6,13 +6,13 @@
  *
  *   ・起動時に npm run build を1回実行する（dist/ds.css・アイコン・カタログ・サンドボックスの一覧）
  *   ・tokens/ と src/ の変更を見張り、dist/ds.css を作り直す（vite build --watch）
- *   ・sandbox/screens/ にファイルが増減したら一覧を作り直す
+ *   ・sandbox/private/・sandbox/screens/ にファイルが増減したら一覧を作り直す
  *   ブラウザの自動再読み込みはしない（保存したら手で再読み込みする）。依存パッケージは増やさない。
  */
 import { spawn, spawnSync } from "node:child_process";
 import { createServer } from "node:http";
 import { readFile, stat } from "node:fs/promises";
-import { watch } from "node:fs";
+import { watch, mkdirSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { buildSandboxIndex } from "./build-sandbox-index.mjs";
@@ -32,10 +32,14 @@ const vite = spawn(npx, ["vite", "build", "--watch", "--logLevel", "warn"], { cw
 
 // 画面の増減で一覧を作り直す
 let timer;
-watch(path.join(projectRoot, "sandbox/screens"), () => {
-  clearTimeout(timer);
-  timer = setTimeout(() => buildSandboxIndex().then((n) => console.log(`↻ sandbox/index.html（${n}画面）`)), 200);
-});
+for (const dir of ["private", "screens"]) {
+  const abs = path.join(projectRoot, "sandbox", dir);
+  mkdirSync(abs, { recursive: true });
+  watch(abs, () => {
+    clearTimeout(timer);
+    timer = setTimeout(() => buildSandboxIndex().then((n) => console.log(`↻ sandbox/index.html（${n}画面）`)), 200);
+  });
+}
 
 const TYPES = {
   ".html": "text/html; charset=utf-8", ".css": "text/css; charset=utf-8", ".js": "text/javascript; charset=utf-8",
