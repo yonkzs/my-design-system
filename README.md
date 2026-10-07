@@ -57,7 +57,7 @@ npm run build
 
 属性を付けなければライトのままです。仕組みは [DESIGN.md](DESIGN.md) の「テーマ」を参照してください。
 
-全コンポーネントの動作確認は [`preview/index.html`](preview/index.html) を参照してください（右上のボタンでテーマを切り替えられます）。
+全コンポーネントの動作確認は [`preview/index.html`](preview/index.html) を参照してください（右上のボタンでテーマを切り替えられます。初めて開いたときは OS の設定に追従）。
 
 ## コンポーネント一覧（35個）
 
