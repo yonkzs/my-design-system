@@ -13,10 +13,11 @@
  */
 
 const COMPONENT_NAMES = [
-  "button", "icon-button", "label-control", "input", "textarea", "search-input",
+  "button", "icon-button", "label-control", "input", "input-group", "textarea", "search-input",
   "select", "selector", "checkbox", "radio", "badge", "card", "data-table", "alert", "modal",
   "tab", "switch", "accordion", "tooltip", "link", "breadcrumb", "menu",
   "pagination", "stepper", "page-shell", "simple-table", "filter-chip", "icon",
+  "avatar", "progress", "date-picker", "file-upload", "reorderable-list", "section-header", "divider",
 ];
 
 const TOKEN_CATEGORIES = ["colors", "spacing", "typography", "radius", "shadow", "container"];

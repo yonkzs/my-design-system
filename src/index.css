@@ -12,6 +12,7 @@
 @import "./components/icon-button.css";
 @import "./components/label-control.css";
 @import "./components/input.css";
+@import "./components/input-group.css";
 @import "./components/textarea.css";
 @import "./components/search-input.css";
 @import "./components/badge.css";
@@ -35,6 +36,13 @@
 @import "./components/page-shell.css";
 @import "./components/simple-table.css";
 @import "./components/filter-chip.css";
+@import "./components/avatar.css";
+@import "./components/progress.css";
+@import "./components/date-picker.css";
+@import "./components/file-upload.css";
+@import "./components/reorderable-list.css";
+@import "./components/section-header.css";
+@import "./components/divider.css";
 
 /* ── safelist ──────────────────────────────────────────────
  * source(none) のため、utility として使われていないトークンは

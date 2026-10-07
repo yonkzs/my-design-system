@@ -1,0 +1,82 @@
+/*
+ * Section Header
+ *
+ * 機能:
+ *   ページの中の区切り（セクション）の見出し。見出し・説明と、右側の操作（検索・ボタン・表示の切り替え・その他メニュー）、
+ *   下に付くタブをまとめる（Starter の Section Headers）。ページ全体の見出しより一段小さい。
+ *
+ * 使用法:
+ *   OK: 見出しは h2 / h3 など、ページ内の階層に合った見出し要素にする（見た目は section-header-title で統一）。
+ *   OK: 右側の操作は「検索 → 補助ボタン → 主ボタン」の順に並べ、主ボタンは1つまで。
+ *   OK: 表示の切り替え（グラフ / 表）は btn-group、操作が多いときは「その他」の icon-btn にまとめる。
+ *   OK: セクションの中身を切り替えるタブは section-header の中の最後に tabs を置く。
+ *   OK: 白い面の上に置くカードの見出しなどは section-header-raised（背景を白にして左右に余白）。
+ *   NG: ページの一番上の見出し（ページタイトル）に使わない → typo-3xlarge の h1 を使う。
+ *   NG: 右側の操作を3つ以上並べない → 「その他」にまとめる。
+ *
+ * アクセシビリティ:
+ *   見出しは見出し要素（h2 等）で、ページ内の見出しレベルを飛ばさない
+ *   セクション全体を <section aria-labelledby="見出しのid"> で包むと、読み上げで区切りが伝わる
+ *   アイコンだけのボタン（その他など）には aria-label を付ける
+ *
+ * Usage:
+ *   <section aria-labelledby="sec-contracts">
+ *     <div class="section-header">
+ *       <div class="section-header-main">
+ *         <div class="section-header-text">
+ *           <h2 class="section-header-title" id="sec-contracts">契約</h2>
+ *           <p class="section-header-desc">今月更新の契約 12件</p>
+ *         </div>
+ *         <div class="section-header-actions">
+ *           <button class="btn btn-md btn-neutral btn-outline">書き出し</button>
+ *           <button class="btn btn-md btn-primary btn-solid">契約を追加</button>
+ *         </div>
+ *       </div>
+ *       <div class="tabs" role="tablist">…</div>
+ *     </div>
+ *     …
+ *   </section>
+ */
+
+@layer components {
+  .section-header {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing) * 3);
+    border-bottom: 1px solid var(--color-stroke-middle);
+  }
+  .section-header-main {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: calc(var(--spacing) * 3) calc(var(--spacing) * 4);
+    padding-bottom: calc(var(--spacing) * 3);
+  }
+  /* タブが付くときは、タブの下線が区切り線を兼ねる */
+  .section-header:has(> .tabs) .section-header-main { padding-bottom: 0; }
+  .section-header > .tabs { margin-bottom: -1px; border-bottom: 0; }
+
+  .section-header-text {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing) * 1);
+    min-width: 0;
+  }
+  .section-header-title { margin: 0; color: var(--color-fg-high); font: var(--typo-heading-md); }
+  .section-header-desc { margin: 0; color: var(--color-fg-low); font: var(--typo-body-small); }
+  .section-header-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: calc(var(--spacing) * 2);
+  }
+  /* 検索欄は残りの幅を使い、狭い画面では1行を占める */
+  .section-header-actions .search-input { flex: 1; min-width: 0; }
+
+  /* 白い面の見出し（Starter の白背景の版） */
+  .section-header-raised {
+    padding: calc(var(--spacing) * 4) calc(var(--spacing) * 6) 0;
+    background-color: var(--color-bg-raised);
+  }
+}

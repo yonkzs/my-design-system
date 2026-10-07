@@ -8,6 +8,8 @@
  *   OK: 同じ name でグループ化し、radio-group でまとめて role="radiogroup" を付ける。
  *   OK: 選択肢は常に2件以上（1件だけの radio は checkbox を使う）。
  *   NG: 選択肢を隠して1つだけ見せる用途に使わない → それは checkbox の役割。
+ *   OK: 選択肢ごとの違いを説明したいときは radio-field + radio-desc で補足を添える（料金プランの選択など）。
+ *   OK: サイズは既定（20px）・radio-sm（16px）・radio-lg（28px）。checkbox と同じ使い分け。
  *
  * アクセシビリティ:
  *   グループ全体に <fieldset><legend> または role="radiogroup" + aria-labelledby を付ける
@@ -39,6 +41,7 @@
     transition: background-color 150ms, border-color 150ms;
   }
   .radio-sm { width: 16px; height: 16px; }
+  .radio-lg { width: 28px; height: 28px; }
 
   .radio:hover:not(:disabled) {
     border-color: var(--color-stroke-control-hover);
@@ -63,12 +66,32 @@
   .radio-label {
     display: inline-flex;
     align-items: center;
-    gap: calc(var(--spacing) * 2);
+    gap: calc(var(--spacing) * 3);  /* checkbox とそろえる（12px） */
     color: var(--color-fg-high);
     cursor: pointer;
     font: var(--typo-body);
   }
   .radio-label:has(.radio:disabled) { color: var(--color-fg-low); cursor: not-allowed; }
+
+  /* ===== 補足文（Starter の subtext）=====
+   * ラベルの下に補足を置くときは radio-field で包み、radio-desc を input の aria-describedby で関連付ける。
+   * 補足文は label の外に置く（label の中に入れると、読み上げのラベル名が長くなるため）。
+   * 字下げは「ラジオボタンの幅 + ラベルとの間 12px」で、ラベル文の開始位置にそろえる */
+  .radio-field {
+    --_box: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing) * 1);
+  }
+  .radio-field:has(.radio-sm) { --_box: 16px; }
+  .radio-field:has(.radio-lg) { --_box: 28px; }
+  .radio-desc {
+    margin: 0;
+    padding-left: calc(var(--_box) + var(--spacing) * 3);
+    color: var(--color-fg-low);
+    font: var(--typo-body-small);
+  }
+  .radio-field:has(.radio:disabled) .radio-desc { color: var(--color-fg-disabled); }
 
   .radio-group {
     display: flex;

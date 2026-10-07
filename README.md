@@ -59,39 +59,47 @@ npm run build
 
 全コンポーネントの動作確認は [`preview/index.html`](preview/index.html) を参照してください（右上のボタンでテーマを切り替えられます）。
 
-## コンポーネント一覧（27個）
+## コンポーネント一覧（35個）
 
 | # | コンポーネント | 主要クラス |
 |---|---|---|
-| 1 | Button | `.btn` + `.btn-{primary,neutral,negative}` + `.btn-{solid,outline,ghost}` + `.btn-{sm,md,lg}` |
-| 2 | Icon Button | `.icon-btn` + `.icon-btn-{primary,neutral,negative}` + `.icon-btn-{solid,outline,ghost}` + `.icon-btn-{sm,md,lg}` |
+| 1 | Button | `.btn` + `.btn-{primary,neutral,negative}` + `.btn-{solid,subtle,outline,ghost}` + `.btn-{sm,md,lg}`（中に `.icon` を置ける）、`.btn-group`（表示の切り替え） |
+| 2 | Icon Button | `.icon-btn` + `.icon-btn-{primary,neutral,negative}` + `.icon-btn-{solid,subtle,outline,ghost}` + `.icon-btn-{sm,md,lg}` |
 | 3 | Label Control | `.label-control`, `.label-control-{row,text,support}`, `.label-badge-{required,optional}`, `.field-{error,support}-text` |
 | 4 | Input | `.input`, `.input-{sm,md,lg}`, `.input-error` |
 | 5 | Textarea | `.textarea-control`, `.textarea`, `.textarea-{sm,md,error}`, `.textarea-{footer,counter}` |
 | 6 | Search Input | `.search-input`, `.search-input-{sm,md,lg,error}`, `.search-input-{field,clear,submit}` |
 | 7 | Select | `.select`, `.select-{sm,md,lg}`, `.select-error`（見た目はInputと統一） |
 | 8 | Selector | `.selector`, `.selector-{sm,md,lg}`, `.selector-icon`, `.selector-error`（左アイコン付きselect） |
-| 9 | Checkbox | `.checkbox`, `.checkbox-label`, `.checkbox-error` |
-| 10 | Radio | `.radio`, `.radio-label`, `.radio-group` |
+| 9 | Checkbox | `.checkbox`, `.checkbox-{sm,lg}`, `.checkbox-label`, `.checkbox-error`, `.checkbox-field` + `.checkbox-desc`（補足文） |
+| 10 | Radio | `.radio`, `.radio-{sm,lg}`, `.radio-label`, `.radio-group`, `.radio-field` + `.radio-desc`（補足文） |
 | 11 | Badge | `.badge` + `.badge-{soft,solid}-{neutral,primary,success,warning,negative,info}` |
 | 12 | Card | `.card`, `.card-{header,title,subtitle,body,footer}` |
-| 13 | Data Table | `.data-table`, `.data-table-num`, `.data-table-empty` |
+| 13 | Data Table | `.data-table`, `.data-table-{dense,num,empty,check,sort,filter,th}`, `.data-table-toolbar`（表の上の操作バー）（選択行は `aria-selected="true"`、並べ替えは `aria-sort`） |
 | 14 | Alert | `.alert`, `.alert-{neutral,success,negative,warning,info}`, `.alert-{icon,body,title,close}` |
 | 15 | Modal | `.modal`（ネイティブ `<dialog>` ベース。開閉は `showModal()` / `close()`） |
 | 16 | Tab | `.tabs`, `.tab`（現在地は `aria-selected="true"`）, `.tab-count` |
-| 17 | Toggle Switch | `.switch`, `.switch-sm`, `.switch-label`（`<input type="checkbox" role="switch">`ベース） |
+| 17 | Toggle Switch | `.switch`, `.switch-sm`, `.switch-label`, `.switch-field` + `.switch-desc`（`<input type="checkbox" role="switch">`ベース） |
 | 18 | Accordion | `.accordion`, `.accordion-item`, `.accordion-trigger`, `.accordion-icon`, `.accordion-panel`（ネイティブ`<details>/<summary>`ベース） |
 | 19 | Tooltip | `.tooltip`, `.tooltip-content`（CSSのみで動作。関連付けは`aria-describedby`。top配置のみ対応） |
 | 20 | Link | `.link`, `.link-label`, `.link-{neutral,inverse}`（下線+周囲からfont-size継承） |
 | 21 | Breadcrumb | `.breadcrumb`, `.breadcrumb-sep`, `.breadcrumb-current`（`.link`+chevron区切り） |
-| 22 | Menu | `.menu`, `.menu-group`, `.menu-divider`, `.menu-item`, `.menu-item-sm`（現在地は`aria-current="page"`） |
+| 22 | Menu | `.menu`, `.menu-flush`, `.menu-group`, `.menu-divider`, `.menu-item`, `.menu-item-sm`, `.menu-item-check`（現在地は`aria-current="page"`、チェック項目は`role="menuitemcheckbox\|menuitemradio"`） |
 | 23 | Pagination | `.pagination`, `.pagination-item`, `.pagination-ellipsis`（現在ページは`aria-current="page"`） |
 | 24 | Stepper | `.stepper`, `.stepper-step`, `.stepper-marker`, `.stepper-label`（現在地は`aria-current="step"`、完了は`.is-completed`） |
 | 25 | Page Shell | `.page-shell`（`max-w-page`に中央寄せ）/ `.page-shell-content`（900pxに絞る。フォーム/設定/詳細） |
 | 26 | Simple Table | `.simple-table`（`<th>`/`<td>`を子要素として使用、rowspanでmerge可） |
 | 27 | Filter Chip | `.filter-chip`, `.filter-chip-{label,count,check}`（選択状態は`aria-pressed`） |
+| 28 | Input Group | `.input-group`, `.input-group-{sm,md,lg,error}`, `.input-group-{field,addon,tab,loader}`（前後の単位・選択・ボタン・読み込み中） |
+| 29 | Avatar | `.avatar`, `.avatar-{sm,md,lg,xl,2xl}`, `.avatar-image`, `.avatar-status-{online,idle,busy,offline}`, `.avatar-badge`, `.avatar-label`, `.avatar-group` |
+| 30 | Progress | `.progress`（`<progress>`）, `.progress-lg`, `.progress-{success,warning,negative}`, `.progress-field`, `.progress-circle-{sm,md,lg,xl}`, `.progress-half`（値は `--value`） |
+| 31 | Date Picker | `.date-picker`, `.date-picker-popover`, `.calendar`, `.calendar-{nav,title,grid,day}`（選択は `aria-selected`、今日は `aria-current="date"`、期間は `data-range="middle"`） |
+| 32 | File Upload | `.file-upload`, `.file-upload-{input,icon,title,hint,compact,complete,error}`, `.file-list`, `.file-item`, `.file-item-{icon,body,name,meta,error}`（ドラッグ中は `data-dragover`） |
+| 33 | Reorderable List | `.reorder-list`, `.reorder-list-plain`, `.reorder-item`, `.reorder-handle`, `.reorder-label`（ドラッグ中は `data-dragging`） |
+| 34 | Section Header | `.section-header`, `.section-header-{main,text,title,desc,actions,raised}`（下に `.tabs` を置ける） |
+| 35 | Divider | `.divider`（`<hr>`）, `.divider-{strong,dashed,dotted,inset,vertical}` |
 
-アイコンは Lucide SVG sprite（`dist/icons.svg`、21種）を `.icon icon-{xs,sm,md,lg,xl}` で使用（詳細はDESIGN.md）。
+アイコンは Lucide SVG sprite（`dist/icons.svg`、33種）を `.icon icon-{xs,sm,md,lg,xl}` で使用（詳細はDESIGN.md）。
 
 各コンポーネントの完成形HTML・使用法（OK/NG）・アクセシビリティ対応は `src/components/*.css` の先頭コメントを参照してください（正本）。
 

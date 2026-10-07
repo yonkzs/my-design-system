@@ -1,0 +1,156 @@
+/*
+ * File Upload
+ *
+ * 機能:
+ *   ファイルを選ぶ・ドロップする受け口（file-upload）と、選んだファイルの一覧（file-list / file-item）。
+ *   アップロード中・完了・失敗の状態を示す（Starter の File Upload）。
+ *   中身はネイティブの <input type="file">。ドラッグ中の表示とアップロード処理はプロダクト側の JS が行う。
+ *
+ * 使用法:
+ *   OK: 受け付ける形式と上限サイズを file-upload-hint に必ず書く（「PDF・JPEG・PNG、10MBまで」）。
+ *   OK: 欄が狭いフォームの中は file-upload-compact（横長1行）、添付が主役の画面は既定（縦積み）。
+ *   OK: 選んだファイルは file-list に並べ、アップロード中は progress、失敗は file-item-error と理由を出す。
+ *   OK: ドラッグ中は JS で data-dragover を付ける（受け口が反応していることを示す）。
+ *   NG: 失敗の理由を「エラー」だけにしない → 形式違い・サイズ超過など、直し方が分かる文言にする。
+ *   NG: アップロード中に画面全体を止めない → 行ごとに進捗を出し、他の入力は続けられるようにする。
+ *
+ * アクセシビリティ:
+ *   <input type="file"> を受け口いっぱいに重ねて置き、クリック・キーボード（Enter / Space）でも選べるようにする
+ *   入力には aria-describedby で file-upload-hint（形式・上限）を関連付ける
+ *   フォーカスは受け口全体に info 青のリング（:has(:focus-visible)。DS担保）。枠線は 3:1 以上（stroke-control）
+ *   アップロードの結果は role="status"（成功）/ role="alert"（失敗）の領域で読み上げる
+ *
+ * Usage:
+ *   <div class="file-upload">
+ *     <svg class="icon file-upload-icon" aria-hidden="true"><use href="dist/icons.svg#lucide-cloud-upload"></use></svg>
+ *     <p class="file-upload-title">ファイルをドロップ</p>
+ *     <p class="file-upload-hint" id="up-hint">またはクリックして選択（PDF・JPEG・PNG、10MBまで）</p>
+ *     <input type="file" class="file-upload-input" aria-label="ファイルを選択" aria-describedby="up-hint">
+ *   </div>
+ *   <ul class="file-list">
+ *     <li class="file-item">
+ *       <svg class="icon file-item-icon" aria-hidden="true"><use href="dist/icons.svg#lucide-file"></use></svg>
+ *       <div class="file-item-body"><span class="file-item-name">見積書.pdf</span><span class="file-item-meta">1.2MB</span></div>
+ *       <button type="button" class="icon-btn icon-btn-sm icon-btn-neutral icon-btn-ghost" aria-label="見積書.pdf を削除">…</button>
+ *     </li>
+ *   </ul>
+ */
+
+@layer components {
+  /* ===== 受け口 ===== */
+  .file-upload {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: calc(var(--spacing) * 1);
+    padding: calc(var(--spacing) * 6);
+    border: 1px dashed var(--color-stroke-control);
+    border-radius: var(--radius-md);
+    background-color: var(--color-bg-raised);
+    text-align: center;
+    transition: background-color 150ms, border-color 150ms;
+  }
+  /* 受け口いっぱいに重ねた本物の input（見えないがクリック・ドロップ・キーボードを受ける） */
+  .file-upload-input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }
+  .file-upload:hover:not(:has(.file-upload-input:disabled)),
+  .file-upload[data-dragover] {
+    border-color: var(--color-stroke-control-hover);
+    background-color: var(--color-bg-neutral-low);
+  }
+  .file-upload[data-dragover] { border-style: solid; }
+  .file-upload:has(.file-upload-input:focus-visible) {
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-outline-offset);
+  }
+  .file-upload:has(.file-upload-input:disabled) {
+    border-color: var(--color-stroke-middle);
+    background-color: var(--color-bg-disabled);
+  }
+  .file-upload:has(.file-upload-input:disabled) .file-upload-input { cursor: not-allowed; }
+  .file-upload:has(.file-upload-input:disabled) :is(.file-upload-title, .file-upload-hint, .file-upload-icon) { color: var(--color-fg-disabled); }
+
+  .file-upload-icon { width: 24px; height: 24px; color: var(--color-fg-low); }
+  .file-upload-title { margin: 0; color: var(--color-fg-high); font: var(--typo-label-strong); }
+  .file-upload-hint { margin: 0; color: var(--color-fg-low); font: var(--typo-body-small); }
+
+  /* 状態（Starter: uploading / complete / error） */
+  .file-upload-complete .file-upload-icon { color: var(--color-fg-success); }
+  .file-upload-error {
+    border-style: solid;
+    border-width: 2px;
+    border-color: var(--color-stroke-control-error);
+  }
+  .file-upload-error .file-upload-icon,
+  .file-upload-error .file-upload-hint { color: var(--color-fg-negative); }
+
+  /* 横長1行（Starter の小さい受け口: 文字は左、アイコンは右） */
+  .file-upload-compact {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: calc(var(--spacing) * 3);
+    padding: calc(var(--spacing) * 3) calc(var(--spacing) * 4);
+    text-align: left;
+  }
+  .file-upload-compact .file-upload-icon { order: 1; }
+  .file-upload-compact .file-upload-text { display: flex; flex-direction: column; gap: calc(var(--spacing) * 1); }
+
+  /* ===== 選んだファイルの一覧 ===== */
+  .file-list {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing) * 2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .file-item {
+    display: flex;
+    align-items: center;
+    gap: calc(var(--spacing) * 3);
+    padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3);
+    border: 1px solid var(--color-stroke-middle);
+    border-radius: var(--radius-md);
+    background-color: var(--color-bg-raised);
+  }
+  .file-item-icon { flex-shrink: 0; width: 20px; height: 20px; color: var(--color-fg-low); }
+  .file-item-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: calc(var(--spacing) * 1);
+    min-width: 0;
+  }
+  .file-item-name {
+    overflow: hidden;
+    color: var(--color-fg-high);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font: var(--typo-body);
+  }
+  .file-item-meta { color: var(--color-fg-low); font: var(--typo-caption); }
+  .file-item-error {
+    border-color: var(--color-stroke-negative-subtle);
+    background-color: var(--color-bg-negative-subtle);
+  }
+  .file-item-error .file-item-icon,
+  .file-item-error .file-item-meta { color: var(--color-fg-negative-strong); }
+
+  /* 強制カラーモード: 受け口の枠と状態は線で残る。フォーカスは outline の色を固定する。
+   * ※ システムカラーキーワードはハードコード禁止の例外 (DESIGN.md)。 */
+  @media (forced-colors: active) {
+    .file-upload:has(.file-upload-input:focus-visible) {
+      outline: 2px solid CanvasText;
+      outline-offset: 2px;
+    }
+  }
+}

@@ -259,6 +259,7 @@
   --color-stroke-success-subtle:  var(--color-success-100);  /* border/{role}/default-subtle */
   --color-stroke-warning-subtle:  var(--color-warning-100);
   --color-stroke-negative-subtle: var(--color-negative-100);
+  --color-stroke-negative-muted:  var(--color-negative-200);  /* border/error/default-subtle-hover。subtle ボタンの hover */
   --color-stroke-info-subtle:     var(--color-info-100);
   --color-stroke-focus:         var(--color-info-600);     /* フォーカスリングは info 青で固定 */
 
@@ -357,6 +358,7 @@
   --color-stroke-success-subtle:  var(--color-success-900);
   --color-stroke-warning-subtle:  var(--color-warning-900);
   --color-stroke-negative-subtle: var(--color-negative-900);
+  --color-stroke-negative-muted:  var(--color-negative-800);
   --color-stroke-info-subtle:     var(--color-info-900);
   --color-stroke-focus:         var(--color-info-400);
 
@@ -445,6 +447,7 @@
     --color-stroke-success-subtle:  var(--color-success-900);
     --color-stroke-warning-subtle:  var(--color-warning-900);
     --color-stroke-negative-subtle: var(--color-negative-900);
+    --color-stroke-negative-muted:  var(--color-negative-800);
     --color-stroke-info-subtle:     var(--color-info-900);
     --color-stroke-focus:         var(--color-info-400);
 

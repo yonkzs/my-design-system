@@ -9,12 +9,20 @@
  *   OK: 状態列には badge を使う（色分けの意味づけは badge.css の使用法に従う）。
  *   OK: 操作列（編集/削除）は行の右端に置き、アイコンボタンかテキストリンクにする。
  *   OK: データが0件の時は tbody 内に colspan で結合した空状態メッセージを表示する。
+ *   OK: 列が多い・件数が多い業務一覧は data-table-dense（行の高さ 36px。Starter の data heavy）。既定は 52px 前後。
+ *   OK: 行を選んで一括操作する一覧は、先頭列に checkbox（data-table-check）を置き、選んだ行に aria-selected="true"。
+ *   OK: 並べ替えできる列は見出しに data-table-sort ボタンを置く。絞り込みは見出し右の icon-btn（data-table-filter）。
+ *   OK: 表の上の検索・列の選択・一括操作は data-table-toolbar にまとめる（Starter の Action Bar）。
+ *       行を選んでいる間は data-table-toolbar-count で件数を出し、一括操作のボタンを並べる。
  *   NG: table要素を手書きスタイリングしない → data-table クラスを使う。
  *   NG: 金額・数値列を左寄せにしない → 桁が揃うよう右寄せにする（data-table-num）。
  *
  * アクセシビリティ:
  *   <th scope="col"> を見出しセルに付ける
- *   ソート可能な列は aria-sort="ascending|descending|none" を th に付ける
+ *   ソート可能な列は aria-sort="ascending|descending|none" を th に付け、並べ替えは th 内の <button>（data-table-sort）で行う。
+ *   アイコンは状態に合わせて差し替える（none: arrow-up-down / ascending: arrow-up / descending: arrow-down）
+ *   絞り込みボタンは aria-label に列名を含め（例: 「状態で絞り込む」）、絞り込み中は aria-pressed="true"
+ *   行選択の checkbox には行を特定できる aria-label を付ける（例: 「契約A を選択」）。見出しの一括選択は indeterminate を使う
  *
  * Usage:
  *   <table class="data-table">
@@ -27,6 +35,23 @@
  *         <td class="data-table-num">¥120,000</td>
  *         <td><span class="badge badge-soft-success">有効</span></td>
  *       </tr>
+ *     </tbody>
+ *   </table>
+ *
+ *   <table class="data-table data-table-dense">
+ *     <thead><tr>
+ *       <th scope="col" class="data-table-check"><input type="checkbox" class="checkbox checkbox-sm" aria-label="すべて選択"></th>
+ *       <th scope="col" aria-sort="ascending">
+ *         <button type="button" class="data-table-sort">契約名<svg class="icon" aria-hidden="true"><use href="dist/icons.svg#lucide-arrow-up"></use></svg></button>
+ *       </th>
+ *       <th scope="col"><div class="data-table-th">状態
+ *         <button type="button" class="icon-btn icon-btn-sm icon-btn-neutral icon-btn-ghost data-table-filter" aria-label="状態で絞り込む" aria-pressed="false">
+ *           <svg class="icon icon-sm" aria-hidden="true"><use href="dist/icons.svg#lucide-funnel"></use></svg>
+ *         </button>
+ *       </div></th>
+ *     </tr></thead>
+ *     <tbody>
+ *       <tr aria-selected="true"><td class="data-table-check"><input type="checkbox" class="checkbox checkbox-sm" checked aria-label="契約A を選択"></td>…</tr>
  *     </tbody>
  *   </table>
  */
@@ -70,5 +95,90 @@
     text-align: center;
     color: var(--color-fg-low);
     padding: calc(var(--spacing) * 8) calc(var(--spacing) * 4);
+  }
+
+  /* ===== 表の上の操作バー（Starter の Action Bar: 検索 + 列の選択 + ボタン） ===== */
+  .data-table-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: calc(var(--spacing) * 2);
+    margin-bottom: calc(var(--spacing) * 3);
+  }
+  .data-table-toolbar > .search-input,
+  .data-table-toolbar > .selector,
+  .data-table-toolbar > .select { flex: 1; width: auto; min-width: 0; }
+  /* 右寄せにしたい操作の前に置く空き */
+  .data-table-toolbar-spacer { flex: 1; }
+  /* 行を選んでいる間の件数（「3件を選択中」） */
+  .data-table-toolbar-count {
+    color: var(--color-fg-high);
+    font: var(--typo-label);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ===== 高密度（Starter の Type=data heavy。行の高さ 36px） ===== */
+  .data-table-dense thead th,
+  .data-table-dense tbody td { padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3); }
+  .data-table-dense .data-table-empty td { padding: calc(var(--spacing) * 6) calc(var(--spacing) * 3); }
+
+  /* ===== 行の選択（Starter の Type=selected） =====
+   * 選んだ行は aria-selected="true"。塗りは見出し行（sunken）・hover（neutral-low）より一段濃くし、
+   * 行頭の checkbox でも選択を示す（色だけに頼らない） */
+  .data-table tbody tr[aria-selected="true"] td { background-color: var(--color-bg-primary-muted); }
+  .data-table tbody tr[aria-selected="true"]:hover td { background-color: var(--color-bg-neutral-high); }
+  .data-table-check { width: 1%; white-space: nowrap; }  /* checkbox の幅だけにする */
+  .data-table-check .checkbox { vertical-align: middle; }
+
+  /* ===== 見出しの並べ替え・絞り込み（Starter の header items: sort / filter） ===== */
+  .data-table-sort {
+    display: inline-flex;
+    align-items: center;
+    gap: calc(var(--spacing) * 1);
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+    font: var(--typo-body);
+    font-weight: var(--font-weight-semibold);
+  }
+  .data-table-sort .icon { flex-shrink: 0; width: 16px; height: 16px; color: var(--color-fg-low); }
+  .data-table-sort:hover { color: var(--color-fg-high); }
+  .data-table-sort:hover .icon,
+  th[aria-sort="ascending"] .data-table-sort .icon,
+  th[aria-sort="descending"] .data-table-sort .icon { color: var(--color-fg-high); }
+  th[aria-sort="ascending"] .data-table-sort,
+  th[aria-sort="descending"] .data-table-sort { color: var(--color-fg-high); }
+  .data-table-sort:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-outline-offset);
+    border-radius: var(--radius-xs);
+  }
+  /* 見出し文字と絞り込みボタンを左右に分ける */
+  .data-table-th {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: calc(var(--spacing) * 2);
+  }
+  .data-table-filter[aria-pressed="true"] {
+    background-color: var(--color-bg-primary-muted);
+    color: var(--color-fg-primary);
+  }
+
+  /* 強制カラーモード: 選択行の塗りが消えるため、選択色で塗り直す。
+   * ※ システムカラーキーワードはハードコード禁止の例外 (DESIGN.md)。 */
+  @media (forced-colors: active) {
+    .data-table tbody tr[aria-selected="true"] td {
+      forced-color-adjust: none;
+      background-color: Highlight;
+      color: HighlightText;
+    }
+    .data-table-sort:focus-visible {
+      outline: 2px solid CanvasText;
+      outline-offset: 2px;
+    }
   }
 }

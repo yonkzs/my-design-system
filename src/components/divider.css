@@ -1,0 +1,56 @@
+/*
+ * Divider
+ *
+ * 機能:
+ *   内容のまとまりを区切る線（Starter の Keyline）。横・縦、実線・破線・点線、細い・太いを選べる。
+ *   部品の中の区切り（menu-divider・card の header / footer の線）は各部品が持つので、ここではページや
+ *   フォームの中で、部品の外側の区切りに使う。
+ *
+ * 使用法:
+ *   OK: 既定は細い実線（stroke-middle）。大きなまとまりの境目だけ divider-strong にする。
+ *   OK: 破線（divider-dashed）は「ここから下は任意」など、性質が変わる境目に使う。点線（divider-dotted）は補助的な区切り。
+ *   OK: 左右に余白を取りたいリストの区切りは divider-inset。横並びの要素の間は divider-vertical。
+ *   NG: 余白で区切れるところに線を足さない → 線が多いと、どこが大きな区切りか分からなくなる。
+ *   NG: 区切りのためだけに見出しや空の要素を置かない。
+ *
+ * アクセシビリティ:
+ *   意味のある区切り（話題が変わる）は <hr>（読み上げで区切りとして伝わる）
+ *   見た目だけの区切りは <div class="divider" aria-hidden="true">、縦線は role="separator" aria-orientation="vertical" か aria-hidden
+ *   線は装飾のためコントラスト要件の対象外（区切りの意味は配置や見出しでも伝える）
+ *
+ * Usage:
+ *   <hr class="divider">
+ *   <hr class="divider divider-strong">
+ *   <hr class="divider divider-dashed">
+ *   <span class="divider divider-vertical" aria-hidden="true"></span>
+ */
+
+@layer components {
+  .divider {
+    flex-shrink: 0;
+    width: 100%;
+    height: 0;
+    margin: 0;
+    border: 0;
+    border-top: 1px solid var(--color-stroke-middle);
+  }
+  /* 太さ・色（Starter の Keyline: 細い淡い線 / 太い濃い線） */
+  .divider-strong { border-top-width: 2px; border-top-color: var(--color-stroke-high); }
+  /* 線の種類 */
+  .divider-dashed { border-top-style: dashed; }
+  .divider-dotted { border-top-style: dotted; }
+  /* 左右に余白を取る区切り（リストの項目の間など） */
+  .divider-inset { width: auto; margin-right: calc(var(--spacing) * 4); margin-left: calc(var(--spacing) * 4); }
+  /* 縦の区切り（横に並んだ要素の間）。高さは親の行に合わせて伸びる */
+  .divider-vertical {
+    align-self: stretch;
+    width: 0;
+    height: auto;
+    min-height: 1em;
+    border-top: 0;
+    border-left: 1px solid var(--color-stroke-middle);
+  }
+  .divider-vertical.divider-strong { border-left-width: 2px; border-left-color: var(--color-stroke-high); }
+  .divider-vertical.divider-dashed { border-left-style: dashed; }
+  .divider-vertical.divider-dotted { border-left-style: dotted; }
+}

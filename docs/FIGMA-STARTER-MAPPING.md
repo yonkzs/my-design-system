@@ -87,6 +87,9 @@ primitive は `gray` / `red` / `orange` / `green` / `blue` の5系統です。St
 | 見出しの太さ | Medium（500） | Semibold（600） | 和文フォントに 500 が無い環境では 400 で描画され、見出しの階層が弱くなるため |
 | pressed（押している間） | 定義なし | hover より一段濃い塗り（`--color-bg-*-pressed` 等） | クリックした手応えを返すため |
 | checkbox / radio | 独自の描画 | ネイティブ要素を `appearance: none` で描き直し、hover・pressed・indeterminate を追加。強制カラーモードではネイティブに戻す | Starter と同じ状態を出しつつ、キーボード操作・読み上げはネイティブのまま保つため |
+| カレンダーの日付セル | 24px（間 12px） | 32px（間 4px） | 押しやすさのため（同じ幅のまま、押せる範囲を広げた） |
+| カレンダーの前後の月の日 | 淡い面で塗る | 文字を薄くするだけ（選べない日は取り消し線も） | 期間選択の淡い面と見分けられるようにするため |
+| 進捗バーの下地 | `#f9f9f9` | `#e0e5eb`（neutral-high） | 白地の上で下地が見えず、塗りとの差（3:1）も確保するため |
 | 本文の行間 | 14/20（1.43） | 14/21（1.5） | 日本語本文は 1.5 倍以上を基準にするため（デジタル庁ガイドライン） |
 | エラー・補足の文字 | 14px | 13px（body-small） | 14pxベースの密度を保ちつつ、12px 未満にしないため |
 
@@ -94,18 +97,42 @@ primitive は `gray` / `red` / `orange` / `green` / `blue` の5系統です。St
 
 Starter File にはダークの定義がありません。ライトと同じ役割になる段をこちらで選び直しています。primary はチャコールのため、ダークでは明るい塗り（`#f0f3f7`）と暗い文字に反転させています。コントラストは `npm run check:consistency` が両テーマで検査します。
 
-## Starter にあってこのDSにまだ無いもの
+## Starter にあって、このDSでは採用しないもの
 
-次の部品は Starter File にありますが、このDSにはまだ実装していません。必要になった時点で、同じ対応表の方針で追加します。
+- **Button の information / warning / success 色**（2026-10 に不採用と決定）: DESIGN.md の原則2「色は状態を伝える手段に限定する」と衝突するため。緑や青のボタンは「成功」「情報」と読まれ、操作の主従と状態の意味が混ざる。操作の重みは solid / subtle / outline / ghost で付ける。
+- **Logo / Images のページ**: Starter のサンプル用素材（ロゴ・人物写真）で、プロダクトに依存するためDSの部品にはしない。
 
-- Date Picker
-- File Upload
-- Reorderable List
-- Avatar
-- Progress Indicators
-- Section Headers
-- Dropdown の pre-tab / post-tab（入力欄の前後に付ける選択・ボタン）
-- Menu の checkbox / radio 付き項目
+## 部品のバリエーションの対応
+
+| Starter | このDS |
+|---|---|
+| Button Type=default / subtle / outline / transparent | `.btn-solid` / `.btn-subtle` / `.btn-outline` / `.btn-ghost`（icon-button も同じ） |
+| Button State=default / secondary / error | `.btn-primary` / `.btn-neutral`（outline）/ `.btn-negative` |
+| Button iconLeft / iconRight | ボタン内の `.icon`（sm/md 16px・lg 20px） |
+| Field Type=pre-element / post-element | `.input-group-addon` |
+| Field Type=pre-tab / post-tab | `.input-group-tab`（select / button / span） |
+| Field Status=loader | `.input-group-loader` |
+| Checkbox Size=md / lg | `.checkbox`（20px）/ `.checkbox-lg`（28px）。radio も同じ |
+| Checkbox / Switch Label の subtext | `.checkbox-field` + `.checkbox-desc`（radio・switch も同じ） |
+| Menu Modifier=checkbox / radio | `role="menuitemcheckbox|menuitemradio"` + `.menu-item-check` |
+| Menu Corner=square / rounded | `.menu-flush` / `.menu`（既定） |
+| Menu Status=disabled | `.menu-item[aria-disabled="true"]` |
+| Table Type=default / data heavy | `.data-table` / `.data-table-dense` |
+| Table Content Row Type=hover / selected | `tr:hover` / `tr[aria-selected="true"]` |
+| Table header items Type=sort / filter / check | `.data-table-sort` / `.data-table-filter` / `.data-table-check` |
+| Table Action Bar | `.data-table-toolbar`（件数は `.data-table-toolbar-count`） |
+| Section Header の Graph / Table / Scenarios | `.btn-group` + `aria-pressed` |
+| Avatar Size=md / lg / xl / xxl / huge | `.avatar-sm`（24）/ `-md`（36）/ `-lg`（48）/ `-xl`（64）/ `-2xl`（96） |
+| Avatar Type=image / initials / icon | `.avatar-image` / 文字 / `.icon` |
+| Avatar Modifier=dot / logo、Active Indicator | `.avatar-status-{online,idle,busy,offline}` / `.avatar-badge` |
+| Avatar Label / Avatar Group | `.avatar-label` / `.avatar-group` |
+| Progress Bar（label / neutral / color） | `.progress`（`<progress>`）+ `.progress-field` / 既定 / `.progress-{success,warning,negative}` |
+| Progress Circle / Half-Circle | `.progress-circle-{sm,md,lg,xl}` / `.progress-half`（値は `--value`） |
+| Date Picker（closed / open）、Calendar、Dates | `.date-picker` + `.date-picker-popover`、`.calendar`、`.calendar-day`（`aria-selected` / `aria-current="date"` / `data-range` / `data-outside` / `disabled`） |
+| File Upload（default / hover / uploading / complete / error） | `.file-upload`（`data-dragover` / `.file-upload-complete` / `.file-upload-error`）、`.file-upload-compact`、`.file-list` + `.file-item` |
+| Reorderable List、Draggable Item（default / hover / selected） | `.reorder-list`、`.reorder-item`（`:hover` / `data-dragging`）、`.reorder-list-plain` |
+| Section Headers | `.section-header`（`-raised` で白い面）+ `.tabs` |
+| Keyline（実線 / 破線 / 点線、太さ違い、横 / 縦） | `.divider`、`.divider-{dashed,dotted}`、`.divider-strong`、`.divider-vertical`、`.divider-inset` |
 
 ## カタログでの状態の確認
 

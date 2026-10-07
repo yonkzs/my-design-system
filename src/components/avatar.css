@@ -1,0 +1,150 @@
+/*
+ * Avatar
+ *
+ * 機能:
+ *   人・組織を表す丸い画像。写真（image）・イニシャル（initials）・アイコン（icon）の3種類。
+ *   状態の点（avatar-status）・所属のロゴ（avatar-badge）を重ねられる。
+ *   名前と並べる avatar-label、複数人を重ねて並べる avatar-group も含む（Starter の Avatar / Avatar Label / Avatar Group）。
+ *
+ * 使用法:
+ *   OK: 写真が無い人はイニシャル（日本語名は姓の1文字、英語名は頭文字2つ）、人以外（システム・外部連携）はアイコンにする。
+ *   OK: サイズは用途で選ぶ。表の行・コメント欄は sm（24）、一覧のカード・メニューは md（36）、
+ *       詳細ページの見出しは lg（48）以上。xl（64）・2xl（96）はプロフィール画面だけ。
+ *   OK: 3人を超える担当者は avatar-group で重ね、残りは「+N」の avatar で示す。
+ *   OK: オンライン状態など変化する情報は avatar-status、所属組織は avatar-badge で示す。
+ *   NG: 状態を点の色だけで伝えない → aria-label や近くのテキストでも示す。
+ *   NG: 写真の代わりに意味のない装飾画像を入れない。
+ *   NG: 1つの一覧の中でサイズを混ぜない。
+ *
+ * アクセシビリティ:
+ *   写真には alt に人名を入れる。名前を横に表示している（avatar-label）ときは alt="" にして二重に読ませない
+ *   イニシャル・アイコンだけのときは、avatar に role="img" と aria-label（人名）を付ける
+ *   状態の点は色だけに頼らない: avatar の aria-label に状態を含める（例: 「山田 花子（オンライン）」）
+ *   押せるアバター（プロフィールを開く等）は button / a で包み、フォーカスリングはその要素に出る
+ *
+ * Usage:
+ *   <span class="avatar avatar-md"><img class="avatar-image" src="…" alt="山田 花子"></span>
+ *   <span class="avatar avatar-md" role="img" aria-label="山田 花子（オンライン）">山
+ *     <span class="avatar-status avatar-status-online"></span>
+ *   </span>
+ *
+ *   <div class="avatar-label">
+ *     <span class="avatar avatar-md"><img class="avatar-image" src="…" alt=""></span>
+ *     <span class="avatar-label-text"><span class="avatar-label-name">山田 花子</span><span class="avatar-label-sub">営業部</span></span>
+ *   </div>
+ *
+ *   <div class="avatar-group" role="group" aria-label="担当者 5人">
+ *     <span class="avatar avatar-sm" role="img" aria-label="山田 花子">山</span>
+ *     <span class="avatar avatar-sm" role="img" aria-label="ほか3人">+3</span>
+ *   </div>
+ */
+
+@layer components {
+  .avatar {
+    position: relative;
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-stroke-middle);
+    border-radius: var(--radius-full);
+    background-color: var(--color-bg-neutral-middle);
+    color: var(--color-fg-middle);
+    white-space: nowrap;
+    user-select: none;
+  }
+  .avatar-image {
+    width: 100%;
+    height: 100%;
+    border-radius: var(--radius-full);
+    object-fit: cover;
+  }
+  .avatar .icon { width: 60%; height: 60%; }
+
+  /* ===== Size（Starter: md 24 / lg 36 / xl 48 / xxl 64 / huge 96） ===== */
+  .avatar-sm  { width: 24px; height: 24px; font: var(--typo-caption-strong); }
+  .avatar-md  { width: 36px; height: 36px; font: var(--typo-label-small); }
+  .avatar-lg  { width: 48px; height: 48px; font: var(--typo-label-large); }
+  .avatar-xl  { width: 64px; height: 64px; font: var(--typo-heading-lg); }
+  .avatar-2xl { width: 96px; height: 96px; font: var(--typo-heading-xl); }
+
+  /* ===== 状態の点（Starter の Active Indicator: online / idle / busy / offline） =====
+   * 面の色の縁取りで、アバターの写真と点を切り離して見せる */
+  .avatar-status {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 28%;
+    height: 28%;
+    min-width: 8px;
+    min-height: 8px;
+    border: 2px solid var(--color-bg-raised);
+    border-radius: var(--radius-full);
+  }
+  .avatar-status-online  { background-color: var(--color-bg-success); }
+  .avatar-status-idle    { background-color: var(--color-bg-warning); }
+  .avatar-status-busy    { background-color: var(--color-bg-negative); }
+  .avatar-status-offline { background-color: var(--color-bg-control-off); }
+
+  /* ===== 所属のロゴ（Starter の Modifier=logo） ===== */
+  .avatar-badge {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 40%;
+    height: 40%;
+    border: 2px solid var(--color-bg-raised);
+    border-radius: var(--radius-full);
+    background-color: var(--color-bg-raised);
+    object-fit: cover;
+  }
+
+  /* ===== 名前と並べる（Starter の Avatar Label） ===== */
+  .avatar-label {
+    display: inline-flex;
+    align-items: center;
+    gap: calc(var(--spacing) * 3);
+    min-width: 0;
+  }
+  .avatar-label-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .avatar-label-name {
+    overflow: hidden;
+    color: var(--color-fg-high);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font: var(--typo-label);
+  }
+  .avatar-label-sub {
+    overflow: hidden;
+    color: var(--color-fg-low);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font: var(--typo-body-small);
+  }
+
+  /* ===== 重ねて並べる（Starter の Avatar Group） =====
+   * 面の色の縁で隣のアバターと切り離す。後ろに来るものほど下に重なる */
+  .avatar-group { display: inline-flex; align-items: center; }
+  .avatar-group > .avatar { border: 2px solid var(--color-bg-raised); }
+  .avatar-group > .avatar + .avatar { margin-left: calc(var(--spacing) * -2); }
+
+  /* 押せるアバター */
+  a:has(> .avatar),
+  button:has(> .avatar) { border-radius: var(--radius-full); }
+  a:has(> .avatar):focus-visible,
+  button:has(> .avatar):focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-outline-offset);
+  }
+
+  /* 強制カラーモード: 状態の点は背景色が消えるため輪郭線を出す。
+   * ※ システムカラーキーワードはハードコード禁止の例外 (DESIGN.md)。 */
+  @media (forced-colors: active) {
+    .avatar { border-color: CanvasText; }
+    .avatar-status { forced-color-adjust: none; border-color: Canvas; }
+  }
+}

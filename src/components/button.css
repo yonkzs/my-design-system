@@ -7,6 +7,8 @@
  *
  * 使用法:
  *   OK: 主要アクションは1画面に btn-primary 1つ。副次は btn-neutral / btn-ghost。
+ *   OK: 重み（強い順）: solid > subtle > outline > ghost。subtle は「目立たせたいが主操作ではない」操作
+ *       （一覧の行内の「詳細」、カード内の補助操作など）に使い、1画面に複数並べてよい。
  *   OK: 破壊的操作（削除など）は btn-negative。
  *   OK: 副次操作の solid は使わず btn-neutral btn-outline にする（primary がチャコールのため、
  *       btn-neutral btn-solid は btn-primary btn-solid とほぼ同じ見た目になり主従が伝わらない）。
@@ -14,7 +16,11 @@
  *   NG: 通常の遷移（本文中・一覧内・フッター等）を btn でスタイルしない → link。
  *   NG: 1画面に btn-primary を複数置かない → 主従が伝わらない。
  *   NG: 色を #hex 直書きしない → btn-primary 等のクラスで色は決まる。
- *   NG: アイコンだけのボタンに btn を使わない → icon-btn を使う（未実装）。
+ *   OK: アイコン付きはラベルの前（意味の補強）か後ろ（外部リンク・開閉など向きを示す）に .icon を置く。
+ *       アイコンの大きさはボタンのサイズで決まる（sm/md 16px・lg 20px）。icon-* のサイズクラスは付けない。
+ *   OK: 表示の切り替え（グラフ / 表）など、同じ並びから1つを選ぶボタンは btn-group でくっつけ、選択中に aria-pressed="true"。
+ *   NG: アイコンだけのボタンに btn を使わない → icon-btn を使う。
+ *   NG: ラベルの前と後ろの両方にアイコンを置かない → どれが意味を担うのか分からなくなる。
  *   NG: サイズの異なるボタンを隣り合わせに置かない → 既定は md。
  *
  * アクセシビリティ:
@@ -27,6 +33,10 @@
  *   <button class="btn btn-lg btn-negative btn-outline">削除</button>
  *   <button class="btn btn-sm btn-neutral btn-ghost" disabled>OFF</button>
  *   <button class="btn btn-md btn-primary btn-solid" data-loading>送信中</button>
+ *   <button class="btn btn-md btn-primary btn-subtle">詳細</button>
+ *   <button class="btn btn-md btn-neutral btn-outline">
+ *     <svg class="icon" aria-hidden="true"><use href="dist/icons.svg#lucide-plus"></use></svg>追加
+ *   </button>
  */
 
 @layer components {
@@ -51,6 +61,9 @@
     outline: var(--focus-outline);
     outline-offset: var(--focus-outline-offset);
   }
+  /* ボタン内のアイコン（Starter の iconLeft / iconRight）。大きさはボタンのサイズで決める */
+  .btn > .icon { flex-shrink: 0; width: 16px; height: 16px; }
+  .btn-lg > .icon { width: 20px; height: 20px; }
 
   /* ===== Size（Starter の Button: default 28 / md 36 / lg 44）=====
    * Starter の左右余白（6 / 8 / 12px）は英語ラベル前提で、2〜4文字の和文ラベルだと詰まって見えるため
@@ -99,6 +112,32 @@
   .btn-negative.btn-ghost:hover:not(:disabled) { background-color: var(--color-bg-negative-subtle); color: var(--color-fg-negative-strong); }
   .btn-negative.btn-ghost:disabled { color: var(--color-fg-negative-disabled); }
 
+
+  /* ===== SUBTLE（Starter の Type=subtle: 淡い塗り + 淡い枠）=====
+   * solid ほど強くなく、outline より押せることが伝わる中間の重み。1画面に複数並べてよい */
+  .btn-primary.btn-subtle { background-color: var(--color-bg-primary-subtle); color: var(--color-fg-primary); border-color: var(--color-stroke-middle); }
+  .btn-primary.btn-subtle:hover:not(:disabled) { background-color: var(--color-bg-primary-muted); border-color: var(--color-stroke-high); }
+  .btn-primary.btn-subtle:active:not(:disabled) { background-color: var(--color-bg-neutral-high); }
+
+  .btn-neutral.btn-subtle { background-color: var(--color-bg-neutral-middle); color: var(--color-fg-middle); }
+  .btn-neutral.btn-subtle:hover:not(:disabled) { background-color: var(--color-bg-neutral-high); }
+  .btn-neutral.btn-subtle:active:not(:disabled) { background-color: var(--color-bg-neutral-high); border-color: var(--color-stroke-high); }
+
+  .btn-negative.btn-subtle { background-color: var(--color-bg-negative-subtle); color: var(--color-fg-negative-strong); border-color: var(--color-stroke-negative-subtle); }
+  .btn-negative.btn-subtle:hover:not(:disabled) { background-color: var(--color-bg-negative-muted); border-color: var(--color-stroke-negative-muted); }
+  .btn-negative.btn-subtle:active:not(:disabled) { background-color: var(--color-bg-negative-muted); border-color: var(--color-stroke-negative); }
+
+  .btn-subtle:disabled { background-color: var(--color-bg-disabled); color: var(--color-fg-disabled); border-color: var(--color-stroke-middle); }
+
+  /* ===== Button Group（表示の切り替え。Starter の Section Header の Graph / Table / Scenarios） =====
+   * btn-neutral btn-outline を並べてくっつけ、選択中は aria-pressed="true" で淡い面にする */
+  .btn-group { display: inline-flex; }
+  .btn-group > .btn { border-radius: 0; }
+  .btn-group > .btn:first-child { border-top-left-radius: var(--radius-sm); border-bottom-left-radius: var(--radius-sm); }
+  .btn-group > .btn:last-child { border-top-right-radius: var(--radius-sm); border-bottom-right-radius: var(--radius-sm); }
+  .btn-group > .btn + .btn { border-left-width: 0; }
+  .btn-group > .btn[aria-pressed="true"] { background-color: var(--color-bg-primary-muted); color: var(--color-fg-high); }
+  .btn-group > .btn:focus-visible { position: relative; z-index: 1; }  /* フォーカスリングを隣のボタンの下に隠さない */
 
   /* ===== Pressed（押している間）=====
    * Starter に定義は無い。押した手応えを返すため、hover より一段濃い塗りにする。

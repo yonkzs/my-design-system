@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Divider — Design System</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../../dist/ds.css">
+<link rel="stylesheet" href="../catalog.css">
+<script src="../theme-toggle.js"></script>
+<script src="../force-state.js"></script>
+</head>
+<body>
+  <header class="catalog-header">
+    <div><p class="catalog-header-title">Design System</p><p class="catalog-header-sub">Tailwind v4</p></div>
+  </header>
+  <p class="catalog-breadcrumb"><a href="../index.html">ホーム</a> &gt; Components &gt; Divider</p>
+
+  <main class="catalog-main">
+    <div class="catalog-page-title-row">
+      <h1 class="typo-2xlarge">Divider</h1>
+      <span class="badge badge-soft-primary">component</span>
+    </div>
+    <p class="catalog-page-desc typo-medium">内容のまとまりを区切る線です。横・縦、実線・破線・点線、細い・太いを選べます。部品の中の区切りは各部品が持つので、ページやフォームの中で部品の外側に使います。</p>
+
+    <div class="catalog-tabs" role="tablist" id="page-tabs">
+      <button class="catalog-tab" role="tab" aria-selected="true" data-panel="overview">概要</button>
+      <button class="catalog-tab" role="tab" aria-selected="false" data-panel="guideline">ガイドライン</button>
+      <button class="catalog-tab" role="tab" aria-selected="false" data-panel="a11y">アクセシビリティ</button>
+    </div>
+
+    <div data-tabpanel="overview">
+      <div class="catalog-card">
+        <div class="catalog-card-header"><p class="catalog-card-title">横の線</p><p class="catalog-card-note">Starter の Keyline</p></div>
+        <div class="catalog-state-row"><span class="catalog-state-label">既定</span><div><div style="width:320px"><hr class="divider"></div></div><span class="catalog-state-note">細い実線（stroke-middle）</span></div>
+        <div class="catalog-state-row"><span class="catalog-state-label">divider-strong</span><div><div style="width:320px"><hr class="divider divider-strong"></div></div><span class="catalog-state-note">太い線（2px・stroke-high）</span></div>
+        <div class="catalog-state-row"><span class="catalog-state-label">divider-dashed</span><div><div style="width:320px"><hr class="divider divider-dashed"></div></div><span class="catalog-state-note">破線</span></div>
+        <div class="catalog-state-row"><span class="catalog-state-label">divider-dotted</span><div><div style="width:320px"><hr class="divider divider-dotted"></div></div><span class="catalog-state-note">点線</span></div>
+        <div class="catalog-state-row"><span class="catalog-state-label">divider-strong divider-dashed</span><div><div style="width:320px"><hr class="divider divider-strong divider-dashed"></div></div><span class="catalog-state-note">組み合わせ</span></div>
+        <div class="catalog-state-row"><span class="catalog-state-label">divider-inset</span><div><div style="width:320px"><hr class="divider divider-inset"></div></div><span class="catalog-state-note">左右に余白</span></div>
+      </div>
+
+      <div class="catalog-card">
+        <div class="catalog-card-header"><p class="catalog-card-title">縦の線</p></div>
+        <div class="catalog-state-row"><span class="catalog-state-label">divider-vertical</span><div><div style="display:flex;align-items:center;gap:12px"><span class="typo-medium">表示: 20件</span><span class="divider divider-vertical" aria-hidden="true"></span><span class="typo-medium">並び順: 新しい順</span><span class="divider divider-vertical divider-dashed" aria-hidden="true"></span><span class="typo-medium">絞り込み: なし</span></div></div><span class="catalog-state-note">横に並んだ要素の間</span></div>
+      </div>
+
+    </div>
+
+    <div data-tabpanel="guideline" hidden>
+      <div class="catalog-card">
+        <div class="catalog-card-header"><p class="catalog-card-title">使用法</p></div>
+        <div style="padding: 0 24px 24px;">
+          <p class="typo-medium" style="color:var(--color-fg-success); margin: 16px 0 4px;">OK</p>
+          <ul class="typo-medium" style="margin:0; padding-left:20px;">
+            <li>既定は細い実線。大きなまとまりの境目だけ divider-strong</li>
+            <li>破線は性質が変わる境目（「ここから下は任意」など）、点線は補助的な区切り</li>
+            <li>左右に余白を取りたいときは divider-inset、横並びの間は divider-vertical</li>
+          </ul>
+          <p class="typo-medium" style="color:var(--color-fg-negative-strong); margin: 16px 0 4px;">NG</p>
+          <ul class="typo-medium" style="margin:0; padding-left:20px;">
+            <li>余白で区切れるところに線を足さない</li>
+            <li>区切りのためだけに見出しや空の要素を置かない</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div data-tabpanel="a11y" hidden>
+      <div class="catalog-card">
+        <div class="catalog-card-header"><p class="catalog-card-title">必須対応</p></div>
+        <div style="padding: 0 24px 24px;">
+          <ul class="typo-medium" style="margin:0; padding-left:20px;">
+            <li>意味のある区切りは &lt;hr&gt;</li>
+            <li>見た目だけの区切りは aria-hidden="true"</li>
+            <li>線は装飾のためコントラスト要件の対象外（区切りの意味は配置や見出しでも伝える）</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.getElementById('page-tabs').addEventListener('click', (e) => {
+      const btn = e.target.closest('.catalog-tab');
+      if (!btn) return;
+      document.querySelectorAll('#page-tabs .catalog-tab').forEach(t => t.setAttribute('aria-selected', String(t === btn)));
+      const target = btn.dataset.panel;
+      document.querySelectorAll('[data-tabpanel]').forEach(p => p.hidden = p.dataset.tabpanel !== target);
+    });
+  </script>
+</body>
+</html>

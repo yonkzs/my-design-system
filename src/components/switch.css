@@ -8,6 +8,7 @@
  * 使用法:
  *   OK: input type="checkbox" role="switch" を switch-label で囲み、ラベル全体を押せるようにする。
  *   OK: 切り替えた結果は即座に反映する（保存ボタンを待たない設定に使う）。
+ *   OK: 切り替えの影響が分かりにくい設定は switch-field + switch-desc で補足を添える。
  *   NG: フォーム送信で確定する入力に使わない → checkbox を使う。
  *   NG: ラベルを状態で言い換えない（「ONにする」等）→ ラベルは機能名で固定し、状態はスイッチ自体が示す。
  *
@@ -66,12 +67,31 @@
   .switch-label {
     display: inline-flex;
     align-items: center;
-    gap: calc(var(--spacing) * 2);
+    gap: calc(var(--spacing) * 3);  /* checkbox とそろえる（12px） */
     cursor: pointer;
     color: var(--color-fg-high);
     font: var(--typo-body);
   }
   .switch-label:has(.switch:disabled) { color: var(--color-fg-low); cursor: not-allowed; }
+
+  /* ===== 補足文（Starter の subtext）=====
+   * ラベルの下に補足を置くときは switch-field で包み、switch-desc を input の aria-describedby で関連付ける。
+   * 補足文は label の外に置く（label の中に入れると、読み上げのラベル名が長くなるため）。
+   * 字下げは「スイッチの幅 + ラベルとの間 12px」で、ラベル文の開始位置にそろえる */
+  .switch-field {
+    --_box: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing) * 1);
+  }
+  .switch-field:has(.switch-sm) { --_box: 36px; }
+  .switch-desc {
+    margin: 0;
+    padding-left: calc(var(--_box) + var(--spacing) * 3);
+    color: var(--color-fg-low);
+    font: var(--typo-body-small);
+  }
+  .switch-field:has(.switch:disabled) .switch-desc { color: var(--color-fg-disabled); }
 
   /* ============================================================
    * 強制カラーモード (Windows ハイコントラスト等) 対応

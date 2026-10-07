@@ -1,0 +1,176 @@
+/*
+ * Input Group
+ *
+ * 機能:
+ *   入力欄の前後に、単位・記号・アイコン（addon）や、くっついた選択・ボタン（tab）、
+ *   読み込み中の表示（loader）を付けた1行入力。Starter の Field（pre/post-element・pre/post-tab・loader）に相当する。
+ *   前後に何も付けない入力は input を使う。
+ *
+ * 使用法:
+ *   OK: 金額の「¥」「円」、URL の「https://」など、入力値の解釈を助ける短い文字は addon にする。
+ *   OK: 「国番号＋電話番号」「数値＋単位の切り替え」のように、入力と一体で選ぶ値は tab（select）にする。
+ *   OK: 入力値と一緒に実行する操作（「確認」「コピー」など）は tab（button）にする。
+ *   OK: 入力中に裏で確認している間（重複チェックなど）は loader を出す。
+ *   NG: addon に操作や長い説明を入れない → 説明は field-support-text、操作は tab（button）。
+ *   NG: 前後の両方に tab を付けない → どちらが主役か分からなくなる。前後の一方に1つまで。
+ *   NG: 検索欄に使わない → search-input を使う。
+ *
+ * アクセシビリティ:
+ *   ラベルは中の input に付ける（<label for> か aria-label）。addon の文字は読み上げに含まれないため、
+ *   単位など意味のある addon には id を振り、input の aria-describedby で関連付ける
+ *   tab の select / button にもそれぞれ aria-label を付ける（例: aria-label="国番号"）
+ *   loader は role="status" とし、中に sr-only の文言（例: 確認中）を入れる
+ *   フォーカスは :focus-within で枠の外側に info 青のリング（DS担保）。枠線は 3:1 以上（stroke-control）
+ *
+ * Usage:
+ *   <div class="input-group input-group-md">
+ *     <span class="input-group-addon" id="price-unit">¥</span>
+ *     <input class="input-group-field" aria-label="金額" aria-describedby="price-unit" inputmode="numeric">
+ *   </div>
+ *
+ *   <div class="input-group input-group-md">
+ *     <select class="input-group-tab" aria-label="国番号"><option>+81</option></select>
+ *     <input class="input-group-field" type="tel" aria-label="電話番号">
+ *   </div>
+ *
+ *   <div class="input-group input-group-md">
+ *     <input class="input-group-field" aria-label="ユーザーID">
+ *     <span class="input-group-loader" role="status"><span class="sr-only">確認中</span></span>
+ *     <button type="button" class="input-group-tab">確認</button>
+ *   </div>
+ */
+
+@layer components {
+  .input-group {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    background-color: var(--color-bg-raised);
+    border: 1px solid var(--color-stroke-control);
+    border-radius: var(--radius-md);
+    overflow: hidden;  /* 角丸の内側で tab の塗りを切る */
+    transition: border-color 150ms;
+  }
+  .input-group:hover:not(:has(.input-group-field:disabled)):not(:focus-within) { border-color: var(--color-stroke-control-hover); }
+  .input-group:focus-within {
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-outline-offset);
+  }
+  .input-group:has(.input-group-field:disabled) {
+    background-color: var(--color-bg-disabled);
+    border-color: var(--color-stroke-middle);
+    cursor: not-allowed;
+  }
+
+  /* ===== Size（input と同じ。Starter の Field: sm 28 / default 36） ===== */
+  .input-group-sm { min-height: var(--control-height-sm); font: var(--typo-body-small); }
+  .input-group-md { min-height: var(--control-height-md); font: var(--typo-body); }
+  .input-group-lg { min-height: var(--control-height-lg); font: var(--typo-body-large); }
+  /* input・select・button は親の font を継承しないため、中の要素にも同じ段を指定する */
+  .input-group-sm :is(.input-group-field, .input-group-tab) { font: var(--typo-body-small); }
+  .input-group-md :is(.input-group-field, .input-group-tab) { font: var(--typo-body); }
+  .input-group-lg :is(.input-group-field, .input-group-tab) { font: var(--typo-body-large); }
+
+  /* ===== 入力欄（枠・背景・フォーカスは wrapper が持つ） ===== */
+  .input-group-field {
+    flex: 1;
+    min-width: 0;
+    padding: 0 calc(var(--spacing) * 3);
+    background: transparent;
+    border: 0;
+    outline: none;
+    color: var(--color-fg-high);
+  }
+  .input-group-field::placeholder { color: var(--color-fg-placeholder); }
+  .input-group-field:disabled { color: var(--color-fg-placeholder); cursor: not-allowed; }
+
+  /* ===== addon（前後の単位・記号・アイコン。Starter の pre/post-element） ===== */
+  .input-group-addon {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    padding: 0 calc(var(--spacing) * 3);
+    color: var(--color-fg-low);
+    white-space: nowrap;
+    user-select: none;
+  }
+  .input-group-addon .icon { width: 16px; height: 16px; }
+  /* addon と入力欄の間は詰める（addon の余白と二重にしない） */
+  .input-group-addon + .input-group-field { padding-left: 0; }
+  .input-group-field:has(+ .input-group-addon) { padding-right: 0; }
+
+  /* ===== tab（くっついた select / button / 固定文字。Starter の pre/post-tab） ===== */
+  .input-group-tab {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: calc(var(--spacing) * 1);
+    margin: 0;
+    padding: 0 calc(var(--spacing) * 3);
+    border: 0;
+    border-radius: 0;
+    background-color: var(--color-bg-sunken);
+    color: var(--color-fg-middle);
+    white-space: nowrap;
+  }
+  /* 前に付くときは右に、後ろに付くときは左に区切り線 */
+  .input-group-tab:first-child { border-right: 1px solid var(--color-stroke-middle); }
+  .input-group-tab:last-child { border-left: 1px solid var(--color-stroke-middle); }
+  button.input-group-tab,
+  select.input-group-tab { cursor: pointer; }
+  button.input-group-tab:hover:not(:disabled),
+  select.input-group-tab:hover:not(:disabled) { background-color: var(--color-bg-neutral-middle); color: var(--color-fg-high); }
+  button.input-group-tab:active:not(:disabled) { background-color: var(--color-bg-neutral-high); }
+  .input-group-tab:focus-visible { outline: none; }  /* フォーカスは wrapper の :focus-within で示す */
+  /* select の矢印は select と同じ画像トークン */
+  select.input-group-tab {
+    appearance: none;
+    padding-right: calc(var(--spacing) * 8);
+    background-image: var(--select-arrow);
+    background-repeat: no-repeat;
+    background-position: right calc(var(--spacing) * 2) center;
+  }
+  .input-group-tab:disabled,
+  .input-group:has(.input-group-field:disabled) .input-group-tab { color: var(--color-fg-disabled); cursor: not-allowed; }
+  .input-group:has(.input-group-field:disabled) select.input-group-tab { background-image: var(--select-arrow-disabled); }
+
+  /* ===== loader（裏で確認中。Starter の Status=loader） ===== */
+  .input-group-loader {
+    flex-shrink: 0;
+    align-self: center;
+    width: 16px;
+    height: 16px;
+    margin-right: calc(var(--spacing) * 3);
+    border: 2px solid var(--color-stroke-middle);
+    border-top-color: var(--color-fg-low);
+    border-radius: var(--radius-full);
+    animation: input-group-spin 0.8s linear infinite;
+  }
+  @keyframes input-group-spin { to { transform: rotate(360deg); } }
+
+  /* ===== Error ===== */
+  .input-group-error {
+    border-width: 2px;
+    border-color: var(--color-stroke-control-error);
+  }
+  /* .input-group の hover より詳細度を上げないと、hover で赤枠が消える */
+  .input-group.input-group-error:hover:not(:has(.input-group-field:disabled)),
+  .input-group.input-group-error:focus-within {
+    border-color: var(--color-stroke-negative);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .input-group-loader { animation-duration: 2s; }
+  }
+
+  /* 強制カラーモード: フォーカスを wrapper の outline で示しているため色を CanvasText に固定する。
+   * tab の区切りは背景色が消えても線で残る。
+   * ※ システムカラーキーワードはハードコード禁止の例外 (DESIGN.md)。 */
+  @media (forced-colors: active) {
+    .input-group:focus-within {
+      outline: 2px solid CanvasText;
+      outline-offset: 2px;
+    }
+    .input-group-loader { border-color: GrayText; border-top-color: CanvasText; }
+  }
+}

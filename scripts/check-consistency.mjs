@@ -380,7 +380,7 @@ function checkComponentsUseTypoTokens() {
 // ---------------------------------------------------------------------------
 
 const SPACING_PROP = /^(padding|margin|gap|row-gap|column-gap|inset|top|right|bottom|left)(-[a-z-]+)?$/;
-const CONTROL_FILES = ["button", "icon-button", "input", "select", "search-input", "selector", "pagination"];
+const CONTROL_FILES = ["button", "icon-button", "input", "input-group", "select", "search-input", "selector", "pagination"];
 
 function checkSpacingScale() {
   const dir = path.join(projectRoot, "src/components");
