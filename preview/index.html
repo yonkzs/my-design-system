@@ -6,30 +6,98 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="../dist/ds.css">
 <link rel="stylesheet" href="catalog.css">
-<script src="theme-toggle.js"></script>
+<script src="catalog.js"></script>
 <style>
-.hero { background: var(--color-bg-primary-subtle); padding: 48px 24px; text-align: center; }
-.hero-title { margin: 0 0 8px; }
-.hero-desc { color: var(--color-fg-middle); margin: 0; }
 .swatch { width: 64px; height: 40px; border-radius: var(--radius-xs); border: 1px solid var(--color-stroke-middle); }
 .row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
 </style>
 </head>
 <body>
 
-  <header class="catalog-header">
-    <div><p class="catalog-header-title">Design System</p><p class="catalog-header-sub">Tailwind v4</p></div>
-    <a class="link" href="../sandbox/index.html"><span class="link-label">Sandbox（画面の試作）</span></a>
+  <!-- catalog-shell:start -->
+  <a class="catalog-skip" href="#main">本文へ移動</a>
+  <header class="catalog-topbar">
+    <button type="button" class="catalog-nav-toggle icon-btn icon-btn-sm icon-btn-neutral icon-btn-ghost" aria-controls="catalog-nav" aria-expanded="false" aria-label="メニューを開く">
+      <svg class="icon icon-sm" aria-hidden="true"><use href="icons.svg#lucide-menu"></use></svg>
+    </button>
+    <a class="catalog-brand" href="index.html"><span class="catalog-brand-mark" aria-hidden="true"></span>Design System</a>
+    <div class="catalog-topbar-actions">
+      <a class="catalog-topbar-link" href="../sandbox/index.html">Sandbox</a>
+      <a class="catalog-topbar-link" href="https://github.com/yonkzs/my-design-system" target="_blank" rel="noopener noreferrer">GitHub<svg class="icon icon-xs" aria-hidden="true"><use href="icons.svg#lucide-external-link"></use></svg><span class="sr-only">（新しいタブで開く）</span></a>
+      <span class="catalog-topbar-sep" aria-hidden="true"></span>
+      <span data-theme-toggle></span>
+    </div>
   </header>
+  <nav class="catalog-nav" id="catalog-nav" aria-label="カタログ">
+    <ul class="catalog-nav-list">
+        <li><a class="catalog-nav-item" href="index.html" aria-current="page">はじめに</a></li>
+    </ul>
+    <p class="catalog-nav-heading">Foundation</p>
+    <ul class="catalog-nav-list">
+        <li><a class="catalog-nav-item" href="foundations/colors.html">Colors</a></li>
+        <li><a class="catalog-nav-item" href="foundations/typography.html">Typography</a></li>
+        <li><a class="catalog-nav-item" href="foundations/spacing.html">Spacing</a></li>
+        <li><a class="catalog-nav-item" href="foundations/effects.html">Radius &amp; Shadow</a></li>
+    </ul>
+    <p class="catalog-nav-heading">Components</p>
+    <ul class="catalog-nav-list">
+        <li><a class="catalog-nav-item" href="components/button.html">Button</a></li>
+        <li><a class="catalog-nav-item" href="components/icon-button.html">Icon Button</a></li>
+        <li><a class="catalog-nav-item" href="components/label-control.html">Label Control</a></li>
+        <li><a class="catalog-nav-item" href="components/input.html">Input</a></li>
+        <li><a class="catalog-nav-item" href="components/input-group.html">Input Group</a></li>
+        <li><a class="catalog-nav-item" href="components/textarea.html">Textarea</a></li>
+        <li><a class="catalog-nav-item" href="components/search-input.html">Search Input</a></li>
+        <li><a class="catalog-nav-item" href="components/select.html">Select</a></li>
+        <li><a class="catalog-nav-item" href="components/checkbox-radio.html">Checkbox / Radio</a></li>
+        <li><a class="catalog-nav-item" href="components/badge.html">Badge</a></li>
+        <li><a class="catalog-nav-item" href="components/card.html">Card</a></li>
+        <li><a class="catalog-nav-item" href="components/data-table.html">Data Table</a></li>
+        <li><a class="catalog-nav-item" href="components/alert.html">Alert</a></li>
+        <li><a class="catalog-nav-item" href="components/modal.html">Modal</a></li>
+        <li><a class="catalog-nav-item" href="components/tab.html">Tab</a></li>
+        <li><a class="catalog-nav-item" href="components/switch.html">Toggle Switch</a></li>
+        <li><a class="catalog-nav-item" href="components/accordion.html">Accordion</a></li>
+        <li><a class="catalog-nav-item" href="components/tooltip.html">Tooltip</a></li>
+        <li><a class="catalog-nav-item" href="components/link.html">Link</a></li>
+        <li><a class="catalog-nav-item" href="components/breadcrumb.html">Breadcrumb</a></li>
+        <li><a class="catalog-nav-item" href="components/menu.html">Menu</a></li>
+        <li><a class="catalog-nav-item" href="components/pagination.html">Pagination</a></li>
+        <li><a class="catalog-nav-item" href="components/stepper.html">Stepper</a></li>
+        <li><a class="catalog-nav-item" href="components/page-shell.html">Page Shell</a></li>
+        <li><a class="catalog-nav-item" href="components/simple-table.html">Simple Table</a></li>
+        <li><a class="catalog-nav-item" href="components/avatar.html">Avatar</a></li>
+        <li><a class="catalog-nav-item" href="components/progress.html">Progress</a></li>
+        <li><a class="catalog-nav-item" href="components/date-picker.html">Date Picker</a></li>
+        <li><a class="catalog-nav-item" href="components/file-upload.html">File Upload</a></li>
+        <li><a class="catalog-nav-item" href="components/reorderable-list.html">Reorderable List</a></li>
+        <li><a class="catalog-nav-item" href="components/section-header.html">Section Header</a></li>
+        <li><a class="catalog-nav-item" href="components/divider.html">Divider</a></li>
+        <li><a class="catalog-nav-item" href="components/filter-chip.html">Filter Chip</a></li>
+    </ul>
+    <div class="catalog-nav-links">
+      <p class="catalog-nav-heading">リンク</p>
+      <ul class="catalog-nav-list">
+        <li><a class="catalog-nav-item" href="../sandbox/index.html">Sandbox</a></li>
+        <li><a class="catalog-nav-item" href="https://github.com/yonkzs/my-design-system" target="_blank" rel="noopener noreferrer">GitHub<span class="sr-only">（新しいタブで開く）</span></a></li>
+      </ul>
+    </div>
+  </nav>
+  <!-- catalog-shell:end -->
 
-  <div class="hero">
-    <h1 class="hero-title typo-3xlarge">Design System へようこそ</h1>
-    <p class="hero-desc typo-medium">各カードのプレビューで実物を確認できます。カードをクリックして各ページへ移動してください。</p>
-  </div>
+  <main class="catalog-main catalog-main-wide" id="main">
 
-  <main class="catalog-main">
+    <div class="catalog-hero">
+      <p class="catalog-eyebrow">Tailwind CSS v4 ベース</p>
+      <h1 class="catalog-hero-title">Design System</h1>
+      <p class="catalog-hero-desc">デザイントークンとコンポーネントを CSS として提供する、フレームワーク非依存のデザインシステムです。各カードのプレビューは実物の部品で描画しています。</p>
+      <div class="catalog-hero-actions">
+        <a class="btn btn-md btn-primary btn-solid" href="#components">部品を見る</a>
+        <a class="btn btn-md btn-neutral btn-outline" href="../sandbox/index.html">Sandbox で画面を試す</a>
+      </div>
+    </div>
 
-    <h2 class="catalog-section-title typo-2xlarge">イントロダクション</h2>
+    <h2 class="catalog-section-title">イントロダクション</h2>
     <div class="catalog-grid">
 
       <a class="catalog-grid-card" href="https://github.com/yonkzs/my-design-system/blob/main/README.md" target="_blank" rel="noopener noreferrer">
@@ -66,7 +134,7 @@
 
     </div>
 
-    <h2 class="catalog-section-title typo-2xlarge">Foundation</h2>
+    <h2 class="catalog-section-title">Foundation</h2>
 
     <div class="catalog-card">
       <div class="catalog-card-header"><p class="catalog-card-title">Colors</p><p class="catalog-card-note">primitive → key → semantic の3層。ライト / ダーク対応</p></div>
@@ -146,7 +214,7 @@
       </div>
     </div>
 
-    <h2 class="catalog-section-title typo-2xlarge">Components</h2>
+    <h2 class="catalog-section-title" id="components">Components</h2>
     <div class="catalog-grid">
 
       <a class="catalog-grid-card" href="components/button.html">

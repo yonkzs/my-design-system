@@ -6,26 +6,86 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="../../dist/ds.css">
 <link rel="stylesheet" href="../catalog.css">
-<script src="../theme-toggle.js"></script>
+<script src="../catalog.js"></script>
 <script src="../force-state.js"></script>
 </head>
 <body>
 
-  <header class="catalog-header">
-    <div>
-      <p class="catalog-header-title">Design System</p>
-      <p class="catalog-header-sub">Tailwind v4</p>
+  <!-- catalog-shell:start -->
+  <a class="catalog-skip" href="#main">本文へ移動</a>
+  <header class="catalog-topbar">
+    <button type="button" class="catalog-nav-toggle icon-btn icon-btn-sm icon-btn-neutral icon-btn-ghost" aria-controls="catalog-nav" aria-expanded="false" aria-label="メニューを開く">
+      <svg class="icon icon-sm" aria-hidden="true"><use href="../icons.svg#lucide-menu"></use></svg>
+    </button>
+    <a class="catalog-brand" href="../index.html"><span class="catalog-brand-mark" aria-hidden="true"></span>Design System</a>
+    <div class="catalog-topbar-actions">
+      <a class="catalog-topbar-link" href="../../sandbox/index.html">Sandbox</a>
+      <a class="catalog-topbar-link" href="https://github.com/yonkzs/my-design-system" target="_blank" rel="noopener noreferrer">GitHub<svg class="icon icon-xs" aria-hidden="true"><use href="../icons.svg#lucide-external-link"></use></svg><span class="sr-only">（新しいタブで開く）</span></a>
+      <span class="catalog-topbar-sep" aria-hidden="true"></span>
+      <span data-theme-toggle></span>
     </div>
   </header>
-
-  <p class="catalog-breadcrumb"><a href="../index.html">ホーム</a> &gt; Components &gt; Button</p>
-
-  <main class="catalog-main">
-    <div class="catalog-page-title-row">
-      <h1 class="typo-2xlarge">Button</h1>
-      <span class="badge badge-soft-primary">component</span>
+  <nav class="catalog-nav" id="catalog-nav" aria-label="カタログ">
+    <ul class="catalog-nav-list">
+        <li><a class="catalog-nav-item" href="../index.html">はじめに</a></li>
+    </ul>
+    <p class="catalog-nav-heading">Foundation</p>
+    <ul class="catalog-nav-list">
+        <li><a class="catalog-nav-item" href="../foundations/colors.html">Colors</a></li>
+        <li><a class="catalog-nav-item" href="../foundations/typography.html">Typography</a></li>
+        <li><a class="catalog-nav-item" href="../foundations/spacing.html">Spacing</a></li>
+        <li><a class="catalog-nav-item" href="../foundations/effects.html">Radius &amp; Shadow</a></li>
+    </ul>
+    <p class="catalog-nav-heading">Components</p>
+    <ul class="catalog-nav-list">
+        <li><a class="catalog-nav-item" href="../components/button.html" aria-current="page">Button</a></li>
+        <li><a class="catalog-nav-item" href="../components/icon-button.html">Icon Button</a></li>
+        <li><a class="catalog-nav-item" href="../components/label-control.html">Label Control</a></li>
+        <li><a class="catalog-nav-item" href="../components/input.html">Input</a></li>
+        <li><a class="catalog-nav-item" href="../components/input-group.html">Input Group</a></li>
+        <li><a class="catalog-nav-item" href="../components/textarea.html">Textarea</a></li>
+        <li><a class="catalog-nav-item" href="../components/search-input.html">Search Input</a></li>
+        <li><a class="catalog-nav-item" href="../components/select.html">Select</a></li>
+        <li><a class="catalog-nav-item" href="../components/checkbox-radio.html">Checkbox / Radio</a></li>
+        <li><a class="catalog-nav-item" href="../components/badge.html">Badge</a></li>
+        <li><a class="catalog-nav-item" href="../components/card.html">Card</a></li>
+        <li><a class="catalog-nav-item" href="../components/data-table.html">Data Table</a></li>
+        <li><a class="catalog-nav-item" href="../components/alert.html">Alert</a></li>
+        <li><a class="catalog-nav-item" href="../components/modal.html">Modal</a></li>
+        <li><a class="catalog-nav-item" href="../components/tab.html">Tab</a></li>
+        <li><a class="catalog-nav-item" href="../components/switch.html">Toggle Switch</a></li>
+        <li><a class="catalog-nav-item" href="../components/accordion.html">Accordion</a></li>
+        <li><a class="catalog-nav-item" href="../components/tooltip.html">Tooltip</a></li>
+        <li><a class="catalog-nav-item" href="../components/link.html">Link</a></li>
+        <li><a class="catalog-nav-item" href="../components/breadcrumb.html">Breadcrumb</a></li>
+        <li><a class="catalog-nav-item" href="../components/menu.html">Menu</a></li>
+        <li><a class="catalog-nav-item" href="../components/pagination.html">Pagination</a></li>
+        <li><a class="catalog-nav-item" href="../components/stepper.html">Stepper</a></li>
+        <li><a class="catalog-nav-item" href="../components/page-shell.html">Page Shell</a></li>
+        <li><a class="catalog-nav-item" href="../components/simple-table.html">Simple Table</a></li>
+        <li><a class="catalog-nav-item" href="../components/avatar.html">Avatar</a></li>
+        <li><a class="catalog-nav-item" href="../components/progress.html">Progress</a></li>
+        <li><a class="catalog-nav-item" href="../components/date-picker.html">Date Picker</a></li>
+        <li><a class="catalog-nav-item" href="../components/file-upload.html">File Upload</a></li>
+        <li><a class="catalog-nav-item" href="../components/reorderable-list.html">Reorderable List</a></li>
+        <li><a class="catalog-nav-item" href="../components/section-header.html">Section Header</a></li>
+        <li><a class="catalog-nav-item" href="../components/divider.html">Divider</a></li>
+        <li><a class="catalog-nav-item" href="../components/filter-chip.html">Filter Chip</a></li>
+    </ul>
+    <div class="catalog-nav-links">
+      <p class="catalog-nav-heading">リンク</p>
+      <ul class="catalog-nav-list">
+        <li><a class="catalog-nav-item" href="../../sandbox/index.html">Sandbox</a></li>
+        <li><a class="catalog-nav-item" href="https://github.com/yonkzs/my-design-system" target="_blank" rel="noopener noreferrer">GitHub<span class="sr-only">（新しいタブで開く）</span></a></li>
+      </ul>
     </div>
-    <p class="catalog-page-desc typo-medium">「保存」「キャンセル」など、操作のきっかけになる最も基本的なパーツです。重要度や場面に応じて色・形・大きさを選べます。</p>
+  </nav>
+  <!-- catalog-shell:end -->
+
+  <main class="catalog-main" id="main">
+    <nav class="catalog-breadcrumb" aria-label="パンくずリスト"><a href="../index.html">ホーム</a><span aria-hidden="true">/</span><span>Components</span></nav>
+    <h1 class="catalog-page-title">Button</h1>
+    <p class="catalog-page-desc">「保存」「キャンセル」など、操作のきっかけになる最も基本的なパーツです。重要度や場面に応じて色・形・大きさを選べます。</p>
 
     <div class="catalog-tabs" role="tablist" id="page-tabs">
       <button class="catalog-tab" role="tab" aria-selected="true" data-panel="overview">概要</button>

@@ -8,9 +8,10 @@
     "ds-mcp": "src/mcp/server.mjs"
   },
   "scripts": {
-    "build": "vite build && npm run build:icons && npm run build:foundations && npm run build:sandbox",
+    "build": "vite build && npm run build:icons && npm run build:foundations && npm run build:catalog && npm run build:sandbox",
     "build:icons": "node scripts/build-icons.mjs",
     "build:foundations": "node scripts/build-color-page.mjs && node scripts/build-typography-page.mjs && node scripts/build-spacing-page.mjs && node scripts/build-effects-page.mjs",
+    "build:catalog": "node scripts/build-catalog-shell.mjs",
     "build:sandbox": "node scripts/build-sandbox-index.mjs",
     "mcp": "node src/mcp/server.mjs",
     "eval": "node evals/run.mjs",

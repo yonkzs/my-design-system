@@ -52,7 +52,8 @@ jobs:
           rm -rf site/sandbox/private  # 非公開の画面（gitignore 済みで CI には無いはずだが、念のため公開物から外す）
           cp dist/icons.svg site/dist/icons.svg
           sed -i 's#\.\./preview/index\.html#../index.html#' site/sandbox/index.html
-          sed -i 's#\.\./sandbox/index\.html#sandbox/index.html#' site/index.html
+          sed -i 's#\.\./sandbox/index\.html#sandbox/index.html#g' site/index.html
+          sed -i 's#\.\./\.\./sandbox/index\.html#../sandbox/index.html#g' site/components/*.html site/foundations/*.html
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

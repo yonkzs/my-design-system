@@ -36,6 +36,10 @@ Node を使わずに見るだけなら、ビルド後にリポジトリルート
 （`preview/force-state.js` が `dist/ds.css` のルールを読んで複製するが、file:// ではブラウザがCSSのルールの読み取りを禁じるため）。
 状態一覧の表は `preview/components/*.html` の `<!-- states:start -->` 〜 `<!-- states:end -->` の間にある。
 
+カタログの上部バーと左のナビは、`npm run build`（`scripts/build-catalog-shell.mjs`）が全ページの
+`<!-- catalog-shell:start -->` 〜 `<!-- catalog-shell:end -->` の間に書き込む（この間は直接編集しない）。
+部品ページを足したら、`preview/index.html` の部品カードに追加する。ナビの並びはカードの並び順になる。
+
 ## 開発フロー（AIツールのチェックポイント運用）
 
 「実装 → コミット → 🛑 ユーザー確認待ち → push」の**1段階で人間判断を挟む**。
